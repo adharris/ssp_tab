@@ -1,2 +1,13 @@
 <h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<% if user_signed_in? %>
+  <% if can? :create, User %>
+    <div>
+      <%= link_to "Create new user", new_user_path =%>
+    </div>
+  <% end %>
+<%else%>
+  <div>
+    You must <%= link_to "sign in", new_user_session_path %> to use CTAB
+  </div>
+<% end%>

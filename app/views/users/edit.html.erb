@@ -1,0 +1,8 @@
+<%= gravatar_for @user, :size => 150 %>
+<a href="http://gravatar.com/emails" target="_blank">change</a>
+<%= form_for @user do |f| %>
+  
+  <%= render 'fields', :f => f %>
+
+  <%= f.submit "Save Changes" %>
+<% end %>

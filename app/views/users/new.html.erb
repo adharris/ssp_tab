@@ -1,0 +1,9 @@
+<%= form_for @user, :url => users_path do |f| %>
+  
+  
+
+  <%= render "fields", :f => f %>
+
+  <p><%= f.submit "Save" %></p>
+
+<% end %>

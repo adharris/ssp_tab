@@ -1,0 +1,13 @@
+<%= gravatar_for @user, :size => 150 %>
+<dl>
+  <dt>Name:</dt>
+  <dd><%= @user.first_name %> <%= @user.last_name %></dt>
+  <dt>Username:<dt>
+  <dd><%= @user.username %></dd>
+  <dt>Email:</dt>
+  <dd><%= @user.email %></dd>
+</dl>
+
+<% if can? :update, @user %>
+  <%= link_to "Update Account", edit_user_path(@user) %>
+<% end %>

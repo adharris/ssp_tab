@@ -10,7 +10,22 @@
 <body>
   <div class="container">
     <div id="header" class="span-24 last">
-      <h1>CTAB</h1>
+      <h1 class="span-16">CTAB</h1>
+      <div class="span-8 last">
+        <% if user_signed_in? %>
+          <%= current_user.first_name %> <%= current_user.last_name %> |
+          <%= link_to "account", current_user %> |
+          <%= link_to "sign out", destroy_user_session_path %>
+        <% else %>
+          <%= link_to "sign in", new_user_session_path %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="flash" class="span-24 last">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id=>"flash_#{name}" %>
+      <% end %>
     </div>
     <div id="content" class="span-24 last">
       <%= yield %>
