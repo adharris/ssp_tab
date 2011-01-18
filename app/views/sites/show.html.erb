@@ -1,0 +1,13 @@
+<dl>
+  <dt>State</dt>
+  <dd><%= @site.state %></dd>
+  <dt>Description</dt>
+  <dd><%= @site.description %></dd>
+</dl>
+
+<%= link_to "Edit site", edit_site_path(@site) %>
+
+<h3>Programs</h3>
+<ul>
+  <%= render @site.programs %>
+</ul>

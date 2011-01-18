@@ -1,0 +1,11 @@
+<dl>
+  <dt>Site</dt>
+  <dd><%= link_to @program.site.name, @program.site %></dd>
+  <dt>Program Type</dt>
+  <dd><%= @program.program_type.name %></dd>
+  <dt>Start Date</dt>
+  <dd><%= @program.start_date %></dd>
+  <dt>End Date</dt>
+  <dd><%= @program.end_date %></dd>
+</dl>
+<%= link_to "Edit program", edit_program_path(@program) %>

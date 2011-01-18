@@ -29,8 +29,9 @@ class Ability
     user ||= User.new
 
     if user.admin?
-      can :create, User
-      can :read, User
+      can [:create, :read], User
+      can :manage, Site
+      can :manage, Program
     end
 
     can [:read, :update], User do |read_user|

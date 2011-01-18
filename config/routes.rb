@@ -2,6 +2,8 @@ SspCtab::Application.routes.draw do
 
   devise_for :users
   resources :users
+  resources :sites
+  resources :programs
   root :to => 'pages#home'
 
   get "pages/home"

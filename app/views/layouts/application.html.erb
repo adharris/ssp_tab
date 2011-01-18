@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
   <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
   <%= csrf_meta_tag %>
+
 </head>
 <body>
   <div class="container">
@@ -22,18 +23,33 @@
       </div>
     </div>
 
+    <ul id="main_nav" class="span-24 last">
+      <% if user_signed_in? %>
+        <li><%= link_to "Home", root_path %></li>
+        <% if can? :manage, Site %>
+          <li><%= link_to "Sites", sites_path %></li>
+        <% end %>
+        <% if can? :manage, Program %>
+          <li><%= link_to "Programs", programs_path %></li>
+        <% end %>
+      <% end %>
+    </ul>
+
+
     <div id="flash" class="span-24 last">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id=>"flash_#{name}" %>
       <% end %>
     </div>
     <div id="content" class="span-24 last">
+      <h2><%= @title %></h2>
       <%= yield %>
     </div>
     <div id="footer" class="span-24 last">
     </div>
   </div>
   <%= javascript_include_tag 'jquery/jquery-1.4.2.min' %>
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag :all %>
+
 </body>
 </html>

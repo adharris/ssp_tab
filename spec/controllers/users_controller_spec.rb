@@ -115,7 +115,7 @@ describe UsersController do
     
     before(:each) do
       @user = Factory(:user)
-      @another_user  = Factory(:user, :email => Factory.next(:email)) 
+      @another_user  = Factory(:user, :email => Factory.next(:email), :username => Factory.next(:username)) 
     end
 
     describe "for unauthorized users" do
@@ -196,7 +196,7 @@ describe UsersController do
         end
 
         it "should not allow access to another uses' edit page" do
-          another_user = Factory(:user, :email => Factory.next(:email))
+          another_user  = Factory(:user, :email => Factory.next(:email), :username => Factory.next(:username)) 
           get :edit, :id => another_user
           response.should redirect_to(root_path)
         end
@@ -208,7 +208,7 @@ describe UsersController do
         end
 
         it "should not allow access to other users' edit page" do
-          another_user = Factory(:user, :email => Factory.next(:email))
+          another_user  = Factory(:user, :email => Factory.next(:email), :username => Factory.next(:username)) 
           get :edit, :id => another_user
           response.should redirect_to(root_path)
         end

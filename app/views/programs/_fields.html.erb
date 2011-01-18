@@ -1,0 +1,13 @@
+<%= render 'shared/error_messages', :object => f.object %>
+
+<%= f.label :site %>
+<%= f.collection_select :site_id, Site.find(:all), :id, :name %><br />
+
+<%= f.label :program_type %>
+<%= f.collection_select :program_type_id, ProgramType.all, :id, :name %><br />
+
+<%= f.label :start_date %>
+<%= date_select "program", "start_date" %><br />
+
+<%= f.label :end_date %>
+<%= date_select "program", "end_date" %><br />
