@@ -5,3 +5,18 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+program_types = ["Summer", "Spring Break"]
+program_types.each do |type|
+  ProgramType.create!(:name => type)
+end
+
+jobs = ["Site Director", "Spiritual Life Coordinator", "Home Repair Coordinator", "Construction Coordinator", "Supply Coordinator", "Chef"]
+jobs.each do |job|
+  Job.create!(:name => job)
+end
+
+week_types = ["Sr. High", "Jr. High"]
+week_types.each do |type|
+  WeekType.create!(:name => type)
+end

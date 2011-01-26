@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag :all %>
   <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
   <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+  <%= stylesheet_link_tag 'jqueryui/jquery-ui-1.8.9.custom.css' %>
   <%= csrf_meta_tag %>
 
 </head>
@@ -32,6 +33,9 @@
         <% if can? :manage, Program %>
           <li><%= link_to "Programs", programs_path %></li>
         <% end %>
+        <% if can? :create, User %>
+          <li><%= link_to "Users", users_path %></li>
+        <% end %>
       <% end %>
     </ul>
 
@@ -49,6 +53,7 @@
     </div>
   </div>
   <%= javascript_include_tag 'jquery/jquery-1.4.2.min' %>
+  <%= javascript_include_tag 'jquery/jquery-ui-1.8.9.custom.min.js' %>
   <%= javascript_include_tag :all %>
 
 </body>

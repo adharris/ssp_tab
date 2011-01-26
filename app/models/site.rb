@@ -18,4 +18,8 @@ class Site < ActiveRecord::Base
   validates :state, :presence => true, :length => { :is => 2 }
 
   has_many :programs
+
+  def current_program
+    programs.order(:start_date => :desc).first
+  end
 end

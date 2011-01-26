@@ -1,5 +1,24 @@
-<ul>
-  <%= render @programs %>
-</ul>
 
-<%= link_to "Create a new program", new_program_path %>
+<% unless @active_programs.empty? %>
+  <h3>Active Programs</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Program Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Weeks</th>
+        <th>Adults</th>
+        <th>Youth</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @active_programs %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if can? :create, Program %>
+  <%= link_to "Create a new program", new_program_path %>
+<%end %>

@@ -1,3 +1,14 @@
-<li>
-<%= link_to program.name, program %> | <%= link_to "delete", @program, :method => :delete, :confirm => "Are you sure you want to delete #{program.name}?", :title => "Confirm Delete" %>
-</li>
+<tr>
+  <td><%= can?(:read, program) ? link_to(program.name, program) : program.name %></td>
+  <td><%= program.start_date.strftime("%a %b #{program.start_date.day.ordinalize}") %></td>
+  <td><%= program.end_date.strftime("%a %b #{program.end_date.day.ordinalize}") %></td>
+  <td><%= pluralize(program.weeks.count, "week") %></td>
+  <td><%= program.adults %></td>
+  <td><%= program.youth %></td>
+  <td> 
+    <%if can? :destroy, program %>
+      <%= link_to "delete", program, :method => :delete, :confirm => "Are you sure you want to delete #{program.name}?", :title => "Confirm Delete" %>
+    <% end %>
+  </td>
+</tr>
+

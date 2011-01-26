@@ -1,0 +1,4 @@
+<h3>Job</h3>
+<p>
+Currently <%= current_user.current_job %> for <%= can?( :read, current_user.current_program) ? link_to(current_user.current_program.name, current_user.current_program) : current_user.current_program.name %>
+</p>

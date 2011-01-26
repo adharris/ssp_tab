@@ -1,5 +1,15 @@
-<ul>
-  <%= render @sites %>
-</ul>
-
+<table>
+  <thead>
+    <tr>
+      <th>Site Name</th>
+      <th>Current Program</th>
+      <th>Adults</th>
+      <th>Youth</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @sites %>
+  </tbody>
+</table>
 <%= link_to "New site", new_site_path %>

@@ -32,4 +32,29 @@ class User < ActiveRecord::Base
 
   validates :username, :presence =>true, :uniqueness =>true
 
+  has_many :program_users, :dependent => :restrict
+  has_many :programs, :through => :program_users
+  
+  scope :admin, where(:admin => true)
+  scope :not_admin, where(:admin => false)
+
+  scope :current_staff, joins(:programs).where('programs.end_date >= ?', Time.now)
+
+
+  def current_program
+    self.programs.where("end_date >= ?", Time.now).order('start_date ASC').first
+  end
+
+  def current_job
+    self.program_users.find_by_program_id(self.current_program).job.name
+  end
+
+  def full_name 
+    "#{self.first_name} #{self.last_name}"
+  end
+
+  def site_director_for?(program)
+    self.program_users.joins(:job).where(:program_id=>program.id, :job_id => Job.find_by_name("Site Director").id).count == 1
+  end
+
 end

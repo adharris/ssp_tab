@@ -5,6 +5,13 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def index
+    @title = "Users"
+    @admins = User.admin
+    @all_staff = params[:all_staff] || false
+    @staff = @all_staff ? User.not_admin : User.current_staff
+  end
+
   def create
     @user = User.new(params[:user])
 
@@ -17,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @title = "#{@user.first_name} #{@user.last_name}"
   end
 
   def update
@@ -26,6 +34,17 @@ class UsersController < ApplicationController
     else
       @title = 'Edit User'
       render 'edit'
+    end
+  end
+
+  def destroy
+    full_name = @user.full_name
+    if @user.destroy
+      flash[:sucess] = "#{full_name} deleted successfully"
+      redirect_to users_path( :all_staff => params[:all_staff])
+    else
+      @title = "Users"
+      render :index
     end
   end
 

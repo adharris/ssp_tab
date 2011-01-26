@@ -1,0 +1,20 @@
+<tr id="week<%= week.id %>" >
+  <td><%= week.name %></td>
+  <td><%= week.start_date.strftime("%a %b #{week.start_date.day.ordinalize}") %></td>
+  <td><%= week.end_date.strftime("%a %b #{week.end_date.day.ordinalize}") %></td>
+  <td><%= week.week_type.name %></td>
+  <td><%= week.scheduled_adults %></td>
+  <td><%= week.scheduled_youth %></td>
+  <td><%= week.actual_adults %></td>
+  <td><%= week.actual_youth %></td>
+  <td>
+    <% if can? :edit, week %>
+      <%= link_to "edit", edit_week_path(week)%>
+    <% end %>
+  </td>
+  <td>
+    <% if can? :destroy, week %>
+      <%= link_to "delete", week, :method => :delete, :confirm => "Are you sure you want to delete #{week.name}?", :title => "Confirm Delete" %>
+    <% end %>
+  </td>
+</tr>

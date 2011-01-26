@@ -3,7 +3,10 @@ SspCtab::Application.routes.draw do
   devise_for :users
   resources :users
   resources :sites
-  resources :programs
+  resources :programs do
+    resources :weeks, :shallow => true
+  end
+  resources :program_users, :only => [:create, :destroy]
   root :to => 'pages#home'
 
   get "pages/home"

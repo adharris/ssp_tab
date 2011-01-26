@@ -1,0 +1,16 @@
+<%= form.inputs do %>
+  <% if can? :edit_fields, week %>
+    <%= form.input :start_date, :as => :datepicker %>
+    <%= form.input :end_date, :as => :datepicker %>
+    <%= form.input :week_type %>
+    <%= form.input :scheduled_adults, :input_html => {:size => 3} %>
+    <%= form.input :scheduled_youth, :input_html => {:size => 3} %>
+  <% else %>
+    
+  <% end %>
+
+  <%= form.input :actual_adults, :input_html => {:size => 3} %>
+  <%= form.input :actual_youth, :input_html => {:size => 3} %>
+<% end %>
+<%= form.buttons %>
+

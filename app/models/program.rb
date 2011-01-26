@@ -18,7 +18,28 @@ class Program < ActiveRecord::Base
   belongs_to :site
   belongs_to :program_type
 
+  has_many :program_users
+  has_many :users, :through => :program_users
+  has_many :weeks
+
+  scope :current, where("end_date >= ?", Time.now)
+  scope :past, where("end_date < ?", Time.now)
+
+  default_scope :joins => :site, :order => 'end_date DESC, sites.name ASC'
+
   def name
     "#{site.name} #{program_type.name} #{start_date.year}"
+  end
+
+  def short_name
+    "#{program_type.name} #{start_date.year}"
+  end
+
+  def adults
+    (self.weeks.map &:adults).sum
+  end
+
+  def youth
+    (self.weeks.map &:youth).sum
   end
 end

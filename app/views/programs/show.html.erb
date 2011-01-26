@@ -8,4 +8,57 @@
   <dt>End Date</dt>
   <dd><%= @program.end_date %></dd>
 </dl>
-<%= link_to "Edit program", edit_program_path(@program) %>
+<% if can? :edit, @program %>
+  <%= link_to "Edit program", edit_program_path(@program) %>
+<% end %>
+
+<h3>Weeks</h3>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Type</td>
+      <th>Scheduled Adults</th>
+      <th>Scheduled Youth</th>
+      <th>Actual Adults</th>
+      <th>Actual Youth</td>
+      <th colspan="2"></td>
+    </tr>
+  </thead>
+
+  <%= render @program.weeks %>
+
+</table>
+<% if can? :create, Week %>
+  <%= link_to "add new week", new_program_week_path(@program) %>
+<% end %>
+
+<h3>Staff</h3>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Staff Name</th>
+      <th>Job</th>
+      <th></th>
+    </tr>
+  </thead>
+  <%= render @program.program_users.order("job_id") %>
+
+  <% if can? :create, ProgramUser %>
+    <tr>
+      <td></td>
+      <%= form_for @program.program_users.build() do |f| %>
+        <td>
+          <%= f.hidden_field :program_id %>
+          <%= f.collection_select :user_id, User.not_admin - @program.users, :id, :full_name %>
+        </td>
+        <td><%= f.collection_select :job_id, Job.all, :id, :name %></td>
+        <td><%= f.submit "Add Staff" %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+

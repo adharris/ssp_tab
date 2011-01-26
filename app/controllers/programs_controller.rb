@@ -3,6 +3,7 @@ class ProgramsController < ApplicationController
 
   def index
     @title = "Programs"
+    @active_programs = Program.current
   end
 
   def new

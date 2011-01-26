@@ -1,0 +1,11 @@
+<tr>
+  <td><%= week.name %></td>
+  <td><%= f.text_field :start_date, :class=>'jq-date', :size => 7 %></td>
+  <td><%= f.text_field :end_date, :class=>'jq-date', :size => 7 %></td>
+  <td><%= f.collection_select :week_type_id, WeekType.all, :id, :name %></td>
+  <td><%= f.text_field :scheduled_adults, :size => 2 %></td>
+  <td><%= f.text_field :scheduled_youth, :size => 2 %></td>
+  <td><%= f.text_field :actual_adults, :size => 2 %></td>
+  <td><%= f.text_field :actual_youth, :size => 2 %></td>
+  <td colspan="2"><%= f.submit "Save Week" %></td>
+</tr>

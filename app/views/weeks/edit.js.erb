@@ -1,0 +1,9 @@
+$row = $("#week<%= @week.id %>");
+alert('<%= escape_javascript( form_for do |f| { } ) %>');
+$row.closest("table").wrap('<%= escape_javascript(form_for @week do |f|) %><%end%>');
+
+//$newRow = $('<%= escape_javascript(render('weeks/editrow', :week => @week)) %>');
+//$("td", $row).each(function (index) {
+//    $("td", $newRow.find("table")).eq(index).width($(this).width());
+//    });
+//$row.before($newRow).remove();

@@ -1,0 +1,10 @@
+<tr>
+  <td><%= gravatar_for program_user.user, :size => 24 %></td>
+  <td><%= can?(:read, program_user.user) ? link_to(program_user.user.full_name, program_user.user) : program_user.user.full_name%></td>
+  <td><%= program_user.job.name %></td>
+  <td>
+    <% if can? :destroy, program_user %>
+      <%= link_to "remove staff", program_user, :method=>:delete, :confirm => "Remove #{program_user.user.full_name} from #{program_user.program.name}", :title => "Confirm" %>
+    <% end %>
+  </td>
+</tr>

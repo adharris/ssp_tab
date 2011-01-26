@@ -1,13 +1,7 @@
-<h1>Pages#home</h1>
+<% if !user_signed_in? %>
 
-<% if user_signed_in? %>
-  <% if can? :create, User %>
-    <div>
-      <%= link_to "Create new user", new_user_path =%>
-    </div>
-  <% end %>
-<%else%>
-  <div>
-    You must <%= link_to "sign in", new_user_session_path %> to use CTAB
-  </div>
-<% end%>
+<% elsif current_user.admin? %>
+  <%= render 'admin_home' %>
+<% else %>
+  <%= render 'user_home' %>
+<% end %>

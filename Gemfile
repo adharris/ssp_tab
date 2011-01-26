@@ -9,10 +9,12 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise'
 gem 'cancan'
 gem 'gravatar_image_tag'
+gem 'formtastic'
 
 group :development do
   gem 'rspec-rails'
   gem 'annotate-models'
+  gem 'faker'
 end
 
 group :test do
