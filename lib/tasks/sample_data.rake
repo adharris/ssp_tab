@@ -10,21 +10,20 @@ namespace :db do
  #   make_jobs
     assign_jobs
     make_weeks
+    make_vendors
   end
 end
 
 def make_users
   admin = User.create!(:username => "admin",
                        :email => "adharris@gmail.com",
-                       :first_name => "Admin",
-                       :last_name => "User",
+                       :name => "Admin User",
                        :password => "foobar")
   admin.toggle!(:admin)
   30.times do |n|
     User.create!(:username => "normal#{n}",
                  :email => "normal#{n}@examle.com",
-                 :first_name => Faker::Name.first_name,
-                 :last_name => Faker::Name.last_name,
+                 :name => Faker::Name.name,
                  :password => "normal")
   end
 end
@@ -36,6 +35,23 @@ def make_sites
                  :description => Faker::Lorem.paragraph)
   end
 end
+
+def make_vendors
+  Site.all.each do |site|
+    (1 + rand(4)).times do |n|
+      vendor = Vendor.new(:name => Faker::Company.name,
+                              :address => Faker::Address.street_name,
+                              :city => Faker::Address.city,
+                              :state => Faker::Address.us_state_abbr,
+                              :zip => Faker.numerify('#####'),
+                              :contact => Faker::Name.name,
+                              :phone => Faker.numerify('##########'))
+      vendor.site = site
+      vendor.save!
+    end
+  end
+end
+
 
 def make_programs
   summer = ProgramType.find_by_name("Summer")

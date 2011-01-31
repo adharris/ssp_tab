@@ -1,12 +1,10 @@
-<%= render "shared/error_messages", :object => f.object %>
-
-<%= f.label :name %>
-<%= f.text_field :name %><br />
-
-<%= f.label :state %>
-<%= f.text_field :state, :size => 2 %><br />
-
-<%= f.label :description %>
-<%= f.text_area :description %><br />
+<%= semantic_form_for @site do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name, :input_html => { :size => 10 } %>
+    <%= form.input :state, :input_html => { :size => 3 } %>
+    <%= form.input :description, :input_html => {:rows => 2, :cols => 100 }%>
+  <% end %>
+  <%= form.buttons %>
+<% end %>
 
 

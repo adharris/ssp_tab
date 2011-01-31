@@ -35,7 +35,7 @@ class WeeksController < ApplicationController
   def update
     authorize! :edit_fields, @week if (params[:week].keys & @admin_only_fields).any?
     if @week.update_attributes(params[:week])
-      flash[:success] = "#{week.name} updated"
+      flash[:success] = "#{@week.name} updated"
       respond_to do |format|
         format.html {redirect_to @week.program}
         format.js

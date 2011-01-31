@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CTAB | <%= @title %></title>
+  <title>SSP | <%= @title %></title>
   <%= stylesheet_link_tag :all %>
   <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
   <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
@@ -12,10 +12,10 @@
 <body>
   <div class="container">
     <div id="header" class="span-24 last">
-      <h1 class="span-16">CTAB</h1>
+      <h1 class="span-16">SSP</h1>
       <div class="span-8 last">
         <% if user_signed_in? %>
-          <%= current_user.first_name %> <%= current_user.last_name %> |
+          <%= current_user.name %>
           <%= link_to "account", current_user %> |
           <%= link_to "sign out", destroy_user_session_path %>
         <% else %>
@@ -27,6 +27,12 @@
     <ul id="main_nav" class="span-24 last">
       <% if user_signed_in? %>
         <li><%= link_to "Home", root_path %></li>
+        <% if can? :index, Purchase %>
+          <li><%= link_to "Purchases", purchases_path %></li>
+        <% end %>
+        <% if can? :index, Vendor %>
+          <li><%= link_to "Vendors", vendors_path %></li>
+        <% end %>
         <% if can? :manage, Site %>
           <li><%= link_to "Sites", sites_path %></li>
         <% end %>
@@ -42,7 +48,7 @@
 
     <div id="flash" class="span-24 last">
       <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id=>"flash_#{name}" %>
+        <%= content_tag :div, msg, :id=>"flash_#{name}", :class => "flash #{name}" %>
       <% end %>
     </div>
     <div id="content" class="span-24 last">

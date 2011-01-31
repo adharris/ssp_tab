@@ -1,6 +1,6 @@
 <tr>
   <td><%= gravatar_for user, :size => 24 %></td>
-  <td><%= can?(:read, User) ? link_to(user.full_name, user) : user.full_name %></td>
+  <td><%= can?(:read, user) ? link_to(user.name, user) : user.name %></td>
   <td>
     <% unless user.current_program.nil? %>
       <%= user.current_job %>
@@ -13,7 +13,7 @@
   </td>
   <td>
     <% if can? :destroy, user %>
-      <%= link_to "delete", user_path(user, :all_staff=>@all_staff), :method=>:delete, :confirm => "Are you sure you want to delete #{user.full_name}", :title => "Confirm Delete" %>
+      <%= link_to "delete", user_path(user, :all_staff=>@all_staff), :method=>:delete, :confirm => "Are you sure you want to delete #{user.name}", :title => "Confirm Delete" %>
     <% end %>
   </td>
 </tr>

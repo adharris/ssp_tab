@@ -1,0 +1,11 @@
+<% @sites.each do |site| %>
+  <% unless @sites.count == 1 %>
+    <h3>Vendors for <%= site.name %></h3>
+  <% end %>
+  <% if site.vendors.any? %>
+    <%= render 'table', :vendors => site.vendors %>
+  <% else %>
+    <p>No vendors</p>
+  <% end %>
+  <%=  link_to "New vendor for #{site.name}", new_site_vendor_path(site) %>
+<% end %>

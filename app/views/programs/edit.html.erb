@@ -1,5 +1,1 @@
-<%= form_for @program do |f| %>
-  <%= render 'fields', :f => f %>
-
-  <%=f.submit "Save Changes" %>
-<% end %>
+<%= render 'fields', :program => @program %>

@@ -1,6 +1,14 @@
 class ProgramsController < ApplicationController
   load_and_authorize_resource
 
+  # autocomplete :user, :name, :full => true, :scope => :current_staff
+
+  def autocomplete_user_name
+    @program = Program.find(params[:program_id])
+    @users = (User.not_admin.search_by_name(params[:term]) - @program.users)
+    render :json => json_for_autocomplete(@users, :name)
+  end
+
   def index
     @title = "Programs"
     @active_programs = Program.current

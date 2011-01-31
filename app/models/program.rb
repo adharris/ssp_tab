@@ -21,6 +21,7 @@ class Program < ActiveRecord::Base
   has_many :program_users
   has_many :users, :through => :program_users
   has_many :weeks
+  has_many :purchases
 
   scope :current, where("end_date >= ?", Time.now)
   scope :past, where("end_date < ?", Time.now)

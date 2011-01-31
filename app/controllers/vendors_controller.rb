@@ -1,0 +1,47 @@
+class VendorsController < ApplicationController
+  load_and_authorize_resource :site
+  load_and_authorize_resource :vendor, :through => :site, :shallow => true
+
+  def index
+    unless @state.nil?
+      new_vendor = @site.vendors.build
+      authorize! :read, new_vendor
+      new_vendor.destory
+    end
+    @sites = @site.nil? ? (@vendors.map &:site).uniq : [@site]
+    @title = @site.nil? ? "All Vendors" : "Vendors for #{@site.name}"
+  end
+
+  def show
+    @title = @vendor.name
+  end
+
+  def new
+    authorize! :create, Site.find(params[:site_id]).vendors.build unless params[:site_id].nil?
+  end
+
+  def create
+    if @vendor.save
+      flash[:success] = "#{@vendor.name} successfully created"
+      redirect_to site_vendors_path(@site)
+    else
+      @title = "New Vendor"
+      render :new
+    end
+  end
+
+  def edit
+    @title = "Edit #{@vendor.name}"
+    @site = @vendor.site
+  end
+
+  def update
+    if(@vendor.update_attributes(params[:vendor]))
+      flash[:success] = "#{@vendor.name} successfully updated"
+      redirect_to vendor_path(@vendor)
+    else
+      @title = "Edit #{@vendor.name}"
+      render :edit
+    end
+  end
+end

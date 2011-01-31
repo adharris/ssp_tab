@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110123201309) do
+ActiveRecord::Schema.define(:version => 20110131033555) do
+
+  create_table "food_items", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "name"
+    t.string   "brand"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "jobs", :force => true do |t|
     t.string   "name"
@@ -41,12 +49,22 @@ ActiveRecord::Schema.define(:version => 20110123201309) do
     t.datetime "updated_at"
   end
 
+  create_table "purchases", :force => true do |t|
+    t.integer  "program_id"
+    t.integer  "vendor_id"
+    t.date     "date"
+    t.integer  "purchaser_id"
+    t.decimal  "total",        :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sites", :force => true do |t|
     t.string   "name"
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description"
+    t.text     "description", :limit => 255
   end
 
   create_table "users", :force => true do |t|
@@ -61,14 +79,26 @@ ActiveRecord::Schema.define(:version => 20110123201309) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "name"
     t.string   "username"
     t.boolean  "admin",                               :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "vendors", :force => true do |t|
+    t.integer  "site_id",    :null => false
+    t.string   "name",       :null => false
+    t.string   "address",    :null => false
+    t.string   "city",       :null => false
+    t.string   "state",      :null => false
+    t.string   "zip",        :null => false
+    t.string   "contact",    :null => false
+    t.string   "phone",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "week_types", :force => true do |t|
     t.string   "name",       :null => false

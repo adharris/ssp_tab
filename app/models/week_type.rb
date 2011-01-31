@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20110123183256
+# Schema version: 20110126012451
 #
 # Table name: week_types
 #
 #  id         :integer         not null, primary key
-#  week_id    :integer         not null
 #  name       :string(255)     not null
 #  created_at :datetime
 #  updated_at :datetime

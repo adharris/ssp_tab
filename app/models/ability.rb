@@ -38,16 +38,18 @@ class Ability
       can :manage, Program
       can :manage, ProgramUser
       can [:manage, :edit_fields], Week
-    end
+      can :manage, Vendor
+      can :manage, Purchase
+    else
 
-    can :read, Site
+      can :read, Site
+      can [:read], Program, :id => user.current_program.id
 
-    can [:read], Program do |program|
-      user.programs.include? program
-    end
+      if user.current_job == "Site Director"
+        can :update, Week, :program_id => user.current_program.id
+      end
 
-    can :update, Week do |week|
-      user.site_director_for? week.program
+      can [:read, :update, :create], Vendor, :site_id => user.current_program.site.id
     end
 
     can [:read, :update], User do |read_user|

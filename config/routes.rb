@@ -2,13 +2,24 @@ SspCtab::Application.routes.draw do
 
   devise_for :users
   resources :users
-  resources :sites
+  resources :sites do
+    resources :vendors, :shallow => true
+  end
+  
   resources :programs do
     resources :weeks, :shallow => true
+    resources :purchases, :shallow => true
+    get :autocomplete_user_name
   end
+
   resources :program_users, :only => [:create, :destroy]
   root :to => 'pages#home'
 
+  # route for the main index of all vendors
+  resources :vendors, :only => [:index]
+  resources :purchases, :only => [:index]
+
+  #static routes
   get "pages/home"
 
   # The priority is based upon order of creation:

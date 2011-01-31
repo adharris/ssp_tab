@@ -9,11 +9,13 @@ class ProgramUsersController < ApplicationController
 
   def create
     @program_user = ProgramUser.create(params[:program_user])
-    if( @program_user.save)
-      flash[:success] = "#{@program_user.user.full_name} added as #{@program_user.job.name} to #{@program_user.program.name}"
+    if(@program_user.save)
+      flash[:success] = "#{@program_user.user.name} added as #{@program_user.job.name} to #{@program_user.program.name}"
       redirect_to @program_user.program
     else
-      render @program_user.program, :action => :show
+      flash[:error] = "Could not find user"
+      @program = @program_user.program
+      render "programs/show"
     end
   end
 

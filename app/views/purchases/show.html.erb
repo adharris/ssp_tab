@@ -1,0 +1,10 @@
+<dl>
+  <dt>Vendor</dt>
+  <dd><%= @purchase.vendor.name %></dd>
+  <dt>Date</dt>
+  <dd><%= @purchase.date %></dd>
+  <dt>Purchaser</dt>
+  <dd><%= @purchase.purchaser.name %></dd>
+  <dt>Total</dt>
+  <dd><%= number_to_currency(@purchase.total, :unit => "$") %></dd>
+</dl>

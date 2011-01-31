@@ -53,7 +53,8 @@
       <%= form_for @program.program_users.build() do |f| %>
         <td>
           <%= f.hidden_field :program_id %>
-          <%= f.collection_select :user_id, User.not_admin - @program.users, :id, :full_name %>
+          <%= f.hidden_field :user_id %>
+          <%= autocomplete_field_tag 'username', '', program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id' %>
         </td>
         <td><%= f.collection_select :job_id, Job.all, :id, :name %></td>
         <td><%= f.submit "Add Staff" %></td>
@@ -61,4 +62,10 @@
     </tr>
   <% end %>
 </table>
+
+<h3>Purchases</h3>
+<% if can? :create, @program.purchases.new %>
+  <%= link_to 'new purchase', new_program_purchase_path(@program) %>
+<% end %>
+<%= render 'purchases/table', :purchases => @program.purchases %>
 

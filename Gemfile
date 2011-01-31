@@ -10,6 +10,8 @@ gem 'devise'
 gem 'cancan'
 gem 'gravatar_image_tag'
 gem 'formtastic'
+gem 'rails3-jquery-autocomplete'
+gem 'ruby-units'
 
 group :development do
   gem 'rspec-rails'

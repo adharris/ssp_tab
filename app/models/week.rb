@@ -1,15 +1,19 @@
 # == Schema Information
-# Schema version: 20110123183256
+# Schema version: 20110126012451
 #
 # Table name: weeks
 #
-#  id           :integer         not null, primary key
-#  site_id      :integer         not null
-#  start_date   :date            not null
-#  end_date     :date            not null
-#  week_type_id :integer         not null
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id               :integer         not null, primary key
+#  program_id       :integer         not null
+#  start_date       :date            not null
+#  end_date         :date            not null
+#  week_type_id     :integer         not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#  scheduled_adults :integer         default(0)
+#  scheduled_youth  :integer         default(0)
+#  actual_adults    :integer
+#  actual_youth     :integer
 #
 
 class Week < ActiveRecord::Base

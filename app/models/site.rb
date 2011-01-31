@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110117012157
+# Schema version: 20110126012451
 #
 # Table name: sites
 #
@@ -8,7 +8,7 @@
 #  state       :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  description :string(255)
+#  description :text(255)
 #
 
 class Site < ActiveRecord::Base
@@ -18,6 +18,7 @@ class Site < ActiveRecord::Base
   validates :state, :presence => true, :length => { :is => 2 }
 
   has_many :programs
+  has_many :vendors
 
   def current_program
     programs.order(:start_date => :desc).first

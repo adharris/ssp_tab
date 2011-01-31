@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @title = "#{@user.first_name} #{@user.last_name}"
+    @title = @user.name
   end
 
   def update

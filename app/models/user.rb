@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110117012157
+# Schema version: 20110130182156
 #
 # Table name: users
 #
@@ -15,8 +15,7 @@
 #  last_sign_in_ip      :string(255)
 #  created_at           :datetime
 #  updated_at           :datetime
-#  first_name           :string(255)
-#  last_name            :string(255)
+#  name                 :string(255)
 #  username             :string(255)
 #  admin                :boolean
 #
@@ -28,7 +27,7 @@ class User < ActiveRecord::Base
          :recoverable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :first_name, :last_name, :username
+  attr_accessible :email, :password, :password_confirmation, :name, :username
 
   validates :username, :presence =>true, :uniqueness =>true
 
@@ -40,6 +39,9 @@ class User < ActiveRecord::Base
 
   scope :current_staff, joins(:programs).where('programs.end_date >= ?', Time.now)
 
+  scope :search_by_name, lambda { |q|
+    (q ? where(["name Like ?", '%' + q + '%']) : {} )
+  }
 
   def current_program
     self.programs.where("end_date >= ?", Time.now).order('start_date ASC').first
@@ -47,10 +49,6 @@ class User < ActiveRecord::Base
 
   def current_job
     self.program_users.find_by_program_id(self.current_program).job.name
-  end
-
-  def full_name 
-    "#{self.first_name} #{self.last_name}"
   end
 
   def site_director_for?(program)
