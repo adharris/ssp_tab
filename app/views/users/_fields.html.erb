@@ -1,9 +1,15 @@
 <%= semantic_form_for user do |form| %>
   <%= form.inputs do %>
     <%= form.input :name %>
+    <% if @user.new_record? %>
+      <%= form.input :username %>
+    <% end %>
     <%= form.input :email %>
     <%= form.input :password %>
     <%= form.input :password_confirmation %>
+    <% if can? :create_admin, User %>
+      <%= form.input :admin %>
+    <% end %>
   <% end %>
   <%= form.buttons %>
 <% end %>

@@ -13,8 +13,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-
+    if(params[:user][:admin])
+      authorize! :create_admin, User
+      @user.toggle!(:admin)
+    end
     if @user.save
       flash[:notice] = "Successfully created user"
       redirect_to root_path

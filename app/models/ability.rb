@@ -29,7 +29,7 @@ class Ability
     user ||= User.new
 
     if user.admin?
-      can [:create, :read, :destroy], User
+      can [:create, :read, :destroy, :create_admin], User
       cannot :destroy, User, :id => user.id 
       cannot :destroy, User do |user| 
         user.program_users.any?
