@@ -42,14 +42,16 @@ class Ability
       can :manage, Purchase
     else
 
-      can :read, Site
-      can [:read], Program, :id => user.current_program.id
+      unless user.current_program.nil?
+        can :read, Site
+        can [:read], Program, :id => user.current_program.id
 
-      if user.current_job == "Site Director"
-        can :update, Week, :program_id => user.current_program.id
+        if user.current_job == "Site Director"
+          can :update, Week, :program_id => user.current_program.id
+        end
+
+        can [:read, :update, :create], Vendor, :site_id => user.current_program.site.id
       end
-
-      can [:read, :update, :create], Vendor, :site_id => user.current_program.site.id
     end
 
     can [:read, :update], User do |read_user|
