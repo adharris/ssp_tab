@@ -1,0 +1,10 @@
+<%= semantic_form_for food_item do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name, :input_html => { :size => 35 } %>
+    <%= form.input :food_item_category, :ax => :radio %>
+    <%= form.input :program, :hint => "Leave blank to add to the master food item list" if can? :create, FoodItem.new %>
+    <%= form.input :base_unit, :hint => "Enter the base units for this item. This is the unit that the item will always be expressed in", :input_html => { :size => 6 } %>
+    <%= form.input :default_taxed, :hint => "Whether or not tax will be applied to this item.  Can be overridden on each purchase" %>
+  <% end %>
+  <%= form.buttons %>
+<% end %>

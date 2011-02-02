@@ -40,6 +40,7 @@ class Ability
       can [:manage, :edit_fields], Week
       can :manage, Vendor
       can :manage, Purchase
+      can :manage, FoodItem
     else
 
       unless user.current_program.nil?
@@ -51,6 +52,8 @@ class Ability
         end
 
         can [:read, :update, :create], Vendor, :site_id => user.current_program.site.id
+        can [:read], FoodItem, :program_id => nil
+        can [:manage], FoodItem, :program_id => user.current_program.id
       end
     end
 

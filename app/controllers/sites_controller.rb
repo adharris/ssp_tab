@@ -6,6 +6,7 @@ class SitesController < ApplicationController
   end
 
   def index
+    @active_sites
     @title = "Sites"
   end
 

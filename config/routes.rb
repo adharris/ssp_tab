@@ -1,5 +1,7 @@
 SspCtab::Application.routes.draw do
 
+  get "food_items/index"
+
   devise_for :users
   resources :users
   resources :sites do
@@ -11,6 +13,8 @@ SspCtab::Application.routes.draw do
     resources :purchases, :shallow => true
     get :autocomplete_user_name
   end
+
+  resources :food_items
 
   resources :program_users, :only => [:create, :destroy]
   root :to => 'pages#home'

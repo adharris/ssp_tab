@@ -30,6 +30,9 @@
         <% if can? :index, Purchase %>
           <li><%= link_to "Purchases", purchases_path %></li>
         <% end %>
+        <% if can? :index, FoodItem %>
+          <li><%= link_to "Food Items", food_items_path %></li>
+        <% end %>
         <% if can? :index, Vendor %>
           <li><%= link_to "Vendors", vendors_path %></li>
         <% end %>

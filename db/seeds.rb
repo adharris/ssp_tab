@@ -20,3 +20,8 @@ week_types = ["Sr. High", "Jr. High"]
 week_types.each do |type|
   WeekType.create!(:name => type)
 end
+
+food_item_categories = ["Produce", "Meat", "Spices", "Dairy", "Dry Goods", "Non-Food"]
+food_item_categories.each do |cat|
+  FoodItemCategory.create!(:name => cat)
+end
