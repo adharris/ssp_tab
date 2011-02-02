@@ -20,6 +20,8 @@ class Site < ActiveRecord::Base
   has_many :programs
   has_many :vendors
 
+  scope :current_sites, joins(:programs).where('programs.end_date >= ?', Time.now)
+
   def current_program
     programs.order(:start_date => :desc).first
   end

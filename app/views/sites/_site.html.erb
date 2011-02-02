@@ -1,8 +1,14 @@
 <tr>
   <td><%= can?(:read, site) ? link_to(site.name, site) : site.name %></td>
-  <td><%= can?(:read, site.current_program) ? link_to(site.current_program.short_name, site.current_program) : site.current_program.short_name %></td>
-  <td><%= site.current_program.adults %></td>
-  <td><%= site.current_program.youth %></td>
+  <% unless site.current_program.nil? %>
+    <td><%= can?(:read, site.current_program) ? link_to(site.current_program.short_name, site.current_program) : site.current_program.short_name %></td>
+    <td><%= site.current_program.adults %></td>
+    <td><%= site.current_program.youth %></td>
+  <% else %>
+    <td></td>
+    <td></td>
+    <td></td>
+  <% end %>
   <td>
     <% if can? :destroy, site %>
       <%= link_to "delete", site, :method => :delete, :confirm => "Are you sure you want to delete #{site.name}?", :title => "Confirm Delete" %>
