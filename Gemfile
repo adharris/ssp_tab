@@ -12,6 +12,7 @@ gem 'gravatar_image_tag'
 gem 'formtastic'
 gem 'rails3-jquery-autocomplete'
 gem 'ruby-units'
+gem 'simple-navigation'
 
 group :development do
   gem 'rspec-rails'

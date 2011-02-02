@@ -24,30 +24,9 @@
       </div>
     </div>
 
-    <ul id="main_nav" class="span-24 last">
-      <% if user_signed_in? %>
-        <li><%= link_to "Home", root_path %></li>
-        <% if can? :index, Purchase %>
-          <li><%= link_to "Purchases", purchases_path %></li>
-        <% end %>
-        <% if can? :index, FoodItem %>
-          <li><%= link_to "Food Items", food_items_path %></li>
-        <% end %>
-        <% if can? :index, Vendor %>
-          <li><%= link_to "Vendors", vendors_path %></li>
-        <% end %>
-        <% if can? :manage, Site %>
-          <li><%= link_to "Sites", sites_path %></li>
-        <% end %>
-        <% if can? :manage, Program %>
-          <li><%= link_to "Programs", programs_path %></li>
-        <% end %>
-        <% if can? :create, User %>
-          <li><%= link_to "Users", users_path %></li>
-        <% end %>
-      <% end %>
-    </ul>
-
+    <div class="span-24 last">
+      <%= render_navigation %>
+    </div>
 
     <div id="flash" class="span-24 last">
       <% flash.each do |name, msg| %>

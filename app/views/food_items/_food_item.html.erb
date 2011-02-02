@@ -3,4 +3,8 @@
   <td><%= food_item.food_item_category.name %></td>
   <td><%= food_item.base_unit %></td>
   <td><%= food_item.default_taxed ? "Yes" : "No" %></td>
+  <td>
+    <%= link_to "edit", edit_food_item_path(food_item) if can? :edit, food_item %>
+    <%= link_to "delete", food_item_path(food_item), :method => :delete, :confirm => "Delete #{food_item.name}?", :title => "Confirm Delete" if can? :destroy, food_item %>
+  </td>
 </tr>
