@@ -20,4 +20,18 @@ class FoodItemsController < ApplicationController
     end
   end
 
+  def edit
+    @title = "Editing #{@food_item.name}"
+  end
+
+  def update
+    if(@food_item.update_attributes(params[:food_item]))
+      flash[:success] = "#{@food_item.name} successfully updated"
+      redirect_to food_item_path(@food_item)
+    else
+      @title = "Editing #{@food_item.name}"
+      render :edit
+    end
+  end
+
 end
