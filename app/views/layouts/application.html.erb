@@ -24,16 +24,16 @@
       </div>
     </div>
 
-    <div class="span-24 last">
+    <div id="main-nav" class="span-24 last">
       <%= render_navigation %>
     </div>
 
-    <div id="flash" class="span-24 last">
+    <div id="flash" class="span-20 last">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id=>"flash_#{name}", :class => "flash #{name}" %>
       <% end %>
     </div>
-    <div id="content" class="span-24 last">
+    <div class="span-24 last">
       <h2><%= @title %></h2>
       <%= yield %>
     </div>

@@ -1,8 +1,8 @@
 SspCtab::Application.routes.draw do
 
-  get "food_items/index"
-
   devise_for :users
+
+
   resources :users
   resources :sites do
     resources :vendors, :shallow => true

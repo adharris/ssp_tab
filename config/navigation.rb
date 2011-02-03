@@ -44,10 +44,22 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :home, "Home", root_path   
     primary.item :purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }
     primary.item (:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/) do |food_item|
-      food_item.item :food_item, @food_item.try(:name), food_item_path(@food_item), :highlights_on => /food_item\/[0-9]+/ unless @food_item.nil? || @food_item.new_record?
-      food_item.item :new_food_item, "New Food Item", new_food_item_path if true
+      food_item.item :food_item, @food_item.try(:name), food_item_path(@food_item), :highlights_on => /food_items\/[0-9]+/ unless @food_item.nil? || @food_item.new_record?
+      food_item.item :new_food_item, "New Food Item", new_food_item_path if can? :create, FoodItem
     end
-    primary.item :vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }
+    primary.item (:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
+      if(can? :manage, Vendor)
+        Site.all.each do |site|
+          vendor_menu.item("site_vendors_#{site.id}", "#{site.name} vendors", site_vendors_path(site), :if => lambda {can? :see_vendors_for, site}) do |site_vendor_menu|
+            site_vendor_menu.item(:vendor, @vendor.try(:name), vendor_path(@vendor), :highlights_on => /vendors\/[0-9]+/) unless @vendor.nil? || @vendor.new_record? || @vendor.site != site
+            site_vendor_menu.item( :new_vendor, "New Vendor", new_site_vendor_path(site)) if can? :create, site.vendors.new
+          end
+        end
+      else
+        vendor_menu.item :vendor, @vendor.try(:name), vendor_path(@vendor), :highlights_on => /vendors\/[0-9]+/ unless @vendor.nil? || @vendor.new_record?
+        vendor_menu.item :new_vendor, "New Vendor", new_site_vendor_path(current_user.current_program.site) if can? :create, Vendor
+      end
+    end
     primary.item :sites, "Sites", sites_path, :if => lambda { can? :manage, Site }
     primary.item :programs, "Programs", programs_path, :if => lambda { can? :manage, Program }
     primary.item :users, "Users", users_path, :if => lambda { can? :create, User }

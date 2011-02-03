@@ -2,10 +2,11 @@
   <thead>
     <tr>
       <th>Vendor Name </th>
+      <th>Site</th>
       <th>Contact</th>
       <th>Phone</th>
     </tr>
   <thead>
-    <%= render :partial => 'vendor', :collection => vendors %>
+    <%= render :partial => 'vendor_with_site', :collection => vendors %>
   </thead>
 </table>

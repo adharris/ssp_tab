@@ -3,13 +3,8 @@ class VendorsController < ApplicationController
   load_and_authorize_resource :vendor, :through => :site, :shallow => true
 
   def index
-    unless @state.nil?
-      new_vendor = @site.vendors.build
-      authorize! :read, new_vendor
-      new_vendor.destory
-    end
-    @sites = @site.nil? ? (@vendors.map &:site).uniq : [@site]
-    @title = @site.nil? ? "All Vendors" : "Vendors for #{@site.name}"
+    authorize! :see_vendors_for, @site unless @site.nil?
+    @title = @site.nil? ? "Vendors" : "Vendors for #{@site.name}"
   end
 
   def show
