@@ -10,7 +10,6 @@ class FoodItemsController < ApplicationController
   end
 
   def create
-    @food_item.update_attributes(params[:food_item])
     if @food_item.save
       flash[:success] = "#{@food_item.name} created successfully"
       redirect_to @food_item
@@ -25,13 +24,26 @@ class FoodItemsController < ApplicationController
   end
 
   def update
-    if(@food_item.update_attributes(params[:food_item]))
+    @food_item.attributes = params[:food_item]
+    authorize! :update, @food_item 
+    if(@food_item.save)
       flash[:success] = "#{@food_item.name} successfully updated"
       redirect_to food_item_path(@food_item)
     else
       @title = "Editing #{@food_item.name}"
       render :edit
     end
+  end
+
+  def show
+    @title = @food_item.name
+  end
+
+  def destroy
+    if @food_item.destroy
+      flash[:success] = "#{@food_item.name} deleted"
+    end
+    redirect_to food_items_path
   end
 
 end

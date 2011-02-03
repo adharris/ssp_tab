@@ -43,7 +43,10 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :home, "Home", root_path   
     primary.item :purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }
-    primary.item :food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }
+    primary.item (:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/) do |food_item|
+      food_item.item :food_item, @food_item.try(:name), food_item_path(@food_item), :highlights_on => /food_item\/[0-9]+/ unless @food_item.nil? || @food_item.new_record?
+      food_item.item :new_food_item, "New Food Item", new_food_item_path if true
+    end
     primary.item :vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }
     primary.item :sites, "Sites", sites_path, :if => lambda { can? :manage, Site }
     primary.item :programs, "Programs", programs_path, :if => lambda { can? :manage, Program }

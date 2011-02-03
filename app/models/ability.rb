@@ -54,6 +54,9 @@ class Ability
         can [:read, :update, :create], Vendor, :site_id => user.current_program.site.id
         can [:read], FoodItem, :program_id => nil
         can [:manage], FoodItem, :program_id => user.current_program.id
+
+        can [:read, :update, :create], Purchase, :program_id => user.current_program.id
+
       end
     end
 

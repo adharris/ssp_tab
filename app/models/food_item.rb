@@ -32,6 +32,7 @@ class FoodItem < ActiveRecord::Base
     begin
       self.base_unit.unit
       errors.add(:base_unit, "Please enter only the units portion of the measurement") unless self.base_unit.unit.units == self.base_unit
+      errors.add(:base_unit, "Base unit should be a unit of weight, volumn, or each") unless [:unitless, :mass, :volume].include? self.base_unit.unit.kind
     rescue
       errors.add(:base_unit, "#{base_unit} is not a recognized unit")
     end
