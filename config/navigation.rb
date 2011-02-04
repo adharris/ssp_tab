@@ -57,13 +57,13 @@ SimpleNavigation::Configuration.run do |navigation|
         purchase_menu(purchase_menu, current_user.current_program)
       end
     end
-    primary.item (:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/) do |food_item|
+    primary.item(:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/) do |food_item|
       food_item.item :food_item, @food_item.try(:name), food_item_path(@food_item), :highlights_on => /food_items\/[0-9]+/ unless @food_item.nil? || @food_item.new_record?
       food_item.item :new_food_item, "New Food Item", new_food_item_path if can? :create, FoodItem
     end
 
 
-    primary.item (:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
+    primary.item(:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
       if(can? :manage, Vendor)
         vendor_menu.item(:all_vendors,
                          "All Vendors",

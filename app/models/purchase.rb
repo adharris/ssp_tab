@@ -15,7 +15,7 @@
 #
 
 class Purchase < ActiveRecord::Base
-  attr_accessible :date, :total
+  attr_accessible :date, :total, :tax
 
   validates :program_id, :presence => true
   validates :vendor_id, :presence => true
