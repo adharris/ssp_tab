@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110202043723) do
+ActiveRecord::Schema.define(:version => 20110204030905) do
 
   create_table "food_item_categories", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20110202043723) do
     t.decimal  "total",        :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "tax"
   end
 
   create_table "sites", :force => true do |t|

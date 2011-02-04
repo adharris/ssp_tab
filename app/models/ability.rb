@@ -37,6 +37,7 @@ class Ability
       can :manage, Site
       can :see_vendors_for, Site
       can :manage, Program
+      can :see_vendors_for, Program
       can :manage, ProgramUser
       can [:manage, :edit_fields], Week
       can :manage, Vendor
@@ -46,8 +47,8 @@ class Ability
 
       unless user.current_program.nil?
         can :read, Site
-        can :see_vendors_for, Site, :id => user.current_program.site.id
-        can [:read], Program, :id => user.current_program.id
+        can [:see_vendors_for], Site, :id => user.current_program.site.id
+        can [:read, :see_purchases_for], Program, :id => user.current_program.id
 
         if user.current_job == "Site Director"
           can :update, Week, :program_id => user.current_program.id

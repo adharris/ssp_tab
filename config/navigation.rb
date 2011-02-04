@@ -42,7 +42,21 @@ SimpleNavigation::Configuration.run do |navigation|
     #
 
     primary.item :home, "Home", root_path   
-    primary.item :purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }
+    primary.item(:purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }) do |purchase_menu|
+      if(can? :manage, Purchase)
+        Program.current.each do |program|
+          purchase_menu.item("program_#{program.id}_menu",
+                             program.name,
+                             program_purchases_path(program),
+                             :if => lambda { can? :see_purchases_for, program }) do |program_purchase_menu|
+
+            purchase_menu(program_purchase_menu, program)
+          end  
+        end
+      else
+        purchase_menu(purchase_menu, current_user.current_program)
+      end
+    end
     primary.item (:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/) do |food_item|
       food_item.item :food_item, @food_item.try(:name), food_item_path(@food_item), :highlights_on => /food_items\/[0-9]+/ unless @food_item.nil? || @food_item.new_record?
       food_item.item :new_food_item, "New Food Item", new_food_item_path if can? :create, FoodItem
@@ -50,7 +64,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item (:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
       if(can? :manage, Vendor)
         Site.all.each do |site|
-          vendor_menu.item("site_vendors_#{site.id}", "#{site.name} vendors", site_vendors_path(site), :if => lambda {can? :see_vendors_for, site}) do |site_vendor_menu|
+          vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :if => lambda {can? :see_vendors_for, site}) do |site_vendor_menu|
             site_vendor_menu.item(:vendor, @vendor.try(:name), vendor_path(@vendor), :highlights_on => /vendors\/[0-9]+/) unless @vendor.nil? || @vendor.new_record? || @vendor.site != site
             site_vendor_menu.item( :new_vendor, "New Vendor", new_site_vendor_path(site)) if can? :create, site.vendors.new
           end

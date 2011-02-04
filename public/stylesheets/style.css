@@ -1,0 +1,5 @@
+div.nav-bar ul li {
+  list-style: none;
+  display: inline;
+  padding: 3px;
+}

@@ -24,22 +24,27 @@
       </div>
     </div>
 
-    <div id="main-nav" class="span-24 last">
-      <%= render_navigation %>
+    <div id="main-nav" class="span-24 last nav-bar">
+      <%= render_navigation :level => 1 %>
+      <%= render_navigation :level => 2 %>
+      <%= render_navigation :level => 3 %>
     </div>
 
-    <div id="flash" class="span-20 last">
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id=>"flash_#{name}", :class => "flash #{name}" %>
-      <% end %>
-    </div>
-    <div class="span-24 last">
-      <h2><%= @title %></h2>
-      <%= yield %>
+    <%= render 'shared/flash', :flash => flash %>
+    
+    <div class="container">
+      <h2 class="span-24 last"><%= @title %></h2>
+      <div class="span-23 prepend-1 last append-bottom">
+        <%= render_navigation :renderer => :breadcrumbs, :join_with => "&nbsp;&gt;&nbsp;" %>
+      </div>
+      <div class="span-24 last">
+        <%= yield %>
+      </div>
     </div>
     <div id="footer" class="span-24 last">
     </div>
   </div>
+  
   <%= javascript_include_tag 'jquery/jquery-1.4.2.min' %>
   <%= javascript_include_tag 'jquery/jquery-ui-1.8.9.custom.min.js' %>
   <%= javascript_include_tag :all %>
