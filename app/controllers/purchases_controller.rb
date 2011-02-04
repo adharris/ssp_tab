@@ -24,4 +24,8 @@ class PurchasesController < ApplicationController
     end
   end
 
+  def show
+    @title = "#{@purchase.vendor.name} #{@purchase.date}"
+  end
+
 end
