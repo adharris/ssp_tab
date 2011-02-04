@@ -62,10 +62,10 @@ ActiveRecord::Schema.define(:version => 20110204030905) do
     t.integer  "vendor_id"
     t.date     "date"
     t.integer  "purchaser_id"
-    t.decimal  "total",        :precision => 8, :scale => 2
+    t.decimal  "total"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "tax"
+    t.decimal  "tax",          :precision => 8, :scale => 2
   end
 
   create_table "sites", :force => true do |t|

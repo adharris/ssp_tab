@@ -8,10 +8,10 @@
 #  vendor_id    :integer
 #  date         :date
 #  purchaser_id :integer
-#  total        :decimal(8, 2)
+#  total        :decimal(, )
 #  created_at   :datetime
 #  updated_at   :datetime
-#  tax          :decimal(, )
+#  tax          :decimal(8, 2)
 #
 
 class Purchase < ActiveRecord::Base
@@ -21,6 +21,7 @@ class Purchase < ActiveRecord::Base
   validates :vendor_id, :presence => true
   validates :purchaser_id, :presence => true
   validates :total, :presence => true
+  validates :tax, :presence => true
   validates :date, :presence => true
   
   belongs_to :program

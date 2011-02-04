@@ -3,7 +3,8 @@
     <%= form.input :vendor, :as => :radio, :collection => purchase.program.site.vendors %>
     <%= form.input :purchaser, :as => :select, :collection => purchase.program.users %>
     <%= form.input :date, :as => :datepicker %>
-    <%= form.input :total, :input_html => { :size => 15 } %>
+    <%= form.input :tax, :input_html => { :size => 15 }, :hint => "Enter the tax, in dollars" %>
+    <%= form.input :total, :input_html => { :size => 15 }, :hint => "Enter the total, including tax" %>
   <% end %>
   <%= form.buttons %>
 <% end %>

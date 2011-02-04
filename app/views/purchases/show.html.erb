@@ -7,4 +7,6 @@
   <dd><%= @purchase.purchaser.name %></dd>
   <dt>Total</dt>
   <dd><%= number_to_currency(@purchase.total, :unit => "$") %></dd>
+  <dt>Tax</dt>
+  <dd><%= number_to_currency(@purchase.tax, :unit => "$") %></dd>
 </dl>
