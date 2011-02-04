@@ -4,6 +4,7 @@ class VendorsController < ApplicationController
 
   def index
     authorize! :see_vendors_for, @site unless @site.nil?
+    redirect_to site_vendors_path(current_user.current_program.site) if ( @site.nil? && cannot?(:manage, Vendor))
     @title = @site.nil? ? "Vendors" : "Vendors for #{@site.name}"
   end
 

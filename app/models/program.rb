@@ -35,6 +35,18 @@ class Program < ActiveRecord::Base
   def short_name
     "#{program_type.name} #{start_date.year}"
   end
+  
+  def smart_name
+    elements = []
+    elements << self.site.name 
+    elements << self.program_type.name if Program.current.where(:site_id => self.site_id).count > 1
+    elements << self.start_date.year if Program.current.where(:site_id => self.site_id, :program_type_id => self.program_type_id).count > 1
+    elements.join(" ")
+  end
+
+  def to_s
+    smart_name
+  end
 
   def adults
     (self.weeks.map &:adults).sum

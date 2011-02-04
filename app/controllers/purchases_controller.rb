@@ -3,6 +3,7 @@ class PurchasesController < ApplicationController
   load_and_authorize_resource :purchase, :through => :program, :shallow => true
 
   def index
+    redirect_to program_purchases_path(current_user.current_program) if (@program.nil? && cannot?(:manage, Purchase))
     @title = "Purchases"
   end
 
