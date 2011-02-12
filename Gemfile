@@ -13,11 +13,11 @@ gem 'formtastic'
 gem 'rails3-jquery-autocomplete'
 gem 'ruby-units'
 gem 'simple-navigation'
+gem 'faker'
 
 group :development do
   gem 'rspec-rails'
   gem 'annotate-models'
-  gem 'faker'
 end
 
 group :test do
