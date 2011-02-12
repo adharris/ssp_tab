@@ -43,6 +43,7 @@ class Ability
       can :manage, Vendor
       can :manage, Purchase
       can :manage, FoodItem
+      can :manage, FoodItemPurchase
     else
 
       unless user.current_program.nil?
@@ -60,6 +61,7 @@ class Ability
 
         can [:read, :update, :create], Purchase, :program_id => user.current_program.id
 
+        can [:read, :create, :destroy], FoodItemPurchase, :purchase => { :program_id => user.current_program.id }
       end
     end
 

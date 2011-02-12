@@ -1,0 +1,2 @@
+$("#new_food_item_purchase").replaceWith("<%= escape_javascript( render( 'food_item_purchases/form', :food_item_purchase => @food_item_purchase, :remote => true)) %>");
+$("#food_item_purchase_food_item_id").combobox();

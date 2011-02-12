@@ -1,0 +1,9 @@
+<% if @food_item_purchase.destroyed? %>
+  $("tr[food_item_purchase_id='<%= @food_item_purchase.id %>']").fadeOut(500, function () { $(this).remove(); });
+  <% if @food_item_purchase.taxable? %>
+    <% @food_item_purchase.purchase.food_item_purchases.taxable.each do |food_item| %>
+      $("tr[food_item_purchase_id='<%= food_item.id %>']").replaceWith("<%= escape_javascript(render(food_item)) %>");
+    <% end %>
+  <% end %>
+  <%= render 'purchases/purchase_totals', :purchase => @food_item_purchase.purchase %>
+<% end %>

@@ -571,3 +571,10 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  */
 .ui-progressbar { height:2em; text-align: left; }
 .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
+
+/* Combobox
+ */
+.ui-combobox-button { margin-left: -1px; }
+.ui-combobox-button .ui-button-text {padding: 0.35em}
+.ui-combobox { margin: 0px; padding: 0.5em 0 0.5em 0.45em !important; margin-top: -1px !important;}
+

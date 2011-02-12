@@ -10,8 +10,11 @@ SspCtab::Application.routes.draw do
   
   resources :programs do
     resources :weeks, :shallow => true
-    resources :purchases, :shallow => true
+    resources :purchases, :shallow => true do
+      resources :food_item_purchases, :shallow => true
+    end
     get :autocomplete_user_name
+    get :autocomplete_food_item
   end
 
   resources :food_items

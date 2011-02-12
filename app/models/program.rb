@@ -22,10 +22,11 @@ class Program < ActiveRecord::Base
   has_many :users, :through => :program_users
   has_many :weeks
   has_many :purchases
+  has_many :food_items
 
   scope :current, where("end_date >= ?", Time.now)
   scope :past, where("end_date < ?", Time.now)
-
+ 
   default_scope :joins => :site, :order => 'end_date DESC, sites.name ASC'
 
   def name

@@ -26,6 +26,19 @@ class FoodItem < ActiveRecord::Base
   belongs_to :program
   belongs_to :food_item_category
 
+  has_many :food_item_purchases
+
+  scope :master, where(:program_id => nil)
+  scope :all_for_program, lambda {|program| where('program_id IS NULL OR program_id = ?', program.id) }
+
+  scope :search_by_name, lambda { |q|
+    (q ? where(["name Like ?", '%' + q + '%']) : {} )
+  }
+
+  def to_s
+    name
+  end
+
   protected
 
   def validate_units

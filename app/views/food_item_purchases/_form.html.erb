@@ -1,0 +1,11 @@
+<% remote ||= false %>
+<%= semantic_form_for food_item_purchase, :url => (food_item_purchase.new_record? ? purchase_food_item_purchases_path(food_item_purchase.purchase) : food_item_purchase ), :remote => remote do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :food_item, :collection => FoodItem.all_for_program(food_item_purchase.purchase.program), :input_html => { :class => "jq-combo" }%>
+    <%= form.input :quantity, :hint => "Enter the number of the selected item that was bought" %>
+    <%= form.input :price, :hint => "Enter the price each for the selected item" %>
+    <%= form.input :size, :label => "Package Size", :hint => "Enter the size of the package of the item." %>
+    <%= form.input :taxable, :hint => "indicate if this item is taxable" %>
+  <% end %>
+  <%= form.buttons %>
+<% end %>

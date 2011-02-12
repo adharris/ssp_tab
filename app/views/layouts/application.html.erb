@@ -15,6 +15,7 @@
       <h1 class="span-16">SSP</h1>
       <div class="span-8 last">
         <% if user_signed_in? %>
+          <%= gravatar_for current_user, :size => 24 %>
           <%= current_user.name %>
           <%= link_to "account", current_user %> |
           <%= link_to "sign out", destroy_user_session_path %>
@@ -47,7 +48,9 @@
   
   <%= javascript_include_tag 'jquery/jquery-1.4.2.min' %>
   <%= javascript_include_tag 'jquery/jquery-ui-1.8.9.custom.min.js' %>
+  <%= javascript_include_tag 'jquery/jquery-ui-widgets.js' %>
   <%= javascript_include_tag :all %>
+  <%= yield :javascript %>
 
 </body>
 </html>

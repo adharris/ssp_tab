@@ -9,6 +9,12 @@ class ProgramsController < ApplicationController
     render :json => json_for_autocomplete(@users, :name)
   end
 
+  def autocomplete_food_item
+    @program = Program.find(params[:program_id])
+    @food_items = FoodItem.all_for_program(@program).search_by_name(params[:term])
+    render :json => json_for_autocomplete(@food_items, :name)
+  end
+
   def index
     @title = "Programs"
     @active_programs = Program.current
