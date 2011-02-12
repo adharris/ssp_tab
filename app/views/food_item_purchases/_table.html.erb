@@ -15,5 +15,8 @@
   </thead>
   <tbody>
     <%= render food_item_purchases %>
+    <% if food_item_purchases.empty? %>
+      <tr><td colspan=9>No food items have been added for this purchase</td></td>
+    <% end %>
   </tbody>
 </tbody>
