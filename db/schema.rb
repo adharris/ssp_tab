@@ -10,7 +10,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110211183716) do
+ActiveRecord::Schema.define(:version => 20110213051823) do
+
+  create_table "food_inventories", :force => true do |t|
+    t.integer  "program_id"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "food_inventories", ["program_id"], :name => "index_food_inventories_on_program_id"
+
+  create_table "food_inventory_food_items", :force => true do |t|
+    t.integer  "food_inventory_id"
+    t.integer  "food_item_id"
+    t.string   "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "food_inventory_food_items", ["food_inventory_id"], :name => "index_food_inventory_food_items_on_food_inventory_id"
+  add_index "food_inventory_food_items", ["food_item_id"], :name => "index_food_inventory_food_items_on_food_item_id"
 
   create_table "food_item_categories", :force => true do |t|
     t.string   "name"
@@ -69,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20110211183716) do
     t.integer  "program_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "food_budget",     :precision => 8, :scale => 2
   end
 
   create_table "purchases", :force => true do |t|

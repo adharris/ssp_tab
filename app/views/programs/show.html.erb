@@ -7,6 +7,12 @@
   <dd><%= @program.start_date %></dd>
   <dt>End Date</dt>
   <dd><%= @program.end_date %></dd>
+  <dt>Food Budget</dt>
+  <dd><%= number_to_currency(@program.food_budget, :unit => '$') %></dd>
+  <dt>Food Budget Used</dt>
+  <dd><%= number_to_currency(@program.food_budget_spent, :unit => '$') %></dd>
+  <dt>Food Budget Remaining</dt>
+  <dd><%= number_to_currency(@program.food_budget_remaining, :unit => '$') %></dd>
 </dl>
 <% if can? :edit, @program %>
   <%= link_to "Edit program", edit_program_path(@program) %>

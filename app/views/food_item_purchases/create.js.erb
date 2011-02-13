@@ -5,4 +5,5 @@ $("#food_item_purchases tbody").prepend("<%= escape_javascript( render(@food_ite
 $("#new_food_item_purchase").replaceWith("<%= escape_javascript( render( 'food_item_purchases/form', :food_item_purchase => @purchase.food_item_purchases.new, :remote => true)) %>");
 $("#food_item_purchase_food_item_id").combobox();
 $("#new_food_item_purchase :input:visible:first").focus();
+$("#food_item_purchase_new_row").remove();
 <%= render 'purchases/purchase_totals', :purchase => @purchase %>

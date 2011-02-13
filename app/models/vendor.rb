@@ -23,9 +23,9 @@ class Vendor < ActiveRecord::Base
   validates :address, :presence => true
   validates :city, :presence => true
   validates :state, :presence => true, :length => {:is => 2}
-  validates :zip, :presence => true, :length => { :is => 5 }, :format => { :with => /^[0-9]*$/ }
+  validates :zip, :presence => true, :length => { :maximum => 10, :minimum => 5 }
   validates :contact, :presence => true
-  validates :phone, :length => { :is => 10 }
+  validates :phone, :length => { :maximum => 20 }
 
   
   belongs_to :site

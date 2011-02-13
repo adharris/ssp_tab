@@ -7,7 +7,6 @@ namespace :db do
     make_users
     make_sites
     make_programs
- #   make_jobs
     assign_jobs
     make_weeks
     make_vendors
@@ -43,9 +42,9 @@ def make_vendors
                               :address => Faker::Address.street_name,
                               :city => Faker::Address.city,
                               :state => Faker::Address.us_state_abbr,
-                              :zip => Faker.numerify('#####'),
+                              :zip => Faker::Address.zip_code,
                               :contact => Faker::Name.name,
-                              :phone => Faker.numerify('##########'))
+                              :phone => Faker::PhoneNumber.phone_number)
       vendor.site = site
       vendor.save!
     end

@@ -36,11 +36,15 @@ class Purchase < ActiveRecord::Base
   end
 
   def accounted_for
-    (food_item_purchases.map &:total_price).sum
+    (food_item_purchases.map &:total_price_with_tax).sum
   end
 
   def unaccounted_for
     total - accounted_for
+  end
+
+  def food_item_total
+    (food_item_purchases.map &:total_price_with_tax).sum
   end
 
   def effective_tax_rate

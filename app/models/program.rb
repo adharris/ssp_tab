@@ -13,7 +13,7 @@
 #
 
 class Program < ActiveRecord::Base
-  attr_accessible :site_id, :start_date, :end_date, :program_type_id
+  attr_accessible :site_id, :start_date, :end_date, :program_type_id, :food_budget
 
   belongs_to :site
   belongs_to :program_type
@@ -27,7 +27,7 @@ class Program < ActiveRecord::Base
   scope :current, where("end_date >= ?", Time.now)
   scope :past, where("end_date < ?", Time.now)
  
-  default_scope :joins => :site, :order => 'end_date DESC, sites.name ASC'
+  default_scope :include => :site, :order => 'end_date DESC, sites.name ASC'
 
   def name
     "#{site.name} #{program_type.name} #{start_date.year}"
@@ -55,5 +55,13 @@ class Program < ActiveRecord::Base
 
   def youth
     (self.weeks.map &:youth).sum
+  end
+
+  def food_budget_spent
+    (self.purchases.map &:food_item_total).sum
+  end
+
+  def food_budget_remaining
+    food_budget - food_budget_spent
   end
 end
