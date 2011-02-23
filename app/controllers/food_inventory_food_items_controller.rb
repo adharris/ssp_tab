@@ -1,0 +1,2 @@
+class FoodInventoryFoodItemsController < ApplicationController
+end

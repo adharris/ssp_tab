@@ -40,20 +40,28 @@ class FoodItem < ActiveRecord::Base
     name
   end
 
+  def last_inventory_for_program_at_date(program, date)
+    food_inventory_food_items.joins(:food_inventory).where('food_inventories.program_id = ? and food_inventories.date < ?', program.id, date).order('food_inventories.date DESC').first
+  end
+    
   def last_inventory_for(program)
-    food_inventory_food_items.joins(:food_inventory).where('food_inventories.program_id = ?', program.id).order('food_inventories.date DESC').first
+    last_inventory_for_program_at_date(program, Date.today)
   end
 
-  def purchases_since(program, date)
-    food_item_purchases.joins(:purchase).where('purchases.program_id = ? AND purchases.date >= ?', program.id, date)
+  def purchases_between(program, start_date, end_date)
+    food_item_purchases.joins(:purchase).where('purchases.program_id = ? AND purchases.date >= ? AND purchases.date <= ?', program.id, start_date, end_date)
   end
 
   def in_inventory_for(program)
-    last_inventory = last_inventory_for(program)
+   in_inventory_for_program_at(program, Date.today) 
+  end
+
+  def in_inventory_for_program_at(program, date)
+    last_inventory = last_inventory_for_program_at_date(program, date)
     if last_inventory.nil?
-      (purchases_since(program, program.purchases.first.date).map &:total_size_in_base_units).sum
+      (purchases_between(program, program.purchases.first.date, date).map &:total_size_in_base_units).sum
     else
-      last_inventory.quantity.unit + (purchases_since(program, last_inventory.food_inventory.date).map &:total_size_in_base_units).sum
+      last_inventory.quantity.unit + (purchases_between(program, last_inventory.food_inventory.date, date).map &:total_size_in_base_units).sum
     end
   end
 
