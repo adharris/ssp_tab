@@ -13,11 +13,13 @@ SspCtab::Application.routes.draw do
     resources :purchases, :shallow => true do
       resources :food_item_purchases, :shallow => true
     end
+    resources :food_inventories, :shallow => true
     get :autocomplete_user_name
     get :autocomplete_food_item
   end
 
   resources :food_items
+  
 
   resources :program_users, :only => [:create, :destroy]
   root :to => 'pages#home'
@@ -25,6 +27,7 @@ SspCtab::Application.routes.draw do
   # route for the main index of all vendors
   resources :vendors, :only => [:index]
   resources :purchases, :only => [:index]
+  resources :food_inventories, :only => [:index]
 
   #static routes
   get "pages/home"

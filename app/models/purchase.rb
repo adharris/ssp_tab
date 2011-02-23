@@ -30,6 +30,7 @@ class Purchase < ActiveRecord::Base
 
   has_many :food_item_purchases
 
+  default_scope :order => 'date ASC'
 
   def to_s
     "#{vendor.name} #{date}"

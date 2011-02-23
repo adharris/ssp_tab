@@ -27,6 +27,7 @@ class FoodItem < ActiveRecord::Base
   belongs_to :food_item_category
 
   has_many :food_item_purchases
+  has_many :food_inventory_food_items
 
   scope :master, where(:program_id => nil)
   scope :all_for_program, lambda {|program| where('program_id IS NULL OR program_id = ?', program.id) }
@@ -37,6 +38,23 @@ class FoodItem < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def last_inventory_for(program)
+    food_inventory_food_items.joins(:food_inventory).where('food_inventories.program_id = ?', program.id).order('food_inventories.date DESC').first
+  end
+
+  def purchases_since(program, date)
+    food_item_purchases.joins(:purchase).where('purchases.program_id = ? AND purchases.date >= ?', program.id, date)
+  end
+
+  def in_inventory_for(program)
+    last_inventory = last_inventory_for(program)
+    if last_inventory.nil?
+      (purchases_since(program, program.purchases.first.date).map &:total_size_in_base_units).sum
+    else
+      last_inventory.quantity.unit + (purchases_since(program, last_inventory.food_inventory.date).map &:total_size_in_base_units).sum
+    end
   end
 
   protected

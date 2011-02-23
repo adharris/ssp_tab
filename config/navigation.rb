@@ -62,6 +62,23 @@ SimpleNavigation::Configuration.run do |navigation|
       food_item.item :new_food_item, "New Food Item", new_food_item_path if can? :create, FoodItem
     end
 
+    primary.item(:food_inventories, "Food Inventories", food_inventories_path, :if => lambda {can? :index, FoodInventory }) do |inventories_menu|
+      if(can? :manage, FoodInventory)
+        inventories_menu.item(:all_food_inventories,
+                              "All Food Inventories",
+                              food_inventories_path)
+        Program.current.each do |program|
+          inventories_menu.item("program_#{program.id}_food_inventories",
+                                program,
+                                program_food_inventories_path(program),
+                                :if => lambda { can? :see_food_inventories_for, program}) do |program_food_inventories_menu|
+            food_inventory_menu(program_food_inventories_menu, program)
+          end
+        end
+      else
+        food_inventory_menu(inventories_menu, current_user.current_program)
+      end
+    end
 
     primary.item(:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
       if(can? :manage, Vendor)

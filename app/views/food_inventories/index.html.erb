@@ -1,0 +1,5 @@
+<% if @program.nil? && can?(:manage, FoodInventory) %>
+  <%= render 'table_site', :food_inventories => @food_inventories %>
+<% else %>
+  <%= render 'table', :food_inventories => @food_inventories %>
+<% end %>

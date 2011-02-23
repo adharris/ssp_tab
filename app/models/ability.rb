@@ -44,12 +44,13 @@ class Ability
       can :manage, Purchase
       can :manage, FoodItem
       can :manage, FoodItemPurchase
+      can :manage, FoodInventory
     else
 
       unless user.current_program.nil?
         can :read, Site
         can [:see_vendors_for], Site, :id => user.current_program.site.id
-        can [:read, :see_purchases_for], Program, :id => user.current_program.id
+        can [:read, :see_purchases_for, :see_food_inventories_for], Program, :id => user.current_program.id
 
         if user.current_job == "Site Director"
           can :update, Week, :program_id => user.current_program.id
@@ -62,6 +63,7 @@ class Ability
         can [:read, :update, :create], Purchase, :program_id => user.current_program.id
 
         can [:read, :create, :destroy], FoodItemPurchase, :purchase => { :program_id => user.current_program.id }
+        can [:read, :create, :destroy, :update], FoodInventory, :program_id => user.current_program.id
       end
     end
 

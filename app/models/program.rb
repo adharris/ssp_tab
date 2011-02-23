@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110117171731
+# Schema version: 20110213051823
 #
 # Table name: programs
 #
@@ -10,6 +10,7 @@
 #  program_type_id :integer
 #  created_at      :datetime
 #  updated_at      :datetime
+#  food_budget     :decimal(8, 2)
 #
 
 class Program < ActiveRecord::Base
@@ -23,6 +24,7 @@ class Program < ActiveRecord::Base
   has_many :weeks
   has_many :purchases
   has_many :food_items
+  has_many :food_inventories
 
   scope :current, where("end_date >= ?", Time.now)
   scope :past, where("end_date < ?", Time.now)
