@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to_if(can?(:view, food_inventory), food_inventory.date, food_inventory) %></td>
+  <td><%= link_to_if(can?(:read, food_inventory), food_inventory.date, food_inventory) %></td>
   <td>Not Impl.</td>
   <td>Not Impl.</td>
   <td>
