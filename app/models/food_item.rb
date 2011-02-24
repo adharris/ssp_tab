@@ -67,13 +67,21 @@ class FoodItem < ActiveRecord::Base
 
   protected
 
+  def before_save
+    strip_units_scalar
+  end
+
   def validate_units
+    self.base_unit.downcase!
     begin
       self.base_unit.unit
-      errors.add(:base_unit, "Please enter only the units portion of the measurement") unless self.base_unit.unit.units == self.base_unit
       errors.add(:base_unit, "Base unit should be a unit of weight, volumn, or each") unless [:unitless, :mass, :volume].include? self.base_unit.unit.kind
     rescue
       errors.add(:base_unit, "#{base_unit} is not a recognized unit")
     end
   end 
+
+  def strip_units_scalar
+    self.base_unit = self.base_unit.unit.units
+  end
 end
