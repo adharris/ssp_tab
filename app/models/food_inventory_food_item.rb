@@ -19,15 +19,17 @@ class FoodInventoryFoodItem < ActiveRecord::Base
 
   validates :food_inventory_id, :presence => true
   validates :food_item_id, :presence => true
+  validate :validate_units
   # validates :quantity, :presence => true
 
   def validate_units
     begin
       self.quantity.unit
       errors.add(:quantity, "Base unit should be a unit of weight, volumn, or each") unless [:unitless, :mass, :volume].include? self.quantity.unit.kind
-      errors.add(:quantity, "the units entered are a measure of #{self.size.unit.kind.to_s.humanize}, while #{self.food_item.name} requires a unit of #{self.food_item.base_unit.unit.kind.to_s.humanize} to convert") unless(self.food_item.nil? || self.food_item.base_unit.unit =~ self.size.unit)
-    rescue
-      errors.add(:quantity, "#{self.quantity} does not use recogized units")
+      errors.add(:quantity, "the units entered are a measure of #{self.quantity.unit.kind.to_s.humanize}, while #{self.food_item.name} requires a unit of #{self.food_item.base_unit.unit.kind.to_s.humanize} to convert") unless(self.food_item.nil? || self.food_item.base_unit.unit =~ self.quantity.unit)
+    rescue Exception => e
+      errors.add(:quantity, e.message)
+      # errors.add(:quantity, "#{self.quantity} does not use recogized units")
     end
   end
 

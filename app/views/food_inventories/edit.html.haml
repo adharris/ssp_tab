@@ -5,6 +5,7 @@
         %th Item Name
         %th In Inventory
         %th New Amount
+        %th
         %th Remove
 
     %tbody
@@ -12,9 +13,11 @@
         %tr
           %td= food_inventory_food_item.food_item
           %td= food_inventory_food_item.in_inventory
-          %td
-            = form.fields_for :food_inventory_food_items, food_inventory_food_item do |builder|
+          - form.fields_for :food_inventory_food_items, food_inventory_food_item do |builder|
+            %td
               = builder.hidden_field :food_item_id
               = builder.text_field :quantity
+            %td= food_inventory_food_item.errors[:quantity]
+            %td= builder.check_box :_destroy
 
   = form.submit "Save"
