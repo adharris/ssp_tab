@@ -19,7 +19,7 @@ class FoodInventoryFoodItem < ActiveRecord::Base
 
   validates :food_inventory_id, :presence => true
   validates :food_item_id, :presence => true
-  validates :quantity, :presence => true
+  # validates :quantity, :presence => true
 
   def validate_units
     begin
@@ -30,4 +30,21 @@ class FoodInventoryFoodItem < ActiveRecord::Base
       errors.add(:quantity, "#{self.quantity} does not use recogized units")
     end
   end
+
+  def in_inventory
+    food_item.in_inventory_for_program_at(food_inventory.program, food_inventory.date)
+  end
+
+  def consumed
+    in_inventory - quantity.unit
+  end
+
+  def average_price
+    food_item.cost_of(food_inventory.program, food_inventory.date, consumed, quantity).scalar
+  end
+
+  def total_price
+    average_price * consumed.scalar
+  end
+
 end

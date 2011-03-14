@@ -23,6 +23,8 @@ class FoodItem < ActiveRecord::Base
   
   validate :validate_units
 
+  before_save :strip_units_scalar
+
   belongs_to :program
   belongs_to :food_item_category
 
@@ -32,9 +34,8 @@ class FoodItem < ActiveRecord::Base
   scope :master, where(:program_id => nil)
   scope :all_for_program, lambda {|program| where('program_id IS NULL OR program_id = ?', program.id) }
 
-  scope :search_by_name, lambda { |q|
-    (q ? where(["name Like ?", '%' + q + '%']) : {} )
-  }
+  scope :search_by_name, lambda { |q| (q ? where(["name Like ?", '%' + q + '%']) : {} ) }
+  
 
   def to_s
     name
@@ -65,11 +66,32 @@ class FoodItem < ActiveRecord::Base
     end
   end
 
-  protected
+  def cost_of(program, date, quantity, excluded = 0)
+    food_item_purchases = purchases_between(program, program.start_date, date).order('date DESC')
 
-  def before_save
-    strip_units_scalar
+    costs = []
+    quantity = quantity.unit
+    excluded = excluded.unit
+
+    food_item_purchases.each do |food_item_purchase|
+      amount_available = food_item_purchase.quantity * food_item_purchase.size.u
+      if(excluded > 0)
+        to_debit = [excluded, amount_available].min 
+        excluded -= to_debit
+        amount_available -= to_debit
+      end
+      
+      if(quantity > 0)
+        to_debit = [quantity, amount_available].min
+        quantity -= to_debit
+        costs += [[to_debit, food_item_purchase.price / food_item_purchase.size.u]]
+      end
+    end
+  
+    (costs.inject(0) { |result, element| result + element[0].unit * element[1] }) / (costs.collect {|e| e[0] }).sum
   end
+
+  protected
 
   def validate_units
     self.base_unit.downcase!

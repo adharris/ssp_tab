@@ -29,6 +29,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :purchaser, :class_name => "User"
 
   has_many :food_item_purchases
+  has_many :food_items, :through => :food_item_purchases
 
   default_scope :order => 'date ASC'
 

@@ -14,6 +14,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'ruby-units'
 gem 'simple-navigation'
 gem 'faker'
+gem 'haml'
 
 group :development do
   gem 'rspec-rails'

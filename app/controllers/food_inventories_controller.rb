@@ -29,6 +29,9 @@ class FoodInventoriesController < ApplicationController
   def edit
     @title = "Editing #{@food_inventory.date} Food Inventory"
     @program = @food_inventory.program
+    (@program.purchased_items - @food_inventory.food_items).each do |food_item|
+      @food_inventory.food_inventory_food_items.build(:food_item_id => food_item.id)
+    end
   end
 
   def update

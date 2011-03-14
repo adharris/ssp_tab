@@ -23,6 +23,7 @@ class Program < ActiveRecord::Base
   has_many :users, :through => :program_users
   has_many :weeks
   has_many :purchases
+  has_many :food_item_purchases, :through => :purchases
   has_many :food_items
   has_many :food_inventories
 
@@ -66,4 +67,9 @@ class Program < ActiveRecord::Base
   def food_budget_remaining
     food_budget - food_budget_spent
   end
+
+  def purchased_items
+    (food_item_purchases.collect &:food_item).uniq
+  end
+    
 end
