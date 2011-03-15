@@ -46,4 +46,7 @@ SspCtab::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  #Setup the host domain
+  config.action_mailer.default_url_options = { :host => 'ssp-food.heroku.com' }
 end
