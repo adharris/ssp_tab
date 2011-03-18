@@ -61,7 +61,7 @@ class Program < ActiveRecord::Base
   end
 
   def food_budget_spent
-    (self.purchases.map &:food_item_total).sum
+    (self.purchases.map &:total).sum
   end
 
   def food_budget_remaining

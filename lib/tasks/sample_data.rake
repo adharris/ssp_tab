@@ -10,6 +10,8 @@ namespace :db do
     assign_jobs
     make_weeks
     make_vendors
+    make_food_items
+    make_purchases
   end
 end
 
@@ -59,8 +61,9 @@ def make_programs
   Site.all.each do |site|
     Program.create!(:site_id => site.id,
                     :program_type_id => summer.id,
-                    :start_date => Date.today - 2.weeks,
-                    :end_date => Date.today + 2.weeks)
+                    :start_date => Date.today - 1.weeks,
+                    :end_date => Date.today + 6.weeks,
+                    :food_budget => (4000..6000).to_a.rand)
   end
 end
 
@@ -91,3 +94,24 @@ def make_weeks
   end
 end
 
+def make_food_items
+  50.times do
+    FoodItem.create(:name => Faker::Lorem.words(1),
+                    :base_unit => ['lb', 'oz', 'g', 'each', 'doz', 'floz', 'gal', 'l'].rand,
+                    :default_taxed => false,
+                    :food_item_category_id => FoodItemCategory.all.rand.id)
+  end
+end
+
+def make_purchases
+  Program.all.each do |program|
+    15.times do 
+      purchase = program.purchases.build(:date => (program.start_date..program.end_date).to_a.rand,
+                                         :total => (50..750).to_a.rand,
+                                         :tax => 0);
+      purchase.vendor = program.site.vendors.rand
+      purchase.purchaser = program.users.rand
+      purchase.save!
+    end
+  end
+end
