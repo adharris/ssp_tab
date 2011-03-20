@@ -1,7 +1,0 @@
-<% if !user_signed_in? %>
-
-<% elsif current_user.admin? %>
-  <%= render 'admin_home' %>
-<% else %>
-  <%= render 'user_home' %>
-<% end %>
