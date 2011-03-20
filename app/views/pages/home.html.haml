@@ -1,7 +1,20 @@
-<% if !user_signed_in? %>
+.calendar
+  %h2
+    = link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-%d")
+    = @date.strftime "%B %Y"
+    = link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d")
 
-<% elsif current_user.admin? %>
-  <%= render 'admin_home' %>
-<% else %>
-  <%= render 'user_home' %>
-<% end %>
+  = calendar_for(@inventories + @purchases, :year => @date.year, :month => @date.month) do |t|
+    = t.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+    - t.day do |day, items|
+      .day= day.day
+      - items.each do |item|
+        - if item.is_a?(Purchase)
+          .item{:program => item.program.id}
+            = link_to image_tag('money24.png'), item
+            = link_to number_to_currency(item.total), item
+        - if item.is_a?(FoodInventory)
+          .item{:program => item.program.id}
+            = link_to image_tag('inventory24.png'), item
+            = link_to number_to_currency(item.total_spent), item
+        
