@@ -15,6 +15,7 @@ div.calendar table thead th { text-align: center; border: 1px solid #999; }
 div.calendar table tbody td { background-color: white; border: 1px solid #999; width: 135px; height: 100px; vertical-align: top; padding: 5px;}
 div.calendar table tbody td.weekend { background-color: #ddf; }
 div.calendar table tbody td.today { background-color: #ff9; }
+div.calendar table tbody td.notmonth { background-color: #ddd; }
 div.calendar table tbody td div.day { float:left; font-size: 1.2em; padding: 2px; border-style: none solid solid none; border-width: 1px; border-color: #999; margin: -5px 0 0 -5px; width: 18px; text-align: center; }
 div.calendar table tbody td div.item { padding: 3px; margin-left: 25px; }
 div.calendar table tbody td div.item img { vertical-align: middle; }
