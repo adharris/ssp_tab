@@ -1,10 +1,15 @@
+%form{:action => "/?month=#{@month}", :method => :get}
+  = label_tag 'Program'
+  = select_tag 'program', options_for_select([["All", ""]] + Program.current.map {|u| [u.to_s, u.id]}, @program.try(:id)) 
+  = submit_tag 'Filter'
+
 .calendar
   %h2
-    = link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-%d")
+    = link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-%d"), :program => @program.try(:id)
     = @date.strftime "%B %Y"
-    = link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d")
+    = link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-%d"), :program => @program.try(:id)
 
-  = calendar_for(@inventories + @purchases, :year => @date.year, :month => @date.month) do |t|
+  = calendar_for(@items, :year => @date.year, :month => @date.month) do |t|
     = t.head('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
     - t.day do |day, items|
       .day= day.day
