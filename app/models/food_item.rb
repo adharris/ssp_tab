@@ -69,6 +69,10 @@ class FoodItem < ActiveRecord::Base
   def cost_of(program, date, quantity, excluded = 0)
     food_item_purchases = purchases_between(program, program.start_date, date).order('date DESC')
 
+    if(quantity == 0)
+      return 0.u
+    end
+
     costs = []
     quantity = quantity.unit
     excluded = excluded.unit

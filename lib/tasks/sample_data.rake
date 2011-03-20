@@ -12,10 +12,12 @@ namespace :db do
     make_vendors
     make_food_items
     make_purchases
+    make_food_item_purchases
   end
 end
 
 def make_users
+  puts "making users...."
   admin = User.create!(:username => "admin",
                        :email => "adharris@gmail.com",
                        :name => "Admin User",
@@ -30,6 +32,7 @@ def make_users
 end
 
 def make_sites
+  puts "making sites..."
   8.times do |n|
     Site.create!(:name => Faker::Address.city,
                  :state => Faker::Address.us_state_abbr,
@@ -38,6 +41,7 @@ def make_sites
 end
 
 def make_vendors
+  puts "making vendors..."
   Site.all.each do |site|
     (1 + rand(4)).times do |n|
       vendor = Vendor.new(:name => Faker::Company.name,
@@ -55,13 +59,14 @@ end
 
 
 def make_programs
+  puts "making programs..."
   summer = ProgramType.find_by_name("Summer")
   spring = ProgramType.find_by_name("Spring Break")
 
   Site.all.each do |site|
     Program.create!(:site_id => site.id,
                     :program_type_id => summer.id,
-                    :start_date => Date.today - 1.weeks,
+                    :start_date => Date.today,
                     :end_date => Date.today + 6.weeks,
                     :food_budget => (4000..6000).to_a.rand)
   end
@@ -74,6 +79,7 @@ def make_jobs
 end
 
 def assign_jobs
+  puts "assinging jobs..."
   sd = Job.find_by_name("Site Director")
   c = Job.find_by_name("Chef")
   Program.all.each do |program|
@@ -85,6 +91,7 @@ def assign_jobs
 end
 
 def make_weeks
+  puts "making weeks..."
 #  WeekType.create!(:name => "Sr. High")
 #  WeekType.create!(:name => "Jr. High")
   Program.all.each do |program|
@@ -95,6 +102,7 @@ def make_weeks
 end
 
 def make_food_items
+  puts "making food items..."
   50.times do
     FoodItem.create(:name => Faker::Lorem.words(1),
                     :base_unit => ['lb', 'oz', 'g', 'each', 'doz', 'floz', 'gal', 'l'].rand,
@@ -104,6 +112,7 @@ def make_food_items
 end
 
 def make_purchases
+  puts "making purchases..."
   Program.all.each do |program|
     15.times do 
       purchase = program.purchases.build(:date => (program.start_date..program.end_date).to_a.rand,
@@ -113,5 +122,21 @@ def make_purchases
       purchase.purchaser = program.users.rand
       purchase.save!
     end
+  end
+end
+
+def make_food_item_purchases
+  puts "making food item purchases..."
+  Purchase.all.each do |purchase|
+    puts "   -- #{purchase}"
+    while purchase.unaccounted_for > 0 do
+      u = purchase.unaccounted_for
+      p = purchase.food_item_purchases.build()
+      p.food_item = FoodItem.all.rand
+      p.quantity = (1..15).to_a.rand
+      p.price = [((1..20).to_a.rand * purchase.total / 100 ), u].min / p.quantity
+      p.size = "#{(1..20).to_a.rand} #{p.food_item.base_unit}"
+      p.save!
+    end   
   end
 end
