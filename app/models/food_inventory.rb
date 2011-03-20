@@ -22,4 +22,9 @@ class FoodInventory < ActiveRecord::Base
   validates :program_id, :presence => true
   validates :date, :presence => true
 
+
+  def total_spent
+    (food_inventory_food_items.map &:total_price).sum
+  end
+
 end

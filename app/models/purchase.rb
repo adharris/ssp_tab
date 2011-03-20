@@ -61,4 +61,6 @@ class Purchase < ActiveRecord::Base
       0
     end
   end
+  
+ 
 end
