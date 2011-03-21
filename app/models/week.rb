@@ -55,4 +55,8 @@ class Week < ActiveRecord::Base
   def actual_total
     actual_adults + actual_youth
   end
+
+  def purchased_during
+    program.purchases.where('date >= ? AND date < ?', start_date, end_date).inject(0) { |t, p| t += p.total }
+  end
 end
