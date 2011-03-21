@@ -18,6 +18,9 @@ class ReportsController < ApplicationController
     @weeks = @program.weeks
   end
 
+  def consumption
+    @title = "Consumption Report: #{@program}"
+  end
 
   protected
 

@@ -34,6 +34,7 @@ SspCtab::Application.routes.draw do
   get "reports/list"
   get "reports/inventory"
   get "reports/budget"
+  get "reports/consumption"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
