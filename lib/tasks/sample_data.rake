@@ -96,7 +96,11 @@ def make_weeks
 #  WeekType.create!(:name => "Jr. High")
   Program.all.each do |program|
     6.times do |i|
-      program.weeks.create!(:start_date => Date.today + (i-1).weeks, :end_date => Date.today + i.week, :week_type_id => 1)
+      program.weeks.create!(:start_date => Date.today + (i-1).weeks, 
+                            :end_date => Date.today + i.week, 
+                            :week_type_id => 1,
+                            :scheduled_adults => (5..15).to_a.rand,
+                            :scheduled_youth => (20..60).to_a.rand)
     end
   end
 end
