@@ -28,6 +28,10 @@ class Week < ActiveRecord::Base
 
   default_scope :order => :start_date
 
+  def to_s
+    name
+  end
+
   def name 
     "Week #{Week.where("program_id = ? AND start_date < ?", self.program_id, self.start_date).count + 1}"
   end
