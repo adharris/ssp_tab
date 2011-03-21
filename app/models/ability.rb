@@ -70,6 +70,5 @@ class Ability
     can [:read, :update], User do |read_user|
       read_user == user 
     end
-t
   end
 end
