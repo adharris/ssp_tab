@@ -31,6 +31,7 @@ SspCtab::Application.routes.draw do
 
   #static routes
   get "pages/home"
+  get "reports/inventory"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

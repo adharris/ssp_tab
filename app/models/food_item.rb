@@ -29,7 +29,9 @@ class FoodItem < ActiveRecord::Base
   belongs_to :food_item_category
 
   has_many :food_item_purchases
+  has_many :purchases, :through => :food_item_purchases
   has_many :food_inventory_food_items
+  has_many :food_inventories, :through => :food_inventory_food_items
 
   scope :master, where(:program_id => nil)
   scope :all_for_program, lambda {|program| where('program_id IS NULL OR program_id = ?', program.id) }
@@ -57,6 +59,19 @@ class FoodItem < ActiveRecord::Base
    in_inventory_for_program_at(program, Date.today) 
   end
 
+  def purchased_for_program(program, start_date, end_date)
+    purchases_between(program, start_date, end_date).inject(0) do |total, purchase|
+      total += purchase.size.u * purchase.quantity
+    end
+  end
+
+  def average_cost(program, date)
+    p = purchases_between(program, program.start_date, program.end_date)
+    num = (p.inject(0) {|t, i| t += i.quantity * i.size.u * i.price }) 
+    denom = ( p.inject(0) {|t,i| t += i.quantity * i.size.u}) 
+    denom == 0 ? 0 : num/denom
+  end
+
   def in_inventory_for_program_at(program, date)
     last_inventory = last_inventory_for_program_at_date(program, date)
     if last_inventory.nil?
@@ -64,6 +79,10 @@ class FoodItem < ActiveRecord::Base
     else
       last_inventory.quantity.unit + (purchases_between(program, last_inventory.food_inventory.date, date).map &:total_size_in_base_units).sum
     end
+  end
+
+  def cost_of_inventory(program, date)
+    cost_of(program, date, in_inventory_for_program_at(program, date)).scalar
   end
 
   def cost_of(program, date, quantity, excluded = 0)
