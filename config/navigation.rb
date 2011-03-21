@@ -96,6 +96,7 @@ SimpleNavigation::Configuration.run do |navigation|
     end
     primary.item :sites, "Sites", sites_path, :if => lambda { can? :manage, Site }
     primary.item :programs, "Programs", programs_path, :if => lambda { can? :manage, Program }
+    primary.item :reports, "Reports", reports_list_path
     primary.item :users, "Users", users_path, :if => lambda { can? :create, User }
 
     # Add an item which has a sub navigation (same params, but with block)

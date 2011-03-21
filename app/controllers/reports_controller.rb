@@ -1,5 +1,9 @@
 class ReportsController < ApplicationController
 
+  def list
+    @title = "Reports"
+  end
+
   def inventory
     @title = "Inventory Report"
     @program = current_user.current_program || 
