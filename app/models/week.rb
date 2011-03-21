@@ -43,4 +43,16 @@ class Week < ActiveRecord::Base
   def youth
     actual_youth || scheduled_youth
   end
+
+  def total
+    adults + youth
+  end
+
+  def scheduled_total
+    scheduled_adults + scheduled_youth
+  end
+
+  def actual_total
+    actual_adults + actual_youth
+  end
 end
