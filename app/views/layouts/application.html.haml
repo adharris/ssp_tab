@@ -11,9 +11,9 @@
 </head>
 <body>
   <div class="container">
-    <div id="header" class="span-24 last">
-      <h1 class="span-16">SSP</h1>
-      <div class="span-8 last">
+    <div id="header" class="span-24" >
+      <h1 class="span-18">SSP Food Tracking Application</h1>
+      <div id="user-pane" class="span-6 last">
         <% if user_signed_in? %>
           <%= gravatar_for current_user, :size => 24 %>
           <%= current_user.name %>
