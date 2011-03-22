@@ -23,7 +23,7 @@
             - else
               = link_to "sign in", new_user_session_path
             
-      #main-nav.span-24.last.nav-bar{:class => current_user.admin? ? "" : "non-admin"}
+      #main-nav.span-24.last.nav-bar{:class => user_signed_in? && current_user.admin? ? "" : "non-admin"}
         = render_navigation :level => 1
 
       #page-info.span-24.last.append-bottom
