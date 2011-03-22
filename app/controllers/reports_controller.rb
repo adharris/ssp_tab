@@ -30,6 +30,7 @@ class ReportsController < ApplicationController
     @program = current_user.current_program || 
       (Program.find(params[:program]) if params[:program]) || 
       Program.current.first
+    authorize! :report, @program
   end
 
 end
