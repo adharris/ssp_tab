@@ -1,0 +1,44 @@
+$header-color: #5C91AA;
+$title-color: lighten($header-color, 30%);
+
+/* Mixins */
+@mixin rounded($side, $radius: 10px) {
+  border-#{$side}-radius: $radius;
+  -moz-border-radius-#{$side}: $radius;
+  -webkit-border-#{$side}-radius: $radius;
+}
+
+/* Header Styling */
+#header { background-color: $header-color; }
+#header h1 { padding: 15px; }
+#user-pane>div { background-color: white; padding: 8px; -webkit-border-bottom-left-radius: 10px; -moz-border-radius-bottomleft: 10px; border-bottom-left-radius: 10px;}
+#user-pane>div span {margin: 0 3px;} 
+#user-pane img { vertical-align: middle; margin: 0 5px; }
+
+/* Main Navigation */
+#main-nav { background-color: $header-color; height: 22px; @include rounded(bottom-left, 15px); @include rounded(bottom-right, 15px);  }
+#main-nav ul li { list-style:none; display:inline; padding:7px 10px; margin: 5px 5px 0 5px; }
+#main-nav ul li a {text-decoration: none; font-weight: bold; color: white;}
+#main-nav ul li.selected { background-color: white; @include rounded(top-left); @include rounded(top-right); }
+#main-nav ul li.selected a {color: $header-color; }
+
+/* Page title and site navigation */
+#page-info h2 {background-color: $title-color; display: inline; padding:5px 15px; @include rounded(top-left); @include rounded(top-right);}
+#page-info div.blank {height: 15px; background-color: $title-color; @include rounded(bottom-right, 5px); @include rounded(top-right, 5px); @include rounded(bottom-left, 5px);}
+#site-nav ul li { list-style:none; display:inline; padding: 5px 7px; margin: 0 3px 3px 3px; }
+#site-nav ul li a {text-decoration: none; font-weight: bold; color: $title-color }
+#site-nav ul li.selected {background-color: $title-color; @include rounded(bottom-left); @include rounded(bottom-right) ;}
+#site-nav ul li.selected a {color: white; }
+
+/* Homepage calendar styling */
+div.calendar h2 { text-align: center; }
+div.calendar table {border-collapse: collapse; }
+div.calendar table thead th { text-align: center; border: 1px solid #999; }
+div.calendar table tbody td { background-color: white; border: 1px solid #999; width: 135px; height: 100px; vertical-align: top; padding: 5px;}
+div.calendar table tbody td.weekend { background-color: #ddf; }
+div.calendar table tbody td.today { background-color: #ff9; }
+div.calendar table tbody td.notmonth { background-color: #ddd; }
+div.calendar table tbody td div.day { float:left; font-size: 1.2em; padding: 2px; border-style: none solid solid none; border-width: 1px; border-color: #999; margin: -5px 0 0 -5px; width: 18px; text-align: center; }
+div.calendar table tbody td div.item { padding: 3px; margin-left: 25px; }
+div.calendar table tbody td div.item img { vertical-align: middle; }
+

@@ -1,21 +1,149 @@
-div.nav-bar ul li {
+/* Mixins */
+/* Header Styling */
+#header {
+  background-color: #5c91aa; }
+
+#header h1 {
+  padding: 15px; }
+
+#user-pane > div {
+  background-color: white;
+  padding: 8px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-left-radius: 10px; }
+
+#user-pane > div span {
+  margin: 0 3px; }
+
+#user-pane img {
+  vertical-align: middle;
+  margin: 0 5px; }
+
+/* Main Navigation */
+#main-nav {
+  background-color: #5c91aa;
+  height: 22px;
+  border-bottom-left-radius: 15px;
+  -moz-border-radius-bottom-left: 15px;
+  -webkit-border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -moz-border-radius-bottom-right: 15px;
+  -webkit-border-bottom-right-radius: 15px; }
+
+#main-nav ul li {
   list-style: none;
   display: inline;
-  padding: 3px;
-}
+  padding: 7px 10px;
+  margin: 5px 5px 0 5px; }
 
-div.nav-bar ul li.selected {
+#main-nav ul li a {
+  text-decoration: none;
   font-weight: bold;
-}
+  color: white; }
+
+#main-nav ul li.selected {
+  background-color: white;
+  border-top-left-radius: 10px;
+  -moz-border-radius-top-left: 10px;
+  -webkit-border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-top-right: 10px;
+  -webkit-border-top-right-radius: 10px; }
+
+#main-nav ul li.selected a {
+  color: #5c91aa; }
+
+/* Page title and site navigation */
+#page-info h2 {
+  background-color: #c1d5de;
+  display: inline;
+  padding: 5px 15px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-top-left: 10px;
+  -webkit-border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-top-right: 10px;
+  -webkit-border-top-right-radius: 10px; }
+
+#page-info div.blank {
+  height: 15px;
+  background-color: #c1d5de;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottom-right: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-top-right: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottom-left: 5px;
+  -webkit-border-bottom-left-radius: 5px; }
+
+#site-nav ul li {
+  list-style: none;
+  display: inline;
+  padding: 5px 7px;
+  margin: 0 3px 3px 3px; }
+
+#site-nav ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #c1d5de; }
+
+#site-nav ul li.selected {
+  background-color: #c1d5de;
+  border-bottom-left-radius: 10px;
+  -moz-border-radius-bottom-left: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottom-right: 10px;
+  -webkit-border-bottom-right-radius: 10px; }
+
+#site-nav ul li.selected a {
+  color: white; }
 
 /* Homepage calendar styling */
-div.calendar h2 { text-align: center; }
-div.calendar table {border-collapse: collapse; }
-div.calendar table thead th { text-align: center; border: 1px solid #999; }
-div.calendar table tbody td { background-color: white; border: 1px solid #999; width: 135px; height: 100px; vertical-align: top; padding: 5px;}
-div.calendar table tbody td.weekend { background-color: #ddf; }
-div.calendar table tbody td.today { background-color: #ff9; }
-div.calendar table tbody td.notmonth { background-color: #ddd; }
-div.calendar table tbody td div.day { float:left; font-size: 1.2em; padding: 2px; border-style: none solid solid none; border-width: 1px; border-color: #999; margin: -5px 0 0 -5px; width: 18px; text-align: center; }
-div.calendar table tbody td div.item { padding: 3px; margin-left: 25px; }
-div.calendar table tbody td div.item img { vertical-align: middle; }
+div.calendar h2 {
+  text-align: center; }
+
+div.calendar table {
+  border-collapse: collapse; }
+
+div.calendar table thead th {
+  text-align: center;
+  border: 1px solid #999; }
+
+div.calendar table tbody td {
+  background-color: white;
+  border: 1px solid #999;
+  width: 135px;
+  height: 100px;
+  vertical-align: top;
+  padding: 5px; }
+
+div.calendar table tbody td.weekend {
+  background-color: #ddf; }
+
+div.calendar table tbody td.today {
+  background-color: #ff9; }
+
+div.calendar table tbody td.notmonth {
+  background-color: #ddd; }
+
+div.calendar table tbody td div.day {
+  float: left;
+  font-size: 1.2em;
+  padding: 2px;
+  border-style: none solid solid none;
+  border-width: 1px;
+  border-color: #999;
+  margin: -5px 0 0 -5px;
+  width: 18px;
+  text-align: center; }
+
+div.calendar table tbody td div.item {
+  padding: 3px;
+  margin-left: 25px; }
+
+div.calendar table tbody td div.item img {
+  vertical-align: middle; }
