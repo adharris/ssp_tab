@@ -1,0 +1,19 @@
+%table
+  %thead
+    %tr
+      %th Food Item
+      - @inventories.each do |inventory|
+        %th= inventory.date
+      %th Total Consumed
+      %th Total Price
+  %tbody
+    - @food_items.each do |food_item|
+      %tr
+        %td= link_to food_item, food_item
+        - @inventories.each do |inventory|
+          - inv = inventory.food_inventory_food_items.for_item(food_item).first
+          %td= inv.try(:consumed)
+        - all_inv = food_item.food_inventory_food_items.for_program(@program)
+        %td= (all_inv.map &:consumed).sum
+        %td= number_to_currency((all_inv.map &:total_price).sum)
+

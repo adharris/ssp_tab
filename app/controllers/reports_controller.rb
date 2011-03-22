@@ -20,6 +20,8 @@ class ReportsController < ApplicationController
 
   def consumption
     @title = "Consumption Report: #{@program}"
+    @food_items  = @program.purchased_items
+    @inventories = @program.food_inventories
   end
 
   protected

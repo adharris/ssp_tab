@@ -22,6 +22,10 @@ class FoodInventoryFoodItem < ActiveRecord::Base
   validate :validate_units
   # validates :quantity, :presence => true
 
+  scope :for_item, lambda {|food_item| where('food_item_id = ?', food_item.id) }
+  scope :for_program, lambda { |program|
+    joins(:food_inventory).where('food_inventories.program_id = ?', program.id) }
+
   def validate_units
     begin
       self.quantity.unit
