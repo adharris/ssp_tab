@@ -2,10 +2,10 @@
 %html
   %head
     %title SSP | #{@title}
-    = stylesheet_link_tag :all
     = stylesheet_link_tag 'blueprint/screen', :media => 'screen'
     = stylesheet_link_tag 'blueprint/print', :media => 'print'
     = stylesheet_link_tag 'jqueryui/jquery-ui-1.8.9.custom.css'
+    = stylesheet_link_tag :all
     = csrf_meta_tag 
     
   %body
@@ -16,29 +16,29 @@
         #user-pane.span-8.last
           %div
             - if user_signed_in?
-              %span= gravatar_for current_user, :size => 24
+              %span.gravatar= gravatar_for current_user, :size => 24
               %span= current_user.name
               %span= link_to "account", current_user
               %span= link_to "sign out", destroy_user_session_path
             - else
               = link_to "sign in", new_user_session_path
             
-      #main-nav.span-24.last.nav-bar.append-bottom
+      #main-nav.span-24.last.nav-bar{:class => current_user.admin? ? "" : "non-admin"}
         = render_navigation :level => 1
 
+      #page-info.span-24.last.append-bottom
+        #site-nav= render_navigation :level => 2
+        
+      .span-24.last
+        %h2= @title
+      .blank.span-24.last
+      
+      = render 'shared/flash', :flash => flash
 
       #third-nav.span-24.last.nav-bar
         = render_navigation :level => 3
 
-      = render 'shared/flash', :flash => flash
-
-      #page-info.container.append-bottom
-        .span-24.last
-          %h2= @title
-        .blank.span-24.last
-        #site-nav= render_navigation :level => 2
-
-      #content.container
+      #content.span-24.last
 
         .span-24.last= yield
 

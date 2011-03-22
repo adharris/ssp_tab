@@ -1,5 +1,9 @@
 $header-color: #5C91AA;
-$title-color: lighten($header-color, 30%);
+$title-color: lighten($header-color, 35%);
+$table-header-color: lighten($header-color, 20%);
+$table-light: lighten($table-header-color, 20%);
+
+$contrast-color: adjust_hue($header-color, -90deg);
 
 /* Mixins */
 @mixin rounded($side, $radius: 10px) {
@@ -8,27 +12,50 @@ $title-color: lighten($header-color, 30%);
   -webkit-border-#{$side}-radius: $radius;
 }
 
+@mixin roundedall($radius: 10px) {
+  @include rounded(top-left, $radius);
+  @include rounded(top-right, $radius);
+  @include rounded(bottom-left, $radius);
+  @include rounded(bottom-right, $radius);
+}
+
+/* basic styling */
+a {color : darken($header-color, 10%); }
+a:hover, a:active {color: darken($contrast-color, 10%); }
+h1 {font-weight:bold; font-family:serif; color: $title-color;}
+h2, h3 {color: $header-color; font-weight: bold;}
+
 /* Header Styling */
 #header { background-color: $header-color; }
 #header h1 { padding: 15px; }
 #user-pane>div { background-color: white; padding: 8px; -webkit-border-bottom-left-radius: 10px; -moz-border-radius-bottomleft: 10px; border-bottom-left-radius: 10px;}
 #user-pane>div span {margin: 0 3px;} 
+#user-pane>div span.gravatar { padding: 3px; background-color: $title-color; @include roundedall(7px);}
 #user-pane img { vertical-align: middle; margin: 0 5px; }
 
 /* Main Navigation */
-#main-nav { background-color: $header-color; height: 22px; @include rounded(bottom-left, 15px); @include rounded(bottom-right, 15px);  }
+#main-nav { position:relative; z-index: 2; background-color: $header-color; height: 22px; @include rounded(bottom-left, 15px); @include rounded(bottom-right, 15px);  }
 #main-nav ul li { list-style:none; display:inline; padding:7px 10px; margin: 5px 5px 0 5px; }
 #main-nav ul li a {text-decoration: none; font-weight: bold; color: white;}
-#main-nav ul li.selected { background-color: white; @include rounded(top-left); @include rounded(top-right); }
+#main-nav ul li.selected { background-color: $title-color; @include rounded(top-left); @include rounded(top-right); }
+#main-nav.non-admin ul li.selected {background-color : white;}
 #main-nav ul li.selected a {color: $header-color; }
 
 /* Page title and site navigation */
+#page-info {position: relative; z-index: 1;}
 #page-info h2 {background-color: $title-color; display: inline; padding:5px 15px; @include rounded(top-left); @include rounded(top-right);}
-#page-info div.blank {height: 15px; background-color: $title-color; @include rounded(bottom-right, 5px); @include rounded(top-right, 5px); @include rounded(bottom-left, 5px);}
+#page-info div.blank { background-color: $title-color; @include rounded(bottom-right, 5px); @include rounded(top-right, 5px); @include rounded(bottom-left, 5px);}
+#site-nav { margin-top: -20px; padding-top: 20px;  background-color: $title-color; @include rounded(bottom-left); @include rounded(bottom-right);}
+#site-nav ul { padding: 10px 3px 3px 10px;} 
 #site-nav ul li { list-style:none; display:inline; padding: 5px 7px; margin: 0 3px 3px 3px; }
-#site-nav ul li a {text-decoration: none; font-weight: bold; color: $title-color }
-#site-nav ul li.selected {background-color: $title-color; @include rounded(bottom-left); @include rounded(bottom-right) ;}
-#site-nav ul li.selected a {color: white; }
+#site-nav ul li a {text-decoration: none; font-weight: bold; color: $header-color; }
+#site-nav ul li.selected {background-color: white; @include rounded(top-left); @include rounded(top-right) ;}
+
+/* Table styling */
+table thead tr th {background-color: $table-header-color; }
+table tbody tr:nth-child(even) td, 
+table tbody tr.even td {background-color: $table-light; }
+table tbody thead tr:first th:first {@include rounded(top-left); }
 
 /* Homepage calendar styling */
 div.calendar h2 { text-align: center; }
