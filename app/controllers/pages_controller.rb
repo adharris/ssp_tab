@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   
   def home
+    redirect_to new_user_session_path unless user_signed_in?
     @title = "Home"
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
     @program = Program.find(params[:program]) unless params[:program].blank?
