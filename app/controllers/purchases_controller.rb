@@ -4,12 +4,16 @@ class PurchasesController < ApplicationController
 
   def index
     redirect_to program_purchases_path(current_user.current_program) if (@program.nil? && cannot?(:manage, Purchase))
-    @title = "Purchases"
+    @title = @program.nil? ? "Purchases" : "Purchases for #{@program}"
+    unless @program.nil?
+      @menu_actions = [{:name => "New Purchase", :path => new_program_purchase_path(@program)}]
+    end
   end
 
   def new
     @title = "New Purchase"
     @purchase.program = @program
+    @menu_actions = [{:name => "Cancel", :path => program_purchases_path(@program)}]
   end
 
   def create
