@@ -5,9 +5,5 @@
   <dd><%= @site.description %></dd>
 </dl>
 
-<% if can? :edit, @site %>
-  <%= link_to "Edit site", edit_site_path(@site) %>
-<% end %>
-
 <%= render 'programs/table', :programs => @site.programs %>
 

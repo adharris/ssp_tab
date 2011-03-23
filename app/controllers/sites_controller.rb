@@ -3,11 +3,13 @@ class SitesController < ApplicationController
   
   def show
     @title = @site.name
+    @menu_actions = [{:name => "Edit", :path => edit_site_path(@site)}] if can? :edit, Site
   end
 
   def index
     @active_sites
     @title = "Sites"
+    @menu_actions = [{:name => "New", :path => new_site_path}] if can? :create, Site
   end
 
   def edit
