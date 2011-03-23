@@ -2,7 +2,6 @@ SspCtab::Application.routes.draw do
 
   devise_for :users
 
-
   resources :users
   resources :sites do
     resources :vendors, :shallow => true
@@ -16,6 +15,8 @@ SspCtab::Application.routes.draw do
     resources :food_inventories, :shallow => true
     get :autocomplete_user_name
     get :autocomplete_food_item
+
+    get :activation
   end
 
   resources :food_items

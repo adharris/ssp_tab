@@ -48,6 +48,9 @@ h2, h3 {
   -moz-border-radius-bottom-right: 7px;
   -webkit-border-bottom-right-radius: 7px; }
 
+#user-pane > div span.links {
+  float: right; }
+
 #user-pane img {
   vertical-align: middle;
   margin: 0 5px; }

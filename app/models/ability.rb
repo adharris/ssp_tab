@@ -38,6 +38,7 @@ class Ability
       can :see_vendors_for, Site
       can :manage, Program
       can :report, Program
+      can :activate, Program
       can :see_vendors_for, Program
       can :manage, ProgramUser
       can [:manage, :edit_fields], Week

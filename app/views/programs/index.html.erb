@@ -1,22 +1,12 @@
 
 <% unless @active_programs.empty? %>
   <h3>Active Programs</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Program Name</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Weeks</th>
-        <th>Adults</th>
-        <th>Youth</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render @active_programs %>
-    </tbody>
-  </table>
+  <%= render 'table', :programs => @active_programs %>
+<% end %>
+
+<% unless @inactive_programs.empty? %>
+  <h3>Inactive Programs</h3>
+  <%= render 'table', :programs => @inactive_programs %>
 <% end %>
 
 <% if can? :create, Program %>

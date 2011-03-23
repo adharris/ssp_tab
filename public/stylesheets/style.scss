@@ -31,6 +31,7 @@ h2, h3 {color: $header-color; font-weight: bold;}
 #user-pane>div { background-color: white; padding: 8px; -webkit-border-bottom-left-radius: 10px; -moz-border-radius-bottomleft: 10px; border-bottom-left-radius: 10px;}
 #user-pane>div span {margin: 0 3px;} 
 #user-pane>div span.gravatar { padding: 3px; background-color: $title-color; @include roundedall(7px);}
+#user-pane>div span.links {float:right}
 #user-pane img { vertical-align: middle; margin: 0 5px; }
 
 /* Main Navigation */

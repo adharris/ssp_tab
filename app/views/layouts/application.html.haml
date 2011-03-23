@@ -13,16 +13,16 @@
       #header.span-24
         .span-16 
           %h1 SSP Food Tracking Application
-        #user-pane.span-8.last
-          %div
-            - if user_signed_in?
+        - if user_signed_in?
+          #user-pane.span-8.last
+            %div
               %span.gravatar= gravatar_for current_user, :size => 24
               %span= current_user.name
-              %span= link_to "account", current_user
-              %span= link_to "sign out", destroy_user_session_path
-            - else
-              = link_to "sign in", new_user_session_path
-            
+              %span.links
+                = link_to "account", current_user
+                |
+                = link_to "sign out", destroy_user_session_path
+
       #main-nav.span-24.last.nav-bar{:class => user_signed_in? && current_user.admin? ? "" : "non-admin"}
         = render_navigation :level => 1
 

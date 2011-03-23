@@ -5,6 +5,7 @@
   <td><%= pluralize(program.weeks.count, "week") %></td>
   <td><%= program.adults %></td>
   <td><%= program.youth %></td>
+  <td><%= link_to(program.active? ? "deactivate" : "active", program_activation_path(program)) if can? :activate, program %></td> 
   <td> 
     <%if can? :destroy, program %>
       <%= link_to "delete", program, :method => :delete, :confirm => "Are you sure you want to delete #{program.name}?", :title => "Confirm Delete" %>

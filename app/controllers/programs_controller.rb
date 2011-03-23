@@ -15,9 +15,18 @@ class ProgramsController < ApplicationController
     render :json => json_for_autocomplete(@food_items, :name)
   end
 
+  def activation
+    @program = Program.find(params[:program_id])
+    authorize! :activate, @program
+    @program.toggle!(:active)
+    flash[:success] = "#{@program} successfully #{@program.active? ? 'activated' : 'deactivated'}"
+    redirect_to programs_path
+  end
+
   def index
     @title = "Programs"
     @active_programs = Program.current
+    @inactive_programs = Program.past
   end
 
   def new

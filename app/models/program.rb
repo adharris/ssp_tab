@@ -14,7 +14,7 @@
 #
 
 class Program < ActiveRecord::Base
-  attr_accessible :site_id, :start_date, :end_date, :program_type_id, :food_budget
+  attr_accessible :site_id, :start_date, :end_date, :program_type_id, :food_budget, :active
 
   belongs_to :site
   belongs_to :program_type
@@ -27,9 +27,16 @@ class Program < ActiveRecord::Base
   has_many :food_items
   has_many :food_inventories
 
-  scope :current, where("end_date >= ?", Time.now)
-  scope :past, where("end_date < ?", Time.now)
- 
+  validates :site_id, :presence => true
+  validates :start_date, :presence => true
+  validates :end_date, :presence => true
+  validates :program_type_id, :presence => true
+  validates :food_budget, :presence => true, :numericality => true
+  validates :active, :inclusion => [true, false]
+
+  scope :current, where(:active => true)  
+  scope :past, where(:active => false)  
+
   default_scope :include => :site, :order => 'end_date DESC, sites.name ASC'
 
   def name
