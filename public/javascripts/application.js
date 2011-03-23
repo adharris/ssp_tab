@@ -3,4 +3,6 @@ $(document).ready(function() {
     $(this).datepicker();
   });
   $('select.jq-combo').combobox();
+
+  $('#action-links div').buttonset();
 });

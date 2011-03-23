@@ -55,7 +55,7 @@ h2, h3 {color: $header-color; font-weight: bold;}
 #site-nav ul li.selected {background-color: white; @include rounded(top-left); @include rounded(top-right) ;}
 
 /* Page action stylings */
-#action-links>div {padding-top: 15px;}
+#action-links>div {padding-top: 5px;}
 
 /* Table styling */
 table thead tr th {background-color: $table-header-color; }
