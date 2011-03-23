@@ -23,7 +23,7 @@
                 |
                 = link_to "sign out", destroy_user_session_path
 
-      #main-nav.span-24.last.nav-bar{:class => user_signed_in? && current_user.admin? ? "" : "non-admin"}
+      #main-nav.span-24.last.nav-bar{:class => (render_navigation :level => 2, :renderer => :text).nil? ? "non-admin" : ""}
         = render_navigation :level => 1
 
       #page-info.span-24.last.append-bottom
@@ -44,7 +44,6 @@
 
       #footer.span-24.last
 
-  
       = javascript_include_tag 'jquery/jquery-1.4.2.min'
       = javascript_include_tag 'jquery/jquery-ui-1.8.9.custom.min.js'
       = javascript_include_tag 'jquery/jquery-ui-widgets.js'
