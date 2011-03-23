@@ -65,6 +65,7 @@ class ProgramsController < ApplicationController
   def destroy
     @program.destroy
     flash[:success] = "Program deleted"
+    redirect_to programs_path
   end
     
 end
