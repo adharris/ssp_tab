@@ -41,61 +41,11 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.
     #
 
-    primary.item :home, "Home", root_path   
-    primary.item(:purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }) do |purchase_menu|
-      if(can? :manage, Purchase)
-        purchase_menu.item(:all_purchases, "All Purchases", purchases_path)
-        Program.current.each do |program|
-          purchase_menu.item("program_#{program.id}_menu",
-                             program,
-                             program_purchases_path(program),
-                             :if => lambda { can? :see_purchases_for, program }) do |program_purchase_menu|
-
-            purchase_menu(program_purchase_menu, program)
-          end  
-        end
-      else
-        purchase_menu(purchase_menu, current_user.current_program)
-      end
+    @menu_actions ||= []
+    @menu_actions.each do |action| 
+      primary.item action[:name], action[:name], action[:path]
     end
-    primary.item(:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/)
-
-    primary.item(:food_inventories, "Food Inventories", food_inventories_path, :if => lambda {can? :index, FoodInventory }) do |inventories_menu|
-      if(can? :manage, FoodInventory)
-        inventories_menu.item(:all_food_inventories,
-                              "All Food Inventories",
-                              food_inventories_path)
-        Program.current.each do |program|
-          inventories_menu.item("program_#{program.id}_food_inventories",
-                                program,
-                                program_food_inventories_path(program),
-                                :if => lambda { can? :see_food_inventories_for, program}) do |program_food_inventories_menu|
-            food_inventory_menu(program_food_inventories_menu, program)
-          end
-        end
-      else
-        food_inventory_menu(inventories_menu, current_user.current_program)
-      end
-    end
-
-    primary.item(:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
-      if(can? :manage, Vendor)
-        vendor_menu.item(:all_vendors,
-                         "All Vendors",
-                         vendors_path)
-        Site.all.each do |site|
-          vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :if => lambda {can? :see_vendors_for, site}) do |site_vendor_menu|
-            vendor_menu(site_vendor_menu, site)
-          end
-        end
-      else
-        vendor_menu(vendor_menu, current_user.current_program.site)
-      end
-    end
-    primary.item :sites, "Sites", sites_path, :if => lambda { can? :manage, Site }
-    primary.item :programs, "Programs", programs_path, :if => lambda { can? :manage, Program }
-    primary.item :reports, "Reports", reports_list_path, :if => lambda {can? :report, Program }
-    primary.item :users, "Users", users_path, :if => lambda { can? :create, User }
+    
 
     # Add an item which has a sub navigation (same params, but with block)
     # primary.item :key_2, 'name', url, options do |sub_nav|

@@ -156,6 +156,10 @@ h2, h3 {
   -moz-border-radius-top-right: 10px;
   -webkit-border-top-right-radius: 10px; }
 
+/* Page action stylings */
+#action-links > div {
+  padding-top: 15px; }
+
 /* Table styling */
 table thead tr th {
   background-color: #9fbecd; }
