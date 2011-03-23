@@ -41,7 +41,8 @@ SimpleNavigation::Configuration.run do |navigation|
     #                            against the current URI.
     #
 
-    primary.item :home, "Home", root_path   
+    primary.item :home, "Home", root_path, :if => lambda { user_signed_in?}
+
     primary.item(:purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }) do |purchase_menu|
       if(can? :manage, Purchase)
         purchase_menu.item(:all_purchases, "All Purchases", purchases_path)
@@ -49,7 +50,13 @@ SimpleNavigation::Configuration.run do |navigation|
           purchase_menu.item("program_#{program.id}_menu",
                              program,
                              program_purchases_path(program),
-                             :if => lambda { can? :see_purchases_for, program }) 
+                             :highlights_on => /^\/programs\/#{program.id}\/purchases/,
+                             :if => lambda { can? :see_purchases_for, program }) do |program_purchase_menu|
+              
+            if( !@purchase.nil? && !@purchase.new_record? && @purchase.program == program)
+              program_purchase_menu.item(:purchase, "Purchase", purchase_path(@purchase))
+            end
+          end 
         end
       end
     end
@@ -64,7 +71,12 @@ SimpleNavigation::Configuration.run do |navigation|
           inventories_menu.item("program_#{program.id}_food_inventories",
                                 program,
                                 program_food_inventories_path(program),
-                                :if => lambda { can? :see_food_inventories_for, program}) 
+                                :highlights_on => /^\/programs\/#{program.id}\/food_inventories/,
+                                :if => lambda { can? :see_food_inventories_for, program})  do |program_fi_menu|
+            if(!@food_inventory.nil? && !@food_inventory.new_record? && @food_inventory.program == program)
+              program_fi_menu.item(:food_inventory, "Food Inventory", food_inventory_path(@food_inventory))
+            end
+          end
         end
       end
     end
@@ -75,7 +87,11 @@ SimpleNavigation::Configuration.run do |navigation|
                          "All Vendors",
                          vendors_path)
         Site.all.each do |site|
-          vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :if => lambda {can? :see_vendors_for, site})
+          vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :highlights_on => /^\/sites\/#{site.id}\/vendors/, :if => lambda {can? :see_vendors_for, site}) do |program_vendor_menu|
+            if(@vendor && !@vendor.new_record? && @vendor.site == site)
+              program_vendor_menu.item :vendor, "Vendor", vendor_path(@vendor)
+            end
+          end
         end
       end
     end
