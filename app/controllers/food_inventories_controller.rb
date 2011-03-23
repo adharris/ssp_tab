@@ -6,10 +6,14 @@ class FoodInventoriesController < ApplicationController
     authorize! :see_food_inventories_for, @program unless @program.nil?
     redirect_to program_food_inventories_path(current_user.current_program) if ( @program.nil? && cannot?(:manage, FoodInventory))
     @title = @program.nil? ? "Food Inventories" : "Food Inventories for #{@program}"
+    unless @program.nil?
+      @menu_actions = [{:name => "New", :path => new_program_food_inventory_path(@program) }] if can? :create, FoodInventory
+    end
   end
 
   def show
     @title = "#{@food_inventory.date} Food Inventory"
+    @menu_actions = [{:name => "Edit", :path => edit_food_inventory_path(@food_inventory) }] if can? :edit, @food_inventory
   end
 
   def new

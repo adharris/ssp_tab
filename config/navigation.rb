@@ -69,12 +69,8 @@ SimpleNavigation::Configuration.run do |navigation|
           inventories_menu.item("program_#{program.id}_food_inventories",
                                 program,
                                 program_food_inventories_path(program),
-                                :if => lambda { can? :see_food_inventories_for, program}) do |program_food_inventories_menu|
-            food_inventory_menu(program_food_inventories_menu, program)
-          end
+                                :if => lambda { can? :see_food_inventories_for, program}) 
         end
-      else
-        food_inventory_menu(inventories_menu, current_user.current_program)
       end
     end
 
