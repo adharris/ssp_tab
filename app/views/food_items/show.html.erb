@@ -8,4 +8,3 @@
   <dt>Default Taxed</dt>
   <dd><%= @food_item.default_taxed ? "Yes" : "No" %></dd>
 </dl>
-<%= link_to "edit food item", edit_food_item_path(@food_item) if can? :edit, @food_item %>

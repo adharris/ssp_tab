@@ -1,2 +1,1 @@
-<%= link_to("create a new item", new_food_item_path) if can? :create, FoodItem %>
 <%= render 'table', :food_items => @food_items %>

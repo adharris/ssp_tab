@@ -3,6 +3,7 @@ class FoodItemsController < ApplicationController
 
   def index
     @title = "Food Items"
+    @menu_actions = [{:name => "New", :path => new_food_item_path}] if can? :create, FoodItem
   end
 
   def new
@@ -37,6 +38,7 @@ class FoodItemsController < ApplicationController
 
   def show
     @title = @food_item.name
+    @menu_actions = [{:name => "edit", :path => edit_food_item_path(@food_item)}] if can? :edit, @food_item
   end
 
   def destroy
