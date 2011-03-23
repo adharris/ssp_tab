@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @admins = User.admin
     @all_staff = params[:all_staff] || false
     @staff = @all_staff ? User.not_admin : User.current_staff
+    @menu_actions = [{:name => "New", :path => new_user_path}] if can? :create, User
   end
 
   def create
@@ -27,6 +28,7 @@ class UsersController < ApplicationController
 
   def show
     @title = @user.name
+    @menu_actions = [{:name => "Edit", :path => edit_user_path(@user)}] if can? :edit, @user
   end
 
   def update
