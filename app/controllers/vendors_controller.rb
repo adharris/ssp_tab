@@ -6,14 +6,19 @@ class VendorsController < ApplicationController
     authorize! :see_vendors_for, @site unless @site.nil?
     redirect_to site_vendors_path(current_user.current_program.site) if ( @site.nil? && cannot?(:manage, Vendor))
     @title = @site.nil? ? "Vendors" : "Vendors for #{@site.name}"
+    unless @site.nil?
+      @menu_actions = [{:name => "New", :path => new_site_vendor_path(@site)}] if can? :create, @site.vendors.new
+    end
   end
 
   def show
     @title = @vendor.name
+    @menu_actions = [{:name => "Edit", :path => edit_vendor_path(@vendor)}] if can? :edit, @vendor
   end
 
   def new
     authorize! :create, Site.find(params[:site_id]).vendors.build unless params[:site_id].nil?
+    @title = "New Vendor"
   end
 
   def create

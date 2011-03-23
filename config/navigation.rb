@@ -49,13 +49,8 @@ SimpleNavigation::Configuration.run do |navigation|
           purchase_menu.item("program_#{program.id}_menu",
                              program,
                              program_purchases_path(program),
-                             :if => lambda { can? :see_purchases_for, program }) do |program_purchase_menu|
-
-            purchase_menu(program_purchase_menu, program)
-          end  
+                             :if => lambda { can? :see_purchases_for, program }) 
         end
-      else
-        purchase_menu(purchase_menu, current_user.current_program)
       end
     end
     primary.item(:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/)
@@ -80,12 +75,8 @@ SimpleNavigation::Configuration.run do |navigation|
                          "All Vendors",
                          vendors_path)
         Site.all.each do |site|
-          vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :if => lambda {can? :see_vendors_for, site}) do |site_vendor_menu|
-            vendor_menu(site_vendor_menu, site)
-          end
+          vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :if => lambda {can? :see_vendors_for, site})
         end
-      else
-        vendor_menu(vendor_menu, current_user.current_program.site)
       end
     end
     primary.item :sites, "Sites", sites_path, :if => lambda { can? :manage, Site }
