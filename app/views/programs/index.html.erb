@@ -9,6 +9,3 @@
   <%= render 'table', :programs => @inactive_programs %>
 <% end %>
 
-<% if can? :create, Program %>
-  <%= link_to "Create a new program", new_program_path %>
-<%end %>

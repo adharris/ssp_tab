@@ -14,9 +14,6 @@
   <dt>Food Budget Remaining</dt>
   <dd><%= number_to_currency(@program.food_budget_remaining, :unit => '$') %></dd>
 </dl>
-<% if can? :edit, @program %>
-  <%= link_to "Edit program", edit_program_path(@program) %>
-<% end %>
 
 <h3>Weeks</h3>
 <table>

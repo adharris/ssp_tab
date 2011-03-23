@@ -27,6 +27,7 @@ class ProgramsController < ApplicationController
     @title = "Programs"
     @active_programs = Program.current
     @inactive_programs = Program.past
+    @menu_actions = [{:name => "New", :path => new_program_path(@program)}] if can? :create, Program
   end
 
   def new
@@ -46,6 +47,7 @@ class ProgramsController < ApplicationController
 
   def show
     @title = @program.name
+    @menu_actions = [{:name => "Edit", :path => edit_program_path(@program)}] if can? :edit, @program
   end
 
   def edit
