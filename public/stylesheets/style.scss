@@ -1,9 +1,11 @@
 $header-color: #5C91AA;
+$body-color: white;
 $title-color: lighten($header-color, 35%);
 $table-header-color: lighten($header-color, 20%);
 $table-light: lighten($table-header-color, 20%);
 
 $contrast-color: adjust_hue($header-color, -90deg);
+$light-contrast: lighten($contrast-color, 40%);
 
 /* Mixins */
 @mixin rounded($side, $radius: 10px) {
@@ -57,17 +59,20 @@ h2, h3 {color: $header-color; font-weight: bold;}
 
 /* Table styling */
 table thead tr th {background-color: $table-header-color; }
+table tbody tr td {background-color: $body-color; }
 table tbody tr:nth-child(even) td, 
 table tbody tr.even td {background-color: $table-light; }
 table tbody thead tr:first th:first {@include rounded(top-left); }
+div.tablewrapper {padding: 3px; @include roundedall(3px); background-color: $table-header-color; margin-bottom: 1.4em;} 
+div.tablewrapper table {margin-bottom : 0 }
 
 /* Homepage calendar styling */
 div.calendar h2 { text-align: center; }
 div.calendar table {border-collapse: collapse; }
 div.calendar table thead th { text-align: center; border: 1px solid #999; }
 div.calendar table tbody td { background-color: white; border: 1px solid #999; width: 135px; height: 100px; vertical-align: top; padding: 5px;}
-div.calendar table tbody td.weekend { background-color: #ddf; }
-div.calendar table tbody td.today { background-color: #ff9; }
+div.calendar table tbody td.weekend { background-color: $title-color; }
+div.calendar table tbody td.today { background-color: $light-contrast; }
 div.calendar table tbody td.notmonth { background-color: #ddd; }
 div.calendar table tbody td div.day { float:left; font-size: 1.2em; padding: 2px; border-style: none solid solid none; border-width: 1px; border-color: #999; margin: -5px 0 0 -5px; width: 18px; text-align: center; }
 div.calendar table tbody td div.item { padding: 3px; margin-left: 25px; }

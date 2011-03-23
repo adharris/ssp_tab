@@ -164,6 +164,9 @@ h2, h3 {
 table thead tr th {
   background-color: #9fbecd; }
 
+table tbody tr td {
+  background-color: white; }
+
 table tbody tr:nth-child(even) td,
 table tbody tr.even td {
   background-color: #e2ebf0; }
@@ -172,6 +175,26 @@ table tbody thead tr:first th:first {
   border-top-left-radius: 10px;
   -moz-border-radius-top-left: 10px;
   -webkit-border-top-left-radius: 10px; }
+
+div.tablewrapper {
+  padding: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-top-left: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  -moz-border-radius-top-right: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottom-left: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottom-right: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  background-color: #9fbecd;
+  margin-bottom: 1.4em; }
+
+div.tablewrapper table {
+  margin-bottom: 0; }
 
 /* Homepage calendar styling */
 div.calendar h2 {
@@ -193,10 +216,10 @@ div.calendar table tbody td {
   padding: 5px; }
 
 div.calendar table tbody td.weekend {
-  background-color: #ddf; }
+  background-color: #d1e0e7; }
 
 div.calendar table tbody td.today {
-  background-color: #ff9; }
+  background-color: #e5f0e2; }
 
 div.calendar table tbody td.notmonth {
   background-color: #ddd; }

@@ -1,16 +1,18 @@
 <h3>Admin users</h3>
-<table>
-  <thead>
-    <th></th>
-    <th>Admin Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <%= render @admins %>
-  </tbody>
-</table>
+<div class='tablewrapper'>
+  <table>
+    <thead>
+      <th></th>
+      <th>Admin Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <%= render @admins %>
+    </tbody>
+  </table>
+</div>
 
 <% if @all_users %>
   <h3>All Staff</h3>
@@ -19,18 +21,20 @@
   <h3>Current Staff</h3>
   <%= link_to "view all users", users_path( :all_staff=>true) %>
 <% end %>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Staff Name</th>
-      <th>Current Job</th>
-      <th>Current Site</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @staff %>
-  </tbody>
-</table>
+<div class='tablewrapper'>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Staff Name</th>
+        <th>Current Job</th>
+        <th>Current Site</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @staff %>
+    </tbody>
+  </table>
+</div>
   

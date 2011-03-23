@@ -1,22 +1,24 @@
-<table id="food_item_purchases">
-  <thead>
-    <tr>
-      <th>Item name</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Total</th>
-      <th>Total With Tax</th>
-      <th>Size</th>
-      <th>Size (Base Units)</th>
-      <th>Total Base Units</th>
-      <th>Price per Base Unit</th>
-      <th></th>
-    </th>
-  </thead>
-  <tbody>
-    <%= render food_item_purchases %>
-    <% if food_item_purchases.empty? %>
-      <tr><td id="food_item_new_row" colspan=10>No food items have been added for this purchase</td></td>
-    <% end %>
+<div class='tablewrapper'>
+  <table id="food_item_purchases">
+    <thead>
+      <tr>
+        <th>Item name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Total With Tax</th>
+        <th>Size</th>
+        <th>Size (Base Units)</th>
+        <th>Total Base Units</th>
+        <th>Price per Base Unit</th>
+        <th></th>
+      </th>
+    </thead>
+    <tbody>
+      <%= render food_item_purchases %>
+      <% if food_item_purchases.empty? %>
+        <tr><td id="food_item_new_row" colspan=10>No food items have been added for this purchase</td></td>
+      <% end %>
+    </tbody>
   </tbody>
-</tbody>
+</table>
