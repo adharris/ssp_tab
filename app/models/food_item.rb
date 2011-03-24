@@ -109,7 +109,7 @@ class FoodItem < ActiveRecord::Base
   
     denom = (costs.collect {|e| e[0] }).sum
     num = (costs.inject(0) { |result, element| result + element[0].unit * element[1] }) 
-    denom == 0 ? 0.u : num / denom
+    denom == 0 ? 0.u : num.u / denom
   end
 
   protected
