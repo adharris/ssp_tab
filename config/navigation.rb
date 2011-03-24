@@ -86,7 +86,7 @@ SimpleNavigation::Configuration.run do |navigation|
         vendor_menu.item(:all_vendors,
                          "All Vendors",
                          vendors_path)
-        Site.all.each do |site|
+        (Program.current.map &:site).uniq.each do |site|
           vendor_menu.item("site_vendors_#{site.id}", site.name, site_vendors_path(site), :highlights_on => /^\/sites\/#{site.id}\/vendors/, :if => lambda {can? :see_vendors_for, site}) do |program_vendor_menu|
             if(@vendor && !@vendor.new_record? && @vendor.site == site)
               program_vendor_menu.item :vendor, "Vendor", vendor_path(@vendor)
