@@ -23,10 +23,12 @@
                 |
                 = link_to "sign out", destroy_user_session_path
 
-      #main-nav.span-24.last.nav-bar{:class => (render_navigation :level => 2, :renderer => :text).nil? ? "non-admin" : ""}
+      - short_nav = (render_navigation :level => 2, :renderer => :text)
+      - skip_second_nav = short_nav.nil? || short_nav.empty?
+      #main-nav.span-24.last.nav-bar{:class => skip_second_nav ? "non-admin" : ""}
         = render_navigation :level => 1
 
-      - unless (render_navigation :level => 2, :renderer => :text).nil?
+      - unless skip_second_nav
         #page-info.span-24.last.append-bottom
           #site-nav= render_navigation :level => 2
         

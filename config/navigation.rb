@@ -43,7 +43,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     primary.item :home, "Home", root_path, :if => lambda { user_signed_in?}
 
-    primary.item(:purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }) do |purchase_menu|
+    primary.item(:purchases, "Purchases", purchases_path, :if => lambda { can? :index, Purchase }, :highlights_on => /purchases/) do |purchase_menu|
       if(can? :manage, Purchase)
         purchase_menu.item(:all_purchases, "All Purchases", purchases_path)
         Program.current.each do |program|
@@ -62,7 +62,7 @@ SimpleNavigation::Configuration.run do |navigation|
     end
     primary.item(:food_items, "Food Items", food_items_path, :if => lambda {can? :index, FoodItem }, :highlights_on => /food_item/)
 
-    primary.item(:food_inventories, "Food Inventories", food_inventories_path, :if => lambda {can? :index, FoodInventory }) do |inventories_menu|
+    primary.item(:food_inventories, "Food Inventories", food_inventories_path, :if => lambda {can? :index, FoodInventory }, :highlights_on => /food_inventories/) do |inventories_menu|
       if(can? :manage, FoodInventory)
         inventories_menu.item(:all_food_inventories,
                               "All Food Inventories",
@@ -81,7 +81,7 @@ SimpleNavigation::Configuration.run do |navigation|
       end
     end
 
-    primary.item(:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }) do |vendor_menu|
+    primary.item(:vendors, "Vendors", vendors_path, :if => lambda { can? :index, Vendor }, :highlights_on => /vendors/) do |vendor_menu|
       if(can? :manage, Vendor)
         vendor_menu.item(:all_vendors,
                          "All Vendors",
@@ -95,10 +95,10 @@ SimpleNavigation::Configuration.run do |navigation|
         end
       end
     end
-    primary.item :sites, "Sites", sites_path, :if => lambda { can? :manage, Site }
-    primary.item :programs, "Programs", programs_path, :if => lambda { can? :manage, Program }
+    primary.item :sites, "Sites", sites_path, :highlights_on => /^\/sites/, :if => lambda { can? :manage, Site }
+    primary.item :programs, "Programs", programs_path, :highlights_on => /^\/programs/, :if => lambda { can? :manage, Program }
     primary.item :reports, "Reports", reports_list_path, :if => lambda {can? :report, Program }
-    primary.item :users, "Users", users_path, :if => lambda { can? :create, User }
+    primary.item :users, "Users", users_path, :highlights_on => /^\/users/, :if => lambda { can? :create, User }
 
     # Add an item which has a sub navigation (same params, but with block)
     # primary.item :key_2, 'name', url, options do |sub_nav|
