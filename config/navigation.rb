@@ -95,7 +95,7 @@ SimpleNavigation::Configuration.run do |navigation|
         end
       end
     end
-    primary.item :sites, "Sites", sites_path, :highlights_on => /^\/sites/, :if => lambda { can? :manage, Site }
+    primary.item :sites, "Sites", sites_path, :highlights_on => /^\/sites(\/[0-9]*)?$/, :if => lambda { can? :manage, Site }
     primary.item :programs, "Programs", programs_path, :highlights_on => /^\/programs/, :if => lambda { can? :manage, Program }
     primary.item :reports, "Reports", reports_list_path, :if => lambda {can? :report, Program }
     primary.item :users, "Users", users_path, :highlights_on => /^\/users/, :if => lambda { can? :create, User }
