@@ -14,6 +14,10 @@ class PurchasesController < ApplicationController
     @title = "New Purchase"
     @purchase.program = @program
     @menu_actions = [{:name => "Cancel", :path => program_purchases_path(@program)}]
+    if @program.site.vendors.empty?
+      flash[:notice] = "There are no vendors for #{@program.site.name}, please create one before creating a new purchase"
+      redirect_to new_site_vendor_path(@program.site) 
+    end
   end
 
   def create
