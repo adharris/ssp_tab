@@ -26,6 +26,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @title = "Update Account"
+  end
+
   def show
     @title = @user.name
     @menu_actions = [{:name => "Edit", :path => edit_user_path(@user)}] if can? :edit, @user
