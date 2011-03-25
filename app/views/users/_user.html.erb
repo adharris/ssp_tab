@@ -11,6 +11,7 @@
       <%= link_to user.current_program.name, user.current_program %>
     <% end %>
   </td>
+  <td><%= user[:current_sign_in_at] %></td>
   <td>
     <% if can? :destroy, user %>
       <%= link_to "delete", user_path(user, :all_staff=>@all_staff), :method=>:delete, :confirm => "Are you sure you want to delete #{user.name}", :title => "Confirm Delete" %>
