@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def create
     if(params[:user][:admin])
       authorize! :create_admin, User
-      @user.toggle!(:admin)
+      @user[:admin] = params[:user][:admin]
     end
     if @user.save
       flash[:notice] = "Successfully created user"
@@ -42,9 +42,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    full_name = @user.full_name
     if @user.destroy
-      flash[:sucess] = "#{full_name} deleted successfully"
+      flash[:sucess] = "#{@user} deleted successfully"
       redirect_to users_path( :all_staff => params[:all_staff])
     else
       @title = "Users"

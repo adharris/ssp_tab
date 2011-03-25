@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
 
   has_many :program_users, :dependent => :restrict
   has_many :programs, :through => :program_users
+
+  has_many :purchases, :foreign_key => "purchaser_id", :dependent => :restrict
   
   scope :admin, where(:admin => true)
   scope :not_admin, where(:admin => false)
@@ -42,6 +44,10 @@ class User < ActiveRecord::Base
   scope :search_by_name, lambda { |q|
     (q ? where(["name Like ?", '%' + q + '%']) : {} )
   }
+
+  def to_s
+    name
+  end
 
   def current_program
     self.programs.where("end_date >= ?", Time.now).order('start_date ASC').first
