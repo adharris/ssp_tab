@@ -89,11 +89,11 @@ class FoodItem < ActiveRecord::Base
     food_item_purchases = purchases_between(program, program.start_date, date).order('date DESC')
 
     costs = []
-    quantity = quantity.unit
-    excluded = excluded.unit
+    quantity = quantity.unit.to(base_unit)
+    excluded = excluded.unit.to(base_unit)
 
     food_item_purchases.each do |food_item_purchase|
-      amount_available = food_item_purchase.quantity * food_item_purchase.size.u
+      amount_available = (food_item_purchase.quantity.u * food_item_purchase.size.u).to(base_unit)
       if(excluded > 0)
         to_debit = [excluded, amount_available].min 
         excluded -= to_debit
@@ -103,13 +103,13 @@ class FoodItem < ActiveRecord::Base
       if(quantity > 0)
         to_debit = [quantity, amount_available].min
         quantity -= to_debit
-        costs += [[to_debit, food_item_purchase.price / food_item_purchase.size.u]]
+        costs += [[to_debit, food_item_purchase.price / food_item_purchase.size.u.to(base_unit)]]
       end
     end
-  
+
     denom = (costs.collect {|e| e[0] }).sum
     num = (costs.inject(0) { |result, element| result + element[0].unit * element[1] }) 
-    denom == 0 ? 0.u : num.u / denom
+    denom == 0 ? 0.u : num.u / denom.u
   end
 
   protected

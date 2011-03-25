@@ -46,11 +46,11 @@ class FoodInventoryFoodItem < ActiveRecord::Base
   end
 
   def average_price
-    food_item.cost_of(food_inventory.program, food_inventory.date, consumed, quantity).scalar
+    food_item.cost_of(food_inventory.program, food_inventory.date, consumed, quantity).abs
   end
 
   def total_price
-    average_price * consumed.scalar
+    average_price * consumed.abs
   end
 
 end
