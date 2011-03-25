@@ -16,59 +16,58 @@
 </dl>
 
 <h3>Weeks</h3>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Type</td>
-      <th>Scheduled Adults</th>
-      <th>Scheduled Youth</th>
-      <th>Actual Adults</th>
-      <th>Actual Youth</td>
-      <th colspan="2"></td>
-    </tr>
-  </thead>
+<div class="tablewrapper">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Type</td>
+        <th>Scheduled Adults</th>
+        <th>Scheduled Youth</th>
+        <th>Actual Adults</th>
+        <th>Actual Youth</td>
+        <th colspan="2"></td>
+      </tr>
+    </thead>
 
-  <%= render @program.weeks %>
-
-</table>
-<% if can? :create, Week %>
-  <%= link_to "add new week", new_program_week_path(@program) %>
-<% end %>
+    <%= render @program.weeks %>
+  </table>
+</div>
 
 <h3>Staff</h3>
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Staff Name</th>
-      <th>Job</th>
-      <th></th>
-    </tr>
-  </thead>
-  <%= render @program.program_users.order("job_id") %>
+<div class="tablewrapper">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Staff Name</th>
+        <th>Job</th>
+        <th></th>
+      </tr>
+    </thead>
+    <%= render @program.program_users.order("job_id") %>
 
-  <% if can? :create, ProgramUser %>
-    <tr>
-      <td></td>
-      <%= form_for @program.program_users.build() do |f| %>
-        <td>
-          <%= f.hidden_field :program_id %>
-          <%= f.hidden_field :user_id %>
-          <%= autocomplete_field_tag 'username', '', program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id' %>
-        </td>
-        <td><%= f.collection_select :job_id, Job.all, :id, :name %></td>
-        <td><%= f.submit "Add Staff" %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+    <% if can? :create, ProgramUser %>
+      <tr>
+        <td></td>
+        <%= form_for @program.program_users.build() do |f| %>
+          <td>
+            <%= f.hidden_field :program_id %>
+            <%= f.hidden_field :user_id %>
+            <%= autocomplete_field_tag 'username', '', program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id' %>
+          </td>
+          <td><%= f.collection_select :job_id, Job.all, :id, :name %></td>
+          <td><%= f.submit "Add Staff" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
 <h3>Purchases</h3>
-<% if can? :create, @program.purchases.new %>
-  <%= link_to 'new purchase', new_program_purchase_path(@program) %>
-<% end %>
-<%= render 'purchases/table', :purchases => @program.purchases %>
+<div class="tablewrapper">
+  <%= render 'purchases/table', :purchases => @program.purchases %>
+</div>
 

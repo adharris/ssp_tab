@@ -47,7 +47,10 @@ class ProgramsController < ApplicationController
 
   def show
     @title = @program.name
-    @menu_actions = [{:name => "Edit", :path => edit_program_path(@program)}] if can? :edit, @program
+    @menu_actions = []
+    @menu_actions << {:name => "Edit", :path => edit_program_path(@program)} if can? :edit, @program
+    @menu_actions << {:name => "New Week", :path => new_program_week_path(@program)} if can? :create, @program.weeks.new
+    @menu_actions << {:name => "New Purchase", :path => new_program_purchase_path(@program)} if can? :crate, @program.purchases.new
   end
 
   def edit
