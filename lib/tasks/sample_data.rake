@@ -13,6 +13,8 @@ namespace :db do
     make_food_items
     make_purchases
     make_food_item_purchases
+    make_food_inventories
+    make_food_inventory_food_items
   end
 end
 
@@ -33,7 +35,7 @@ end
 
 def make_sites
   puts "making sites..."
-  8.times do |n|
+  4.times do |n|
     Site.create!(:name => Faker::Address.city,
                  :state => Faker::Address.us_state_abbr,
                  :description => Faker::Lorem.paragraph)
@@ -118,7 +120,7 @@ end
 def make_purchases
   puts "making purchases..."
   Program.all.each do |program|
-    15.times do 
+    7.times do 
       purchase = program.purchases.build(:date => (program.start_date..program.end_date).to_a.rand,
                                          :total => (50..750).to_a.rand,
                                          :tax => 0);
@@ -142,5 +144,28 @@ def make_food_item_purchases
       p.size = "#{(1..20).to_a.rand} #{p.food_item.base_unit}"
       p.save!
     end   
+  end
+end
+
+def make_food_inventories
+  puts "making food inventories"
+  Program.all.each do |program|
+    puts "  -- #{program}"
+    7.times do
+      inventory = program.food_inventories.build(:date => (program.start_date..program.end_date).to_a.rand).save
+    end
+  end
+end
+
+def make_food_inventory_food_items
+  puts "making food inventory food items"
+  FoodInventory.all.each do |inventory|
+    program = inventory.program
+    puts "  |- #{program} #{inventory.date}"
+    program.purchased_items.each do |item|
+      amt = item.in_inventory_for_program_at(program, inventory.date).abs
+      qt = "#{(0..100).to_a.rand * amt / 100} #{item.base_unit}"
+      inventory.food_inventory_food_items.build(:food_item_id => item.id, :quantity => qt).save
+    end
   end
 end

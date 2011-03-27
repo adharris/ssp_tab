@@ -19,6 +19,7 @@ gem 'haml'
 group :development do
   gem 'rspec-rails'
   gem 'annotate-models'
+  gem 'ruby-debug'
 end
 
 group :test do

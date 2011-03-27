@@ -5,4 +5,6 @@ $(document).ready(function() {
   $('select.jq-combo').combobox();
 
   $('#action-links div').buttonset();
+  
+  $("input[type='submit']").button();
 });

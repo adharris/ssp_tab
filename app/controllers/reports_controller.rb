@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   end
 
   def inventory
-    @title = "Inventory Report"
+    @title = "Inventory Report: #{@program}"
     @date = (Date.parse(params[:date]) if params[:date]) || Date.today
 
     @food_items = FoodItem.all_for_program(@program)
@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
 
   def get_program
     @program = current_user.current_program || 
-      (Program.find(params[:program]) if params[:program]) || 
+      (Program.find(params[:program_id]) if params[:program_id]) || 
       Program.current.first
     authorize! :report, @program
   end
