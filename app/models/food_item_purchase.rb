@@ -30,6 +30,8 @@ class FoodItemPurchase < ActiveRecord::Base
 
   validate :validate_units
   
+  before_save :update_base_units
+  
   scope :taxable, where(:taxable => true)
 
   def size_in_base_units
@@ -57,6 +59,10 @@ class FoodItemPurchase < ActiveRecord::Base
   end
 
   private
+
+  def update_base_units
+    self.total_base_units = (self.quantity * self.size.u).to(self.food_item.base_unit).abs
+  end
 
   def validate_units
     begin

@@ -26,14 +26,17 @@ class FoodInventoryFoodItem < ActiveRecord::Base
   scope :for_program, lambda { |program|
     joins(:food_inventory).where('food_inventories.program_id = ?', program.id) }
 
+  # action callbacks
+  before_save :update_base_units
+
   def validate_units
     begin
       self.quantity.unit
       errors.add(:quantity, "Base unit should be a unit of weight, volumn, or each") unless [:unitless, :mass, :volume].include? self.quantity.unit.kind
       errors.add(:quantity, "the units entered are a measure of #{self.quantity.unit.kind.to_s.humanize}, while #{self.food_item.name} requires a unit of #{self.food_item.base_unit.unit.kind.to_s.humanize} to convert") unless(self.food_item.nil? || self.food_item.base_unit.unit =~ self.quantity.unit)
     rescue Exception => e
-      errors.add(:quantity, e.message)
-      # errors.add(:quantity, "#{self.quantity} does not use recogized units")
+      #errors.add(:quantity, e.message)
+      errors.add(:quantity, "#{self.quantity} does not use recogized units")
     end
   end
 
@@ -51,6 +54,12 @@ class FoodInventoryFoodItem < ActiveRecord::Base
 
   def total_price
     average_price * consumed.abs
+  end
+
+  protected
+
+  def update_base_units
+    self.in_base_units = self.quantity.u.to(self.food_item.base_unit).abs
   end
 
 end
