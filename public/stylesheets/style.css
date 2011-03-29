@@ -241,3 +241,11 @@ div.calendar table tbody td div.item {
 
 div.calendar table tbody td div.item img {
   vertical-align: middle; }
+
+/* JQuery UI styles*/
+form input.ui-combobox {
+  margin: 0;
+  padding: 0.6em 0 0.6em 0.45em; }
+
+form button.ui-combobox-button {
+  margin-left: -1px; }
