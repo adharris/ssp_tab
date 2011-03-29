@@ -62,6 +62,11 @@ class FoodInventoryFoodItem < ActiveRecord::Base
     end
   end
 
+  def update_in_inventory
+    self.in_inventory = food_item.in_inventory_for_program_at(food_inventory.program, food_inventory.date)
+  end
+
+
   def skip_derivations=(skip)
     @skip_derivations = skip
   end
@@ -82,10 +87,6 @@ class FoodInventoryFoodItem < ActiveRecord::Base
 
   def update_base_units
     self.in_base_units = self.quantity.u.to(self.food_item.base_unit).abs
-  end
-
-  def update_in_inventory
-    self.in_inventory = food_item.in_inventory_for_program_at(food_inventory.program, food_inventory.date)
   end
 
   def update_average_cost
