@@ -3,6 +3,7 @@ class AddConsumedToFoodInventoryFoodItem < ActiveRecord::Migration
     add_column :food_inventory_food_items, :in_inventory, :decimal
     FoodInventoryFoodItem.reset_column_information
     FoodInventoryFoodItem.all.each do |i|
+      i.skip_calculations = true
       i.update_attribute :in_inventory, i.food_item.in_inventory_for_program_at(i.food_inventory.program, i.food_inventory.date)
     end
   end

@@ -27,9 +27,9 @@ class FoodInventoryFoodItem < ActiveRecord::Base
   scope :after, lambda { |date| includes(:food_inventory).where('food_inventories.date >= ?', date) }
 
   # action callbacks
-  before_save :update_calculated_fields
-  after_save :update_derived_fields
-  after_destroy :update_derived_fields, :unless => :skip_derivations?
+  before_save :update_calculated_fields, :unless => :skip_calculations?
+  after_save :update_derived_fields, :unless => Proc.new {|item| item.skip_calculations? || item.skip_derivations? }
+  after_destroy :update_derived_fields, :unless => Proc.new {|item| item.skip_calculations? || item.skip_derivations? }
 
   def consumed
     in_inventory - in_base_units
@@ -63,11 +63,19 @@ class FoodInventoryFoodItem < ActiveRecord::Base
   end
 
   def skip_derivations=(skip)
-    @skip_derivations
+    @skip_derivations = skip
   end
 
   def skip_derivations?
     @skip_derivations
+  end
+
+  def skip_calculations=(skip)
+    @skip_calculations = skip
+  end
+
+  def skip_calculations?
+    @skip_calculations
   end
 
   private

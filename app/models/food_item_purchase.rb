@@ -30,9 +30,9 @@ class FoodItemPurchase < ActiveRecord::Base
 
   validate :validate_units
   
-  before_save :update_base_units
-  after_save :update_derived_fields
-  after_destroy :update_derived_fields
+  before_save :update_base_units, :unless => :skip_calculations?
+  after_save :update_derived_fields, :unless => :skip_calculations?
+  after_destroy :update_derived_fields, :unless => :skip_calculations?
   
   
   scope :taxable, where(:taxable => true)
@@ -59,6 +59,14 @@ class FoodItemPurchase < ActiveRecord::Base
 
   def price_per_base_unit
     price / size_in_base_units
+  end
+
+  def skip_calculations=(skip)
+    @_skip = true
+  end
+
+  def skip_calculations?
+    @_skip
   end
 
   private
