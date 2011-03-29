@@ -31,6 +31,10 @@ class Purchase < ActiveRecord::Base
   has_many :food_item_purchases
   has_many :food_items, :through => :food_item_purchases
 
+  scope :for_program, lambda { |program| where(:program_id => program.id) }
+  scope :after, lambda { |date| where('date > ?', date) }
+  scope :before, lambda { |date| where('date <=', date) }
+
   default_scope :order => 'date ASC'
 
   def to_s

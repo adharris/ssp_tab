@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110327191403) do
+ActiveRecord::Schema.define(:version => 20110327215417) do
 
   create_table "food_inventories", :force => true do |t|
     t.integer   "program_id"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20110327191403) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.decimal   "in_base_units"
+    t.decimal   "in_inventory"
+    t.decimal   "average_cost"
   end
 
   add_index "food_inventory_food_items", ["food_inventory_id"], :name => "index_food_inventory_food_items_on_food_inventory_id"

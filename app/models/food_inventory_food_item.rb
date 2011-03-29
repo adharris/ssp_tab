@@ -23,11 +23,66 @@ class FoodInventoryFoodItem < ActiveRecord::Base
   # validates :quantity, :presence => true
 
   scope :for_item, lambda {|food_item| where('food_item_id = ?', food_item.id) }
-  scope :for_program, lambda { |program|
-    joins(:food_inventory).where('food_inventories.program_id = ?', program.id) }
+  scope :for_program, lambda { |program| includes(:food_inventory).where('food_inventories.program_id = ?', program.id) }
+  scope :after, lambda { |date| includes(:food_inventory).where('food_inventories.date >= ?', date) }
 
   # action callbacks
-  before_save :update_base_units
+  before_save :update_calculated_fields
+  after_save :update_derived_fields
+  after_destroy :update_derived_fields, :unless => :skip_derivations?
+
+  def consumed
+    in_inventory - in_base_units
+  end
+
+  def consumed_units
+    "#{consumed} #{food_item.base_unit}"
+  end
+  
+  def in_inventory_units
+    "#{in_inventory} #{food_item.base_unit}"
+  end
+
+  def total_price
+    average_cost * consumed
+  end
+
+  def update_calculated_fields
+    update_base_units
+    update_in_inventory
+    update_average_cost
+  end
+
+  def update_derived_fields
+    FoodInventoryFoodItem.for_item(food_item).for_program(food_inventory.program).after(food_inventory.date).each do |item|
+      unless item.id == self.id
+        item.skip_derivations = true
+        item.save
+      end
+    end
+  end
+
+  def skip_derivations=(skip)
+    @skip_derivations
+  end
+
+  def skip_derivations?
+    @skip_derivations
+  end
+
+  private
+
+  def update_base_units
+    self.in_base_units = self.quantity.u.to(self.food_item.base_unit).abs
+  end
+
+  def update_in_inventory
+    self.in_inventory = food_item.in_inventory_for_program_at(food_inventory.program, food_inventory.date)
+  end
+
+  def update_average_cost
+    self.average_cost = food_item.cost_of(food_inventory.program, food_inventory.date, consumed_units, quantity)
+  end
 
   def validate_units
     begin
@@ -40,26 +95,5 @@ class FoodInventoryFoodItem < ActiveRecord::Base
     end
   end
 
-  def in_inventory
-    food_item.in_inventory_for_program_at(food_inventory.program, food_inventory.date)
-  end
-
-  def consumed
-    in_inventory - quantity.unit
-  end
-
-  def average_price
-    food_item.cost_of(food_inventory.program, food_inventory.date, consumed, quantity).abs
-  end
-
-  def total_price
-    average_price * consumed.abs
-  end
-
-  protected
-
-  def update_base_units
-    self.in_base_units = self.quantity.u.to(self.food_item.base_unit).abs
-  end
 
 end

@@ -31,6 +31,9 @@ class FoodItemPurchase < ActiveRecord::Base
   validate :validate_units
   
   before_save :update_base_units
+  after_save :update_derived_fields
+  after_destroy :update_derived_fields
+  
   
   scope :taxable, where(:taxable => true)
 
@@ -62,6 +65,12 @@ class FoodItemPurchase < ActiveRecord::Base
 
   def update_base_units
     self.total_base_units = (self.quantity * self.size.u).to(self.food_item.base_unit).abs
+  end
+
+  def update_derived_fields
+    FoodInventoryFoodItem.for_item(food_item).for_program(purchase.program).after(purchase.date).each do |item|
+      item.save
+    end
   end
 
   def validate_units

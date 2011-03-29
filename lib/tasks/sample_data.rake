@@ -25,7 +25,7 @@ def make_users
                        :name => "Admin User",
                        :password => "foobar")
   admin.toggle!(:admin)
-  30.times do |n|
+  15.times do |n|
     User.create!(:username => "normal#{n}",
                  :email => "normal#{n}@examle.com",
                  :name => Faker::Name.name,
@@ -35,7 +35,7 @@ end
 
 def make_sites
   puts "making sites..."
-  4.times do |n|
+  2.times do |n|
     Site.create!(:name => Faker::Address.city,
                  :state => Faker::Address.us_state_abbr,
                  :description => Faker::Lorem.paragraph)
@@ -164,8 +164,10 @@ def make_food_inventory_food_items
     puts "  |- #{program} #{inventory.date}"
     program.purchased_items.each do |item|
       amt = item.in_inventory_for_program_at(program, inventory.date).abs
-      qt = "#{(0..100).to_a.rand * amt / 100} #{item.base_unit}"
-      inventory.food_inventory_food_items.build(:food_item_id => item.id, :quantity => qt).save
+      if(amt > 0)
+        qt = "#{(0..100).to_a.rand * amt / 100} #{item.base_unit}"
+        inventory.food_inventory_food_items.build(:food_item_id => item.id, :quantity => qt).save
+      end
     end
   end
 end
