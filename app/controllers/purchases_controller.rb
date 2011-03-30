@@ -34,9 +34,9 @@ class PurchasesController < ApplicationController
 
   def show
     @title = "#{@purchase.vendor.name} #{@purchase.date}"
-    #if( @purchase.program.food_inventories.where(:date => @purchase.date).count != 0)
-    #  flash[:notice] = "An inventory already exists for this date.  Any items added to this purchase will be treated as being purchased after the inventory was taken"
-    #end
+    if( @purchase.program.food_inventories.where(:date => @purchase.date).count != 0)
+      flash.now[:notice] = "An inventory already exists for this date.  Any items added to this purchase will be treated as being purchased after the inventory was taken"
+    end
   end
 
 end
