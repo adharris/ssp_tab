@@ -4,6 +4,7 @@ class FoodItemsController < ApplicationController
   def index
     @title = "Food Items"
     @menu_actions = [{:name => "New", :path => new_food_item_path}] if can? :create, FoodItem
+    @food_items = @food_items.order('name ASC')
   end
 
   def new
