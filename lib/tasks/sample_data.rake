@@ -25,7 +25,7 @@ def make_users
                        :name => "Admin User",
                        :password => "foobar")
   admin.toggle!(:admin)
-  15.times do |n|
+  30.times do |n|
     User.create!(:username => "normal#{n}",
                  :email => "normal#{n}@examle.com",
                  :name => Faker::Name.name,
@@ -35,16 +35,19 @@ end
 
 def make_sites
   puts "making sites..."
-  2.times do |n|
+  7.times do |n|
+    print "#{n}..."
     Site.create!(:name => Faker::Address.city,
                  :state => Faker::Address.us_state_abbr,
                  :description => Faker::Lorem.paragraph)
   end
+  puts "done"
 end
 
 def make_vendors
   puts "making vendors..."
   Site.all.each do |site|
+    puts "  --#{site.name}"
     (1 + rand(4)).times do |n|
       vendor = Vendor.new(:name => Faker::Company.name,
                               :address => Faker::Address.street_name,
@@ -98,8 +101,8 @@ def make_weeks
 #  WeekType.create!(:name => "Jr. High")
   Program.all.each do |program|
     6.times do |i|
-      program.weeks.create!(:start_date => Date.today + (i-1).weeks, 
-                            :end_date => Date.today + i.week, 
+      program.weeks.create!(:start_date => Date.today + i.weeks, 
+                            :end_date => Date.today + (i+1).week - 1.day, 
                             :week_type_id => 1,
                             :scheduled_adults => (5..15).to_a.rand,
                             :scheduled_youth => (20..60).to_a.rand)
@@ -120,13 +123,15 @@ end
 def make_purchases
   puts "making purchases..."
   Program.all.each do |program|
-    7.times do 
-      purchase = program.purchases.build(:date => (program.start_date..program.end_date).to_a.rand,
-                                         :total => (50..750).to_a.rand,
-                                         :tax => 0);
-      purchase.vendor = program.site.vendors.rand
-      purchase.purchaser = program.users.rand
-      purchase.save!
+    program.weeks.each do |week|
+      2.times do 
+        purchase = program.purchases.build(:date => (week.start_date..week.end_date).to_a.rand,
+                                           :total => (50..750).to_a.rand,
+                                           :tax => 0);
+        purchase.vendor = program.site.vendors.rand
+        purchase.purchaser = program.users.rand
+        purchase.save!
+      end
     end
   end
 end
@@ -134,8 +139,10 @@ end
 def make_food_item_purchases
   puts "making food item purchases..."
   Purchase.all.each do |purchase|
-    puts "   -- #{purchase}"
+    puts  "   -- #{purchase}"
+    print "     --"
     while purchase.unaccounted_for > 0 do
+      print "$#{sprintf('%.0f', purchase.unaccounted_for)}-"
       u = purchase.unaccounted_for
       p = purchase.food_item_purchases.build()
       p.food_item = FoodItem.all.rand
@@ -143,7 +150,8 @@ def make_food_item_purchases
       p.price = [((1..20).to_a.rand * purchase.total / 100 ), u].min / p.quantity
       p.size = "#{(1..20).to_a.rand} #{p.food_item.base_unit}"
       p.save!
-    end   
+    end
+    puts "done"
   end
 end
 
@@ -151,8 +159,9 @@ def make_food_inventories
   puts "making food inventories"
   Program.all.each do |program|
     puts "  -- #{program}"
-    7.times do
-      inventory = program.food_inventories.build(:date => (program.start_date..program.end_date).to_a.rand).save
+    program.weeks.each do |week|
+      program.food_inventories.build(:date => (week.start_date..(week.start_date + 3.days)).to_a.rand).save if (0..9).to_a.rand > 6
+      program.food_inventories.build(:date => ((week.start_date + 4.days)..week.end_date).to_a.rand).save
     end
   end
 end
@@ -161,13 +170,16 @@ def make_food_inventory_food_items
   puts "making food inventory food items"
   FoodInventory.all.each do |inventory|
     program = inventory.program
-    puts "  |- #{program} #{inventory.date}"
+    puts  "  -- #{program} #{inventory.date}"
+    print "    --"
     program.purchased_items.each do |item|
+      print "#{item.id}-"
       amt = item.in_inventory_for_program_at(program, inventory.date).abs
       if(amt > 0)
         qt = "#{(0..100).to_a.rand * amt / 100} #{item.base_unit}"
         inventory.food_inventory_food_items.build(:food_item_id => item.id, :quantity => qt).save
       end
     end
+    puts "done"
   end
 end
