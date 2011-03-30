@@ -9,6 +9,7 @@ class FoodInventoriesController < ApplicationController
     unless @program.nil?
       @menu_actions = [{:name => "New", :path => new_program_food_inventory_path(@program) }] if can? :create, FoodInventory
     end
+    @food_inventories = @food_inventories.order('date ASC')
   end
 
   def show
