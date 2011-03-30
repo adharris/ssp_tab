@@ -82,3 +82,6 @@ div.calendar table tbody td div.item img { vertical-align: middle; }
 form input.ui-combobox { margin: 0; padding: 0.6em 0 0.6em 0.45em; }
 form button.ui-combobox-button { margin-left: -1px }
 
+div.properties dl dt {color: $header-color; clear: left; float: left; width: 150px; background-color: $title-color; text-align: right; margin: 5px 0; padding: 5px; @include rounded(top-left); @include rounded(bottom-left); border: solid 1px $title-color;}
+div.properties dl dd {float: left; margin: 5px 0; width: 100px; padding: 5px; @include rounded(top-right); @include rounded(bottom-right); border: 1px solid $title-color;}
+
