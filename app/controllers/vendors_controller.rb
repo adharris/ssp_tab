@@ -9,6 +9,7 @@ class VendorsController < ApplicationController
     unless @site.nil?
       @menu_actions = [{:name => "New", :path => new_site_vendor_path(@site)}] if can? :create, @site.vendors.new
     end
+    @vendors = @vendors.order('site_id ASC, name ASC')
   end
 
   def show
