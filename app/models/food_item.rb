@@ -39,6 +39,8 @@ class FoodItem < ActiveRecord::Base
   scope :search_by_name, lambda { |q| (q ? where(["name Like ?", '%' + q + '%']) : {} ) }
   
 
+  after_save :rebase_units
+
   def to_s
     name
   end
@@ -128,5 +130,18 @@ class FoodItem < ActiveRecord::Base
 
   def strip_units_scalar
     self.base_unit = self.base_unit.unit.units
+  end
+
+  private
+
+  def rebase_units
+    self.food_item_purchases.includes(:purchase).order('purchases.date ASC').each do |item|
+      item.skip_derivations = true
+      item.save
+    end
+    self.food_inventory_food_items.includes(:food_inventory).order('food_inventories.date ASC').each do |item|
+      item.skip_derivations = true
+      item.save
+    end
   end
 end

@@ -31,8 +31,8 @@ class FoodItemPurchase < ActiveRecord::Base
   validate :validate_units
   
   before_save :update_base_units, :unless => :skip_calculations?
-  after_save :update_derived_fields, :unless => :skip_calculations?
-  after_destroy :update_derived_fields, :unless => :skip_calculations?
+  after_save :update_derived_fields, :unless => Proc.new { skip_calculations? || skip_derivations? }
+  after_destroy :update_derived_fields, :unless => Proc.new { skip_calculations? || skip_derivations? }
   
   
   scope :taxable, where(:taxable => true)
@@ -67,6 +67,14 @@ class FoodItemPurchase < ActiveRecord::Base
 
   def skip_calculations?
     @_skip
+  end
+
+  def skip_derivations=(skip)
+    @skip_der = skip
+  end
+
+  def skip_derivations?
+    @skip_der
   end
 
   private
