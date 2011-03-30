@@ -21,7 +21,7 @@ class FoodInventory < ActiveRecord::Base
   
   validates :program_id, :presence => true
   validates :date, :presence => true
-
+  validates_uniqueness_of :date, :scope => :program_id, :message => "An inventory already exists on that date"
 
   def total_spent
     (food_inventory_food_items.map &:total_price).sum
