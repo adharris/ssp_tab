@@ -1,0 +1,13 @@
+.span-10.properties
+  %dl
+    %dt State
+    %dd= @site.state
+
+.span-14.last.description
+  %dl
+    %dt Description
+    %dd= @site.description
+
+.span-24.prepend-top
+  = render 'programs/table', :programs => @site.programs
+
