@@ -67,6 +67,7 @@ class Ability
 
         can [:read, :create, :destroy], FoodItemPurchase, :purchase => { :program_id => user.current_program.id }
         can [:read, :create, :destroy, :update], FoodInventory, :program_id => user.current_program.id
+        can [:read, :create, :destroy, :update], FoodInventoryFoodItem, :food_inventory => { :program_id => user.current_program.id }
       end
     end
 
