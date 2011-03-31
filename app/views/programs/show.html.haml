@@ -1,0 +1,62 @@
+.span-12.properties 
+  %dl
+    %dt Site
+    %dd= link_to @program.site.name, @program.site
+    %dt Program Type
+    %dd= @program.program_type.name
+    %dt Start Date
+    %dd= @program.start_date
+
+.span-12.last.properties 
+  %dl.properties
+    %dt Food Budget
+    %dd= number_to_currency(@program.food_budget, :unit => '$')
+    %dt Food Budget Used
+    %dd= number_to_currency(@program.food_budget_spent, :unit => '$')
+    %dt Food Budget Remaining
+    %dd= number_to_currency(@program.food_budget_remaining, :unit => '$')
+
+.span-24.prepend-top
+  %h3 Weeks
+  .tablewrapper
+    %table
+      %thead
+        %tr
+          %th
+          %th Start Date
+          %th End Date
+          %th Type
+          %th Scheduled Adults
+          %th Scheduled Youth
+          %th
+          %th
+      = render @program.weeks
+
+.span-24.prepend-top
+  %h3 Staff
+  .tablewrapper
+    %table
+      %thead
+        %tr
+          %th
+          %th Staff Name
+          %th Job
+          %th
+      = render @program.program_users.order("job_id")
+      - if can? :create, ProgramUser
+        %tfoot
+          %tr
+            %td
+            = form_for @program.program_users.build() do |f|
+              %td
+                = f.hidden_field :program_id
+                = f.hidden_field :user_id
+                = autocomplete_field_tag 'username', '', program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id'
+              %td= f.collection_select :job_id, Job.all, :id, :name 
+              %td= f.submit "Add Staff"
+
+.span-24.prepend-top
+  %h3 Purchases
+  .tablewrapper
+    = render 'purchases/table', :purchases => @program.purchases
+
