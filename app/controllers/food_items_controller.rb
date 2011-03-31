@@ -40,6 +40,8 @@ class FoodItemsController < ApplicationController
   def show
     @title = @food_item.name
     @menu_actions = [{:name => "edit", :path => edit_food_item_path(@food_item)}] if can? :edit, @food_item
+    @purchases = @food_item.food_item_purchases.accessible_by(current_ability).includes(:purchase).order('purchases.date ASC')
+    @inventories = @food_item.food_inventory_food_items.accessible_by(current_ability).includes(:food_inventory => :program).order('food_inventories.date ASC')
   end
 
   def destroy

@@ -47,6 +47,7 @@ class Ability
       can :manage, FoodItem
       can :manage, FoodItemPurchase
       can :manage, FoodInventory
+      can :manage, FoodInventoryFoodItem
     else
 
       unless user.current_program.nil?
