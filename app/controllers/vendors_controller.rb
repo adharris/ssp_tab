@@ -15,6 +15,7 @@ class VendorsController < ApplicationController
   def show
     @title = @vendor.name
     @menu_actions = [{:name => "Edit", :path => edit_vendor_path(@vendor)}] if can? :edit, @vendor
+    @purchases = @vendor.purchases
   end
 
   def new

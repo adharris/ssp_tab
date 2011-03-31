@@ -11,3 +11,21 @@
     %dd= @vendor.contact
     %dt Phone
     %dd= format_phone @vendor.phone
+
+.span-24.last.prepend-top
+  %h3 Purchases
+  .tablewrapper
+    %table
+      %thead
+        %tr
+          %th Program
+          %th Date
+          %th Purchaser
+          %th Total
+      %tbody
+        - @purchases.each do |purchase|
+          %tr
+            %td= link_to purchase.program, purchase.program
+            %td= link_to purchase.date, purchase
+            %td= purchase.purchaser
+            %td= number_to_currency(purchase.total)
