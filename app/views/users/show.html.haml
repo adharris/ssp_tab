@@ -11,3 +11,6 @@
     %dd= @user.username
     %dt Email
     %dd= @user.email
+    - unless @user.current_program.nil?
+      %dt Current Job
+      %dd #{@user.current_job}, #{link_to @user.current_program, @user.current_program}
