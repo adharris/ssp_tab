@@ -1,0 +1,13 @@
+.span-12.description
+  %dl
+    %dt Address
+    %dd
+      .street= @vendor.address
+      #{@vendor.city}, #{@vendor.state} #{@vendor.zip}
+
+.span-12.properties.last
+  %dl
+    %dt Contact
+    %dd= @vendor.contact
+    %dt Phone
+    %dd= format_phone @vendor.phone
