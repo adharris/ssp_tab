@@ -1,0 +1,13 @@
+.span-5.description
+  %dl
+    %dt Gravatar
+    %dd= gravatar_for @user, :size => 168
+
+.span-19.last.properties
+  %dl.wide
+    %dt Name
+    %dd= @user.name
+    %dt Username
+    %dd= @user.username
+    %dt Email
+    %dd= @user.email

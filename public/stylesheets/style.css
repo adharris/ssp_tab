@@ -280,6 +280,9 @@ div.properties dl dd {
   -webkit-border-bottom-right-radius: 10px;
   border: 1px solid #d1e0e7; }
 
+div.properties dl.wide dd {
+  width: 200px; }
+
 div.description dt {
   padding: 5px 10px;
   color: #5c91aa;
