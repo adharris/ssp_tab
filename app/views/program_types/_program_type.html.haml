@@ -1,0 +1,10 @@
+-#%li{:id => "program_type_#{program_type.id}"}
+-#  %span= program_type.name
+-#  %span.handle [handle]
+%li.ui-state-default{:id => "program_type_#{program_type.id}"}
+  %span.ui-icon.ui-icon-arrowthick-2-n-s
+  = program_type.name
+  - if can? :destroy, program_type
+    = link_to(program_type, :method => :delete, :remote => true, :confirm => "Delete #{program_type.name}?") do
+      %span.ui-icon.ui-icon-trash.delete
+

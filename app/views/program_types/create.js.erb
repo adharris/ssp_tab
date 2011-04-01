@@ -1,0 +1,3 @@
+$("#program-type-list").append("<%= escape_javascript( render @program_type) %>").fadeIn(500);
+$("#program_type_name").val("");
+$("#program_type_<%= @program_type.id %>").effect('highlight');

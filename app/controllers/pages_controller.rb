@@ -11,4 +11,8 @@ class PagesController < ApplicationController
     @items =  @inventories + @purchases 
   end
 
+  def options
+    @program_types = ProgramType.all
+  end
+
 end

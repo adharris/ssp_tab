@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110204030905
+# Schema version: 20110331025929
 #
 # Table name: purchases
 #
@@ -11,7 +11,7 @@
 #  total        :decimal(, )
 #  created_at   :datetime
 #  updated_at   :datetime
-#  tax          :decimal(8, 2)
+#  tax          :decimal(, )
 #
 
 class Purchase < ActiveRecord::Base

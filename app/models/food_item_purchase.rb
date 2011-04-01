@@ -1,17 +1,18 @@
 # == Schema Information
-# Schema version: 20110211183716
+# Schema version: 20110331025929
 #
 # Table name: food_item_purchases
 #
-#  id           :integer         not null, primary key
-#  food_item_id :integer         not null
-#  purchase_id  :integer         not null
-#  quantity     :decimal(6, 2)
-#  size         :string(255)
-#  price        :decimal(8, 2)
-#  taxable      :boolean
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id               :integer         not null, primary key
+#  food_item_id     :integer         not null
+#  purchase_id      :integer         not null
+#  quantity         :decimal(, )
+#  size             :string(255)
+#  price            :decimal(, )
+#  taxable          :boolean
+#  created_at       :datetime
+#  updated_at       :datetime
+#  total_base_units :decimal(, )
 #
 
 class FoodItemPurchase < ActiveRecord::Base

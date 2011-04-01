@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110213051823
+# Schema version: 20110331025929
 #
 # Table name: food_inventory_food_items
 #
@@ -9,6 +9,9 @@
 #  quantity          :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  in_base_units     :decimal(, )
+#  in_inventory      :decimal(, )
+#  average_cost      :decimal(, )
 #
 
 class FoodInventoryFoodItem < ActiveRecord::Base

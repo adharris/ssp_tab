@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110213051823
+# Schema version: 20110331025929
 #
 # Table name: programs
 #
@@ -10,7 +10,8 @@
 #  program_type_id :integer
 #  created_at      :datetime
 #  updated_at      :datetime
-#  food_budget     :decimal(8, 2)
+#  food_budget     :decimal(, )
+#  active          :boolean         default(TRUE)
 #
 
 class Program < ActiveRecord::Base

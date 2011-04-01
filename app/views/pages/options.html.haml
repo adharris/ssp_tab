@@ -1,0 +1,8 @@
+.span-8
+  %h3 Program Types
+  %ul#program-type-list.orderable{:url => program_types_prioritize_path}
+    = render @program_types
+  -if can? :create, ProgramType
+    =form_for ProgramType.new, :remote => true do |form|
+      = form.text_field :name
+      = form.submit "Add Type"

@@ -305,3 +305,35 @@ div.description dd {
   -webkit-border-bottom-right-radius: 10px;
   border: solid 1px #d1e0e7;
   margin: 0; }
+
+/* Orderable lists */
+ul.orderable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+
+ul.orderable li {
+  margin: 0 3px 3px 3px;
+  padding: 5px;
+  padding-left: 1.5em;
+  height: 18px;
+  border-top-left-radius: 10px;
+  -moz-border-radius-top-left: 10px;
+  -webkit-border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-top-right: 10px;
+  -webkit-border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  -moz-border-radius-bottom-left: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottom-right: 10px;
+  -webkit-border-bottom-right-radius: 10px; }
+
+ul.orderable li span.ui-icon {
+  positon: absolute;
+  margin: 0 0 0 -1.3em;
+  float: left; }
+
+ul.orderable li span.delete {
+  float: right; }

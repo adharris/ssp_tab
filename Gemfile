@@ -15,6 +15,7 @@ gem 'ruby-units'
 gem 'simple-navigation'
 gem 'faker'
 gem 'haml'
+gem 'acts_as_list'
 
 group :development do
   gem 'rspec-rails'

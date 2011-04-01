@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110126012451
+# Schema version: 20110331025929
 #
 # Table name: sites
 #
@@ -8,7 +8,7 @@
 #  state       :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  description :text(255)
+#  description :text
 #
 
 class Site < ActiveRecord::Base

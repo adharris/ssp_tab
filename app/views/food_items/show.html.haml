@@ -49,12 +49,12 @@
           %th Program
           %th Date
           %th Consumed
-          %th Price
+          %th Total Price
       %tbody
         - @inventories.each do |inventory|
           %tr
             %td= inventory.food_inventory.program
             %td= inventory.food_inventory.date
-            %td #{inventory.consumed} #{@food_item.base_unit}
-            %td #{number_to_currency(inventory.total_price)} #{@food_item.base_unit} 
+            %td #{sprintf '%.2f', inventory.consumed} #{@food_item.base_unit}
+            %td= number_to_currency(inventory.total_price)
             

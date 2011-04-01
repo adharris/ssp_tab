@@ -34,13 +34,18 @@ class Ability
       cannot :destroy, User do |user| 
         user.program_users.any?
       end
+
+      can [:create, :prioritize], ProgramType
+      can :destroy, ProgramType do |type|
+        type.name != "Other"
+      end
       can :manage, Site
       can :see_vendors_for, Site
       can :manage, Program
       can :report, Program
       can :activate, Program
       can :see_vendors_for, Program
-      can :manage, ProgramUser
+      can :create, ProgramUser
       can [:manage, :edit_fields], Week
       can :manage, Vendor
       can :manage, Purchase
@@ -48,6 +53,7 @@ class Ability
       can :manage, FoodItemPurchase
       can :manage, FoodInventory
       can :manage, FoodInventoryFoodItem
+      can :view, 'options'
     else
 
       unless user.current_program.nil?

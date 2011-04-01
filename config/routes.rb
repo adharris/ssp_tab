@@ -27,6 +27,8 @@ SspCtab::Application.routes.draw do
 
   resources :food_items
   
+  resources :program_types, :only => [:create, :destroy]
+  post 'program_types/prioritize' 
 
   resources :program_users, :only => [:create, :destroy]
   root :to => 'pages#home'
@@ -38,6 +40,7 @@ SspCtab::Application.routes.draw do
 
   #static routes
   get "pages/home"
+  get "options", :controller => 'pages', :action => 'options'
 
   #reports
   get "reports/list"

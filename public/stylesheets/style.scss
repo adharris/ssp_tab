@@ -88,3 +88,9 @@ div.properties dl.wide dd { width: 400px; }
 
 div.description dt {padding: 5px 10px; color: $header-color; background-color: $title-color;  @include rounded(top-left); @include rounded(top-right); border: solid 1px $title-color;}
 div.description dd {padding:10px; @include rounded(bottom-left); @include rounded(bottom-right); border: solid 1px $title-color; margin: 0;}
+
+/* Orderable lists */
+ul.orderable { list-style-type: none; margin: 0; padding: 0; }
+ul.orderable li { margin: 0 3px 3px 3px; padding:5px; padding-left: 1.5em; height: 18px; @include roundedall(10px);}
+ul.orderable li span.ui-icon {positon:absolute; margin:0 0 0 -1.3em; float:left; }
+ul.orderable li span.delete {float: right;}
