@@ -1,0 +1,6 @@
+%li.ui-state-default{:id => "food_item_category_#{food_item_category.id}"}
+  %span.ui-icon.ui-icon-arrowthick-2-n-s
+  = food_item_category.name
+  - if can? :destroy, food_item_category
+    = link_to(food_item_category, :method => :delete, :remote => true, :confirm => "Delete #{food_item_category.name}?") do
+      %span.ui-icon.ui-icon-trash.delete
