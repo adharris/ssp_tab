@@ -30,6 +30,9 @@ SspCtab::Application.routes.draw do
   resources :program_types, :only => [:create, :destroy]
   post 'program_types/prioritize' 
 
+  resources :food_item_categories, :only => [:create, :destroy]
+  post 'food_item_categories/prioritize'
+
   resources :program_users, :only => [:create, :destroy]
   root :to => 'pages#home'
 

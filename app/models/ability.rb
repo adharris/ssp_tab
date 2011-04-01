@@ -39,6 +39,10 @@ class Ability
       can :destroy, ProgramType do |type|
         type.name != "Other"
       end
+      can [:create, :prioritize], FoodItemCategory
+      can :destroy, FoodItemCategory do |cate|
+        cate.name != "Other"
+      end
       can :manage, Site
       can :see_vendors_for, Site
       can :manage, Program

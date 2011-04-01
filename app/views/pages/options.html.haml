@@ -1,8 +1,18 @@
 .span-8
   %h3 Program Types
-  %ul#program-type-list.orderable{:url => program_types_prioritize_path}
-    = render @program_types
   -if can? :create, ProgramType
     =form_for ProgramType.new, :remote => true do |form|
       = form.text_field :name
       = form.submit "Add Type"
+  %ul#program-type-list.orderable{:url => program_types_prioritize_path}
+    = render @program_types
+
+.span-8
+  %h3 Food Item Categories
+  -if can? :create, FoodItemCategory
+    = form_for FoodItemCategory.new, :remote => true do |form|
+      .span-5= form.text_field :name, :size => 26
+      .span-3.last= form.submit "Add Category"
+  .span-8
+    %ul#food-item-categories-list.orderable{:url => food_item_categories_prioritize_path}
+      =render @food_item_categories

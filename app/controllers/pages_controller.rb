@@ -13,6 +13,7 @@ class PagesController < ApplicationController
 
   def options
     @program_types = ProgramType.all
+    @food_item_categories = FoodItemCategory.all
   end
 
 end
