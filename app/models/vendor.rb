@@ -35,4 +35,7 @@ class Vendor < ActiveRecord::Base
     self.phone = phone.gsub(/[^0-9]/, "")
   end
 
+  def to_s
+    name
+  end
 end
