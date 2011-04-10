@@ -91,7 +91,7 @@ div.description dd {padding:10px; @include rounded(bottom-left); @include rounde
 
 #map {height: 350px; background-color: $title-color; }
 
-form.formtastic input {padding: .4em 1em;}
+form.formtastic input.ui-button {padding: .4em 1em;}
 
 /* Orderable lists */
 ul.orderable { list-style-type: none; margin: 0; padding: 0; }

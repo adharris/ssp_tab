@@ -310,7 +310,7 @@ div.description dd {
   height: 350px;
   background-color: #d1e0e7; }
 
-form.formtastic input {
+form.formtastic input.ui-button {
   padding: .4em 1em; }
 
 /* Orderable lists */
