@@ -17,12 +17,6 @@ SspCtab::Application.routes.draw do
     get :autocomplete_food_item
 
     get :activation
-
-
-    #program reports
-    get 'reports/inventory', :controller => 'reports', :action => 'inventory' 
-    get 'reports/budget', :controller => 'reports', :action => 'budget' 
-    get 'reports/consumption', :controller => 'reports', :action => 'consumption' 
   end
 
   resources :food_items
@@ -47,9 +41,9 @@ SspCtab::Application.routes.draw do
 
   #reports
   get "reports/list"
-  #get "reports/inventory/:id", :controller => 'reports', :action => 'inventory'
-  #get "reports/budget"
-  #get "reports/consumption"
+  get "reports/inventory/:id", :controller => 'reports', :action => 'inventory'
+  get "reports/budget/:id", :controller => 'reports', :action => :budget
+  get "reports/consumption", :controller => :reports, :action => :consumption
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

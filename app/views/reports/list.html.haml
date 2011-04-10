@@ -1,4 +1,15 @@
-%ul
-  %li= link_to "Inventory Report", reports_inventory_path
-  %li= link_to "Budget Report", reports_budget_path
-  %li= link_to "Consumption Report", reports_consumption_path
+.tablewrapper
+  %table
+    %thead
+      %tr
+        %th Progranm
+        %th Inventory
+        %th Budget
+        %th Consumption
+    %tbody
+      - @programs.each do |program|
+        %tr
+          %td= program
+          %td= link_to "view", url_for(:controller => :reports, :action => :inventory, :id => program.id)
+          %td= link_to "view", url_for(:controller => :reports, :action => :budget, :id => program.id)
+          %td= link_to "view", url_for(:controller => :reports, :action => :consumption, :id => program.id)

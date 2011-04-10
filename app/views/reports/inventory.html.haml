@@ -12,6 +12,6 @@
         %tr
           %td= link_to food_item, food_item
           %td= food_item.purchased_for_program @program, @program.start_date, @program.end_date
-          %td= food_item.in_inventory_for_program_at @program, @date
-          %td= number_to_currency( food_item.cost_of_inventory(@program, @date))
+          %td= "%.2f %s" % [food_item.in_inventory_for_program_at(@program, @date), food_item.base_unit]
+          %td= number_to_currency(food_item.cost_of_inventory(@program, @date))
           %td= number_to_currency(food_item.average_cost(@program, @date)) 

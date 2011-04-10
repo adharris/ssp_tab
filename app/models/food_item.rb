@@ -77,14 +77,14 @@ class FoodItem < ActiveRecord::Base
   def in_inventory_for_program_at(program, date)
     last_inventory = last_inventory_for_program_at_date(program, date)
     if last_inventory.nil?
-      (purchases_between(program, program.purchases.first.date, date).map &:total_size_in_base_units).sum
+      (purchases_between(program, program.purchases.first.date, date).map &:total_base_units).sum
     else
       last_inventory.in_base_units + (purchases_between(program, last_inventory.food_inventory.date, date).map &:total_base_units).sum
     end
   end
 
   def cost_of_inventory(program, date)
-    cost_of(program, date, in_inventory_for_program_at(program, date)).scalar
+    cost_of(program, date, "#{in_inventory_for_program_at(program, date)} #{base_unit}").scalar
   end
 
   # returns the price per base unit.  The value returne is unitless

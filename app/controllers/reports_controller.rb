@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
 
   def list
     @title = "Reports"
+    @programs = Program.accessible_by(current_ability, :report)
   end
 
   def inventory
