@@ -25,11 +25,15 @@ class ReportsController < ApplicationController
     @inventories = @program.food_inventories
   end
 
+  def week
+    @title = "Weekly Costs: #{@program}"
+  end
+
   protected
 
   def get_program
     @program = current_user.current_program || 
-      (Program.find(params[:program_id]) if params[:program_id]) || 
+      (Program.find(params[:id]) if params[:id]) || 
       Program.current.first
     authorize! :report, @program
   end

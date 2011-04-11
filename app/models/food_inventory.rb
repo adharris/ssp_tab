@@ -23,8 +23,24 @@ class FoodInventory < ActiveRecord::Base
   validates :date, :presence => true
   validates_uniqueness_of :date, :scope => :program_id, :message => "An inventory already exists on that date"
 
+  scope :after, lambda { |date| where('date >= ?', date) }
+  scope :before, lambda { |date| where('date < ?', date) }
+
   def total_spent
     (food_inventory_food_items.map &:total_price).sum
   end
 
+  def daily_cost
+    total_spent / days_covered
+  end
+
+
+  def days_covered
+    previous = program.food_inventories.before(date).order('date DESC').first
+    if previous
+      date - previous.date
+    else
+      date - program.weeks.order('start_date ASC').first.start_date + 1
+    end
+  end
 end

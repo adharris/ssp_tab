@@ -59,4 +59,27 @@ class Week < ActiveRecord::Base
   def purchased_during
     program.purchases.where('date >= ? AND date < ?', start_date, end_date).inject(0) { |t, p| t += p.total }
   end
+
+  def days
+    end_date - start_date + 1
+  end
+
+  def volunteer_days
+    days * total
+  end
+
+  def cost_per_day
+    total_cost / volunteer_days
+  end
+
+  def total_cost
+    (start_date..end_date).inject(0) do |sum, date|
+      inventory = program.food_inventories.after(date).order('date ASC').first
+      if inventory
+        sum + inventory.daily_cost
+      else
+        sum
+      end
+    end
+  end
 end

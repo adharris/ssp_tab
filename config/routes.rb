@@ -43,7 +43,8 @@ SspCtab::Application.routes.draw do
   get "reports/list"
   get "reports/inventory/:id", :controller => 'reports', :action => 'inventory'
   get "reports/budget/:id", :controller => 'reports', :action => :budget
-  get "reports/consumption", :controller => :reports, :action => :consumption
+  get "reports/consumption/:id", :controller => :reports, :action => :consumption
+  get "reports/week/:id", :controller => :reports, :action => :week
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
