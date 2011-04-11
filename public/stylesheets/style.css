@@ -313,6 +313,39 @@ div.description dd {
 form.formtastic input.ui-button {
   padding: .4em 1em; }
 
+/* Paginations */
+div.paginator {
+  text-align: center; }
+
+div.pagination {
+  display: inline-block; }
+
+div.paginator span.wrapper {
+  border-top-left-radius: 7px;
+  -moz-border-radius-top-left: 7px;
+  -webkit-border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  -moz-border-radius-top-right: 7px;
+  -webkit-border-top-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+  -moz-border-radius-bottom-left: 7px;
+  -webkit-border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  -moz-border-radius-bottom-right: 7px;
+  -webkit-border-bottom-right-radius: 7px;
+  background-color: #d1e0e7;
+  padding: 5px; }
+
+div.paginator span.wrapper .previous_page, div.pagination .next_page {
+  padding: 5px; }
+
+div.paginator span.wrapper a, div.pagination em {
+  padding: 6px;
+  font-weight: bold; }
+
+div.paginator span.wrapper em {
+  background-color: white; }
+
 /* Orderable lists */
 ul.orderable {
   list-style-type: none;

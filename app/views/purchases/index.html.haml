@@ -1,3 +1,7 @@
+.paginator.append-bottom
+  %span.wrapper
+    = will_paginate @purchases
+
 .tablewrapper
   %table
     %thead
@@ -15,3 +19,7 @@
           %td= purchase.date
           %td= purchase.total
           %td= link_to "view", purchase
+
+.paginator.prepend-top
+  %span.wrapper
+    = will_paginate @purchases

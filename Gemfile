@@ -16,6 +16,7 @@ gem 'simple-navigation'
 gem 'faker'
 gem 'haml'
 gem 'acts_as_list'
+gem 'will_paginate'
 
 group :development do
   gem 'rspec-rails'

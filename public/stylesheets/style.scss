@@ -93,6 +93,15 @@ div.description dd {padding:10px; @include rounded(bottom-left); @include rounde
 
 form.formtastic input.ui-button {padding: .4em 1em;}
 
+/* Paginations */
+div.paginator {text-align: center;}
+div.pagination {display: inline-block;}
+div.paginator span.wrapper { @include roundedall(7px); background-color: $title-color; padding: 5px;}
+div.paginator span.wrapper .previous_page, div.pagination .next_page {padding: 5px; }
+div.paginator span.wrapper a, div.pagination em {padding: 6px; font-weight: bold;}
+div.paginator span.wrapper em { background-color: white; }
+
+
 /* Orderable lists */
 ul.orderable { list-style-type: none; margin: 0; padding: 0; }
 ul.orderable li { margin: 0 3px 3px 3px; padding:5px; padding-left: 1.5em; height: 18px; @include roundedall(10px);}
