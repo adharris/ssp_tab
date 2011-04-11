@@ -2,6 +2,6 @@
   %td= food_inventory_food_item.food_item
   %td= food_inventory_food_item.in_inventory_units
   %td= food_inventory_food_item.quantity
-  %td= food_inventory_food_item.consumed_units
+  %td= "%.2f" % food_inventory_food_item.consumed
   %td= number_to_currency(food_inventory_food_item.average_cost) 
   %td= number_to_currency(food_inventory_food_item.total_price)
