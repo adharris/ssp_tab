@@ -34,7 +34,6 @@ class FoodInventory < ActiveRecord::Base
     total_spent / days_covered
   end
 
-
   def days_covered
     previous = program.food_inventories.before(date).order('date DESC').first
     if previous
@@ -42,5 +41,9 @@ class FoodInventory < ActiveRecord::Base
     else
       date - program.weeks.order('start_date ASC').first.start_date + 1
     end
+  end
+
+  def value_consumed
+    (food_inventory_food_items.map &:total_price).sum
   end
 end
