@@ -1,0 +1,13 @@
+.paginator.append-bottom
+  %span.wrapper
+    = will_paginate @food_inventories
+
+- if @program.nil? && can?(:manage, FoodInventory)
+  = render 'table_site', :food_inventories => @food_inventories
+- else
+  = render 'table', :food_inventories => @food_inventories
+
+.paginator.prepend-top
+  %span.wrapper
+    = will_paginate @food_inventories
+

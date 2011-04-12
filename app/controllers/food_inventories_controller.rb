@@ -7,9 +7,10 @@ class FoodInventoriesController < ApplicationController
     redirect_to program_food_inventories_path(current_user.current_program) if ( @program.nil? && cannot?(:manage, FoodInventory))
     @title = @program.nil? ? "Food Inventories" : "Food Inventories for #{@program}"
     unless @program.nil?
+      #@food_inventories = @program.food_inventories.accessible_by(current_ability).order('date ASC').paginate
       @menu_actions = [{:name => "New", :path => new_program_food_inventory_path(@program) }] if can? :create, FoodInventory
     end
-    @food_inventories = @food_inventories.order('date ASC')
+    @food_inventories = @food_inventories.order('date ASC').paginate :page => params[:page]
   end
 
   def show
