@@ -4,13 +4,13 @@
     %dd= gravatar_for @user, :size => 168
 
 .span-19.last.properties
-  %dl.wide
+  %dl
     %dt Name
-    %dd= @user.name
+    %dd.wide= @user.name
     %dt Username
-    %dd= @user.username
+    %dd.wide= @user.username
     %dt Email
-    %dd= @user.email
+    %dd.wide= @user.email
     - unless @user.current_program.nil?
       %dt Current Job
-      %dd #{@user.current_job}, #{link_to @user.current_program, @user.current_program}
+      %dd.wide #{@user.current_job}, #{link_to @user.current_program, @user.current_program}
