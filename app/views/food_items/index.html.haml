@@ -1,0 +1,9 @@
+.paginator.append-bottom
+  %span.wrapper
+    = will_paginate @food_items
+
+= render 'table', :food_items => @food_items 
+
+.paginator.prepend-top
+  %span.wrapper
+    = will_paginate @food_items
