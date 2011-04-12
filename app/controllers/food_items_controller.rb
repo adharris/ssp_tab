@@ -41,6 +41,9 @@ class FoodItemsController < ApplicationController
     @title = @food_item.name
     @menu_actions = [{:name => "edit", :path => edit_food_item_path(@food_item)}] if can? :edit, @food_item
     @purchases = @food_item.food_item_purchases.accessible_by(current_ability).includes(:purchase).order('purchases.date ASC')
+    num = (@purchases.map {|p| p.total_base_units * p.price_per_base_unit.abs }).sum
+    denom = (@purchases.map &:total_base_units).sum
+    @avg_price = num / denom if denom != 0
     @inventories = @food_item.food_inventory_food_items.accessible_by(current_ability).includes(:food_inventory => :program).order('food_inventories.date ASC')
   end
 
