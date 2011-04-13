@@ -339,7 +339,7 @@ div.paginator span.wrapper {
 div.paginator span.wrapper .previous_page, div.pagination .next_page {
   padding: 5px; }
 
-div.paginator span.wrapper a, div.pagination em, div.pagination span.current {
+div.paginator span.wrapper a, div.pagination em, div.pagination span.current, div.pagination span.disabled {
   padding: 6px;
   font-weight: bold; }
 
