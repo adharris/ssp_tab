@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
     @title = @program.nil? ? "Purchases" : "Purchases for #{@program}"
     unless @program.nil?
       @menu_actions = [{:name => "New Purchase", :path => new_program_purchase_path(@program)}]
-      @purchases = @program.purchases.accessible_by(current_ability, :index).paginate :page => params[:page], :per_page =>5
+      @purchases = @program.purchases.accessible_by(current_ability, :index).paginate :page => params[:page]
     else
       @purchases = Purchase.accessible_by(current_ability, :index).paginate :page => params[:page]
     end
