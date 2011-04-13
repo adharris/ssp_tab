@@ -28,9 +28,9 @@ class FoodItem < ActiveRecord::Base
   belongs_to :program
   belongs_to :food_item_category
 
-  has_many :food_item_purchases
+  has_many :food_item_purchases, :dependent => :restrict
   has_many :purchases, :through => :food_item_purchases
-  has_many :food_inventory_food_items
+  has_many :food_inventory_food_items, :dependent => :restrict
   has_many :food_inventories, :through => :food_inventory_food_items
 
   scope :master, where(:program_id => nil)

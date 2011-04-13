@@ -53,7 +53,10 @@ class Ability
       can [:manage, :edit_fields], Week
       can :manage, Vendor
       can :manage, Purchase
-      can :manage, FoodItem
+      can [:read, :create, :update], FoodItem
+      can [:destroy], FoodItem do |food_item|
+        !food_item.food_item_purchases.any? && !food_item.food_inventory_food_items.any?
+      end
       can :manage, FoodItemPurchase
       can :manage, FoodInventory
       can :manage, FoodInventoryFoodItem
@@ -71,7 +74,10 @@ class Ability
 
         can [:read, :update, :create], Vendor, :site_id => user.current_program.site.id
         can [:read], FoodItem, :program_id => nil
-        can [:manage], FoodItem, :program_id => user.current_program.id
+        can [:read, :create, :update], FoodItem, :program_id => user.current_program.id
+        can [:destroy], FoodItem do |food_item|
+          food_item.program_id == user.current_program.id && !food_item.food_item_purchases.any? && !food_item.food_inventory_food_items.any?
+        end
 
         can [:read, :update, :create], Purchase, :program_id => user.current_program.id
 
