@@ -22,6 +22,10 @@ class FoodItemCategory < ActiveRecord::Base
 
   before_destroy :reassign_category
 
+  def to_s
+    name
+  end
+
   private
 
   def reassign_category

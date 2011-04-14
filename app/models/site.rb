@@ -12,10 +12,11 @@
 #
 
 class Site < ActiveRecord::Base
-  attr_accessible :name, :state, :description
+  attr_accessible :name, :state, :description, :abbr
 
   validates :name, :presence =>true, :uniqueness =>true
   validates :state, :presence => true, :length => { :is => 2 }
+  validates :abbr, :length => {:maximum => 5}
 
   has_many :programs
   has_many :vendors

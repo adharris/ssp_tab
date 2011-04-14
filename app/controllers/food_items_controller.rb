@@ -3,7 +3,8 @@ class FoodItemsController < ApplicationController
 
   def index
     @title = "Food Items"
-    @menu_actions = [{:name => "New", :path => new_food_item_path}] if can? :create, FoodItem
+    @menu_actions = []
+    @menu_actions << {:name => "New", :path => new_food_item_path} if can? :create, FoodItem
     @food_items = FoodItem.accessible_by(current_ability).joins(:food_item_category).order('food_item_categories.position ASC, name ASC').paginate :page => params[:page]
   end
 
@@ -39,7 +40,8 @@ class FoodItemsController < ApplicationController
 
   def show
     @title = @food_item.name
-    @menu_actions = [{:name => "edit", :path => edit_food_item_path(@food_item)}] if can? :edit, @food_item
+    @menu_actions = []
+    @menu_actions << {:name => "edit", :path => edit_food_item_path(@food_item)} if can? :edit, @food_item
     @purchases = @food_item.food_item_purchases.accessible_by(current_ability).includes(:purchase).order('purchases.date ASC')
     num = (@purchases.map {|p| p.total_base_units * p.price_per_base_unit.abs }).sum
     denom = (@purchases.map &:total_base_units).sum

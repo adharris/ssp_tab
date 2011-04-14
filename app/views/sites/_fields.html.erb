@@ -1,6 +1,7 @@
 <%= semantic_form_for @site do |form| %>
   <%= form.inputs do %>
     <%= form.input :name, :input_html => { :size => 10 } %>
+    <%= form.input :abbr, :label => "Abbreviation" , :input_html => { :size => 3} %>
     <%= form.input :state, :input_html => { :size => 3 } %>
     <%= form.input :description, :input_html => {:rows => 2, :cols => 100 }%>
   <% end %>
