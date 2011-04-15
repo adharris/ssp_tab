@@ -6,7 +6,8 @@
   %table
     %thead
       %tr
-        %th Program
+        - unless @program
+          %th Program
         %th Vendor
         %th Date
         %th Total
@@ -14,7 +15,8 @@
     %tbody
       - @purchases.each do |purchase|
         %tr
-          %td= link_to purchase.program, program_purchases_path(purchase.program)
+          - unless @program
+            %td= link_to purchase.program, program_purchases_path(purchase.program) 
           %td= link_to purchase.vendor, purchase.vendor
           %td= purchase.date
           %td= purchase.total
