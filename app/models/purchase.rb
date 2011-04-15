@@ -28,7 +28,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :vendor
   belongs_to :purchaser, :class_name => "User"
 
-  has_many :food_item_purchases
+  has_many :food_item_purchases, :dependent => :destroy
   has_many :food_items, :through => :food_item_purchases
 
   scope :for_program, lambda { |program| where(:program_id => program.id) }
