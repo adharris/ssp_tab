@@ -7,7 +7,6 @@ class FoodInventoriesController < ApplicationController
     redirect_to program_food_inventories_path(current_user.current_program) if ( @program.nil? && cannot?(:manage, FoodInventory))
     @title = @program.nil? ? "Food Inventories" : "Food Inventories for #{@program}"
     unless @program.nil?
-      #@food_inventories = @program.food_inventories.accessible_by(current_ability).order('date ASC').paginate
       @menu_actions = [{:name => "New", :path => new_program_food_inventory_path(@program) }] if can? :create, FoodInventory
     end
     @food_inventories = @food_inventories.order('date ASC').paginate :page => params[:page]
@@ -15,7 +14,12 @@ class FoodInventoriesController < ApplicationController
 
   def show
     @title = "#{@food_inventory.date} Food Inventory"
-    @menu_actions = [{:name => "Edit", :path => edit_food_inventory_path(@food_inventory) }] if can? :edit, @food_inventory
+    @menu_actions = []
+    @menu_actions << {:name => "Edit", :path => edit_food_inventory_path(@food_inventory) } if can? :edit, @food_inventory
+    @menu_actions << {:name => "Delete",
+      :path => food_inventory_path(@food_inventory), 
+      :method => :delete, 
+      :confirm => "Are you sure you want to delete this inventory? This cannot be undone." } if can? :destroy, @food_inventory
     if @food_inventory.program.purchases.where(:date => @food_inventory.date).count != 0
       flash.now[:notice] = "There is a purchase recorded for this date.  This inventory will be treated as before any purchases on #{@food_inventory.date}"
     end
@@ -53,6 +57,14 @@ class FoodInventoriesController < ApplicationController
     end
   end
       
-
+  def destroy
+    if @food_inventory.destroy
+      flash[:success] = "Inventory deleted successfully"
+      redirect_to program_food_inventories_path(@food_inventory.program)
+    else
+      flash[:error] = "Food Inventory deletion failed"
+      redirect_to @food_inventory
+    end
+  end
 
 end
