@@ -18,10 +18,12 @@
         - items.each do |item|
           - if item.is_a?(Purchase)
             .item{:program => item.program.id}
-              = link_to image_tag('money24.png'), item
-              = link_to number_to_currency(item.total), item
+              = link_to item do
+                = image_tag('money24.png')
+                = number_to_currency(item.total)
           - if item.is_a?(FoodInventory)
             .item{:program => item.program.id}
-              = link_to image_tag('inventory24.png'), item
-              = link_to number_to_currency(item.total_spent), item
+              = link_to item do
+                = image_tag('inventory24.png')
+                = number_to_currency(item.total_spent)
         
