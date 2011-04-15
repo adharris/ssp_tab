@@ -43,7 +43,6 @@ SimpleNavigation::Configuration.run do |navigation|
 
     @menu_actions ||= []
     @menu_actions.each do |action| 
-      action[:method] ||= :get
       primary.item action[:name], action[:name], action[:path], :method => action[:method], :confirm =>  action[:confirm]
     end
     
