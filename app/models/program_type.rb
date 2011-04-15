@@ -22,6 +22,9 @@ class ProgramType < ActiveRecord::Base
 
   before_destroy :reassign_programs
 
+  def abbr_name
+    (name.split.collect { |i| i[0..1] }).join
+  end
 
   private
 

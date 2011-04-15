@@ -15,7 +15,7 @@
 #
 
 class Program < ActiveRecord::Base
-  attr_accessible :site_id, :start_date, :end_date, :program_type_id, :food_budget, :active
+  attr_accessible :site_id, :start_date, :end_date, :program_type_id, :food_budget, :active, :name
 
   belongs_to :site
   belongs_to :program_type
@@ -28,6 +28,8 @@ class Program < ActiveRecord::Base
   has_many :food_items
   has_many :food_inventories
 
+  validates :name, :presence => true
+  validates :short_name, :presence => true
   validates :site_id, :presence => true
   validates :start_date, :presence => true
   validates :end_date, :presence => true
@@ -40,19 +42,15 @@ class Program < ActiveRecord::Base
 
   default_scope :include => :site, :order => 'end_date DESC, sites.name ASC'
 
-  def name
-    "#{site.name} #{program_type.name} #{start_date.year}"
-  end
+  before_validation :set_name
 
-  def short_name
-    "#{program_type.name} #{start_date.year}"
-  end
-  
   def smart_name
     elements = []
     elements << self.site.name 
     elements << self.program_type.name if Program.current.where(:site_id => self.site_id).count > 1
     elements << self.start_date.year if Program.current.where(:site_id => self.site_id, :program_type_id => self.program_type_id).count > 1
+    less = Program.current.where('site_id = ? AND program_type_id = ? AND programs.id <= ?', site_id, program_type_id, id)
+    elements << less.count if less.count > 1
     elements.join(" ")
   end
 
@@ -78,6 +76,33 @@ class Program < ActiveRecord::Base
 
   def purchased_items
     (food_item_purchases.collect &:food_item).uniq
+  end
+
+  private
+
+  def smart_name
+    elements = []
+    elements << self.site.name 
+    elements << self.program_type.name 
+    elements << self.start_date.year 
+    less = Program.current.where('site_id = ? AND program_type_id = ? AND programs.id <= ?', site_id, program_type_id, id)
+    elements << less.count if less.count > 1
+    elements.join(" ")
+  end
+
+  def smart_short_name
+    elements = []
+    elements << self.site.abbr 
+    elements << self.program_type.abbr_name 
+    elements << self.start_date.year % 100 
+    less = Program.current.where('site_id = ? AND program_type_id = ? AND programs.id <= ?', site_id, program_type_id, id)
+    elements << less.count if less.count > 1
+    elements.join(" ")
+  end
+
+  def set_name
+    self.name = smart_name
+    self.short_name = smart_short_name
   end
     
 end

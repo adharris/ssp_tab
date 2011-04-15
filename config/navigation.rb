@@ -48,7 +48,7 @@ SimpleNavigation::Configuration.run do |navigation|
         purchase_menu.item(:all_purchases, "All Purchases", purchases_path)
         Program.current.each do |program|
           purchase_menu.item("program_#{program.id}_menu",
-                             program,
+                             program.short_name,
                              program_purchases_path(program),
                              :highlights_on => /^\/programs\/#{program.id}\/purchases/,
                              :if => lambda { can? :see_purchases_for, program }) do |program_purchase_menu|
@@ -69,7 +69,7 @@ SimpleNavigation::Configuration.run do |navigation|
                               food_inventories_path)
         Program.current.each do |program|
           inventories_menu.item("program_#{program.id}_food_inventories",
-                                program,
+                                program.short_name,
                                 program_food_inventories_path(program),
                                 :highlights_on => /^\/programs\/#{program.id}\/food_inventories/,
                                 :if => lambda { can? :see_food_inventories_for, program})  do |program_fi_menu|
