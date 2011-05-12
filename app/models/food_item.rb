@@ -16,12 +16,13 @@
 class FoodItem < ActiveRecord::Base
   attr_accessible :name, :base_unit, :default_taxed, :food_item_category_id, :program_id
 
-  validates :name, :presence => true, :uniqueness => true
+  validates :name, :presence => true
   validates :base_unit, :presence => true
   validates :default_taxed, :inclusion => [true, false]
   validates :food_item_category_id, :presence => true
   
   validate :validate_units
+  validate :validate_name
 
   before_save :strip_units_scalar
 
@@ -127,6 +128,11 @@ class FoodItem < ActiveRecord::Base
       errors.add(:base_unit, "#{base_unit} is not a recognized unit")
     end
   end 
+
+  def validate_name
+    others = FoodItem.where('name = ? AND (program_id IS NULL OR program_id = ?)', self.name, self.program_id)
+    errors.add(:name, "Name must be unique within each program") if others.any?
+  end
 
   def strip_units_scalar
     self.base_unit = self.base_unit.unit.units
