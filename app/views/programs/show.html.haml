@@ -51,7 +51,8 @@
               %td
                 = f.hidden_field :program_id
                 = f.hidden_field :user_id
-                = autocomplete_field_tag 'username', '', program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id'
+                = f.autocomplete_field :user, program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id'
+                = #autocomplete_field_tag 'username', '', program_autocomplete_user_name_path(@program), :id_element => '#program_user_user_id'
               %td= f.collection_select :job_id, Job.all, :id, :name 
               %td= f.submit "Add Staff"
 
