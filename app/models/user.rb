@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   scope :current_staff, includes(:programs).where('programs.end_date >= ?', Time.now)
 
   scope :search_by_name, lambda { |q|
-    (q ? where(["name Like ?", '%' + q + '%']) : {} )
+    (q ? where(["lower(name) LIKE ?", '%' + q.downcase + '%']) : {} )
   }
 
   def to_s
