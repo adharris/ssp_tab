@@ -49,7 +49,7 @@ class Ability
       can :report, Program
       can :activate, Program
       can :see_vendors_for, Program
-      can :create, ProgramUser
+      can [:create, :destroy], ProgramUser
       can [:manage, :edit_fields], Week
       can :manage, Vendor
       can :manage, Purchase
