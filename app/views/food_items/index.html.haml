@@ -1,6 +1,8 @@
-.paginator.append-bottom
-  %span.wrapper
-    = will_paginate @food_items
+- if @food_items.total_pages > 1
+  .paginator.append-bottom
+    %span.wrapper
+      = will_paginate @food_items
+
 
 .tablewrapper
   %table
@@ -22,6 +24,7 @@
           %td= food_item.default_taxed ? "Yes" : "No"
           %td= link_to "view", food_item
 
-.paginator.prepend-top
-  %span.wrapper
-    = will_paginate @food_items
+- if @food_items.total_pages > 1
+  .paginator.prepend-top
+    %span.wrapper
+      = will_paginate @food_items
