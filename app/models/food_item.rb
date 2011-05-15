@@ -38,7 +38,8 @@ class FoodItem < ActiveRecord::Base
   scope :all_for_program, lambda {|program| where('program_id IS NULL OR program_id = ?', program.id) }
 
   scope :search_by_name, lambda { |q| (q ? where(["name Like ?", '%' + q + '%']) : {} ) }
-  
+ 
+  named_scope :by_category, lambda { |category| where(:food_item_category_id => category) }
 
   after_save :rebase_units
 

@@ -1,11 +1,15 @@
 class FoodItemsController < ApplicationController
   load_and_authorize_resource
+  
+  has_scope :by_category, :as => :category do |controller, scope, value|
+    scope.by_category FoodItemCategory.find_by_name(value)
+  end
 
   def index
     @title = "Food Items"
     @menu_actions = []
     @menu_actions << {:name => "New", :path => new_food_item_path} if can? :create, FoodItem
-    @food_items = FoodItem.accessible_by(current_ability).joins(:food_item_category).order('food_item_categories.position ASC, name ASC').paginate :page => params[:page]
+    @food_items = apply_scopes(FoodItem).accessible_by(current_ability).joins(:food_item_category).order('food_item_categories.position ASC, name ASC').paginate :page => params[:page]
   end
 
   def new
