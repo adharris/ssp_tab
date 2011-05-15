@@ -78,7 +78,7 @@ GEM
       activesupport (= 3.0.3)
       bundler (~> 1.0)
       railties (= 3.0.3)
-    rails3-jquery-autocomplete (0.7.0)
+    rails3-jquery-autocomplete (0.7.3)
       rails (~> 3.0.0)
       yajl-ruby
     railties (3.0.3)
@@ -139,7 +139,7 @@ DEPENDENCIES
   gravatar_image_tag
   haml
   rails (= 3.0.3)
-  rails3-jquery-autocomplete (= 0.7.0)
+  rails3-jquery-autocomplete (= 0.7.3)
   rspec
   rspec-rails
   ruby-debug

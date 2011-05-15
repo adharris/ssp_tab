@@ -1,19 +1,19 @@
 class ProgramsController < ApplicationController
   load_and_authorize_resource
 
-  #autocomplete :user, :name, :full => true, :scopes => [:current_staff]
+  autocomplete :user, :name, :full => true, :scopes => [:not_admin, :not_current_staff]
 
-  def autocomplete_user_name
-    @program = Program.find(params[:program_id])
-    @users = (User.not_admin.search_by_name(params[:term]) - @program.users)
-    render :json => json_for_autocomplete(@users, :name, nil)
-  end
+  #def autocomplete_user_name
+  #  @program = Program.find(params[:program_id])
+  #  @users = (User.not_admin.search_by_name(params[:term]) - @program.users)
+  #  render :json => json_for_autocomplete(@users, :name, nil)
+  #end
 
-  def autocomplete_food_item
-    @program = Program.find(params[:program_id])
-    @food_items = FoodItem.all_for_program(@program).search_by_name(params[:term])
-    render :json => json_for_autocomplete(@food_items, :name, nil)
-  end
+  #def autocomplete_food_item
+  #  @program = Program.find(params[:program_id])
+  #  @food_items = FoodItem.all_for_program(@program).search_by_name(params[:term])
+  #  render :json => json_for_autocomplete(@food_items, :name, nil)
+  #end
 
   def activation
     @program = Program.find(params[:program_id])

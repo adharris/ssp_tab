@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   scope :not_admin, where(:admin => false)
 
   scope :current_staff, includes(:programs).where('programs.end_date >= ?', Time.now)
+  scope :not_current_staff, includes(:programs).where('programs.end_date < ? OR programs.end_date IS NULL', Time.now)
 
   scope :search_by_name, lambda { |q|
     (q ? where(["lower(name) LIKE ?", '%' + q.downcase + '%']) : {} )
