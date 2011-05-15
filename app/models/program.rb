@@ -55,7 +55,7 @@ class Program < ActiveRecord::Base
   end
 
   def to_s
-    smart_name
+    name
   end
 
   def adults
