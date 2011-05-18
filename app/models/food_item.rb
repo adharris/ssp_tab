@@ -130,7 +130,7 @@ class FoodItem < ActiveRecord::Base
   end 
 
   def validate_name
-    others = FoodItem.where('name = ? AND (program_id IS NULL OR program_id = ?)', self.name, self.program_id)
+    others = FoodItem.where('name = ? AND id <> ? AND (program_id IS NULL OR program_id = ?)', self.name, self.id, self.program_id)
     errors.add(:name, "Name must be unique within each program") if others.any?
   end
 
