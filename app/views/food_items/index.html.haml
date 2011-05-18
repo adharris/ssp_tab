@@ -1,8 +1,15 @@
+= form_tag '', :method => :get do
+  = label_tag :category
+  = select_tag :category, options_for_select([""] +(FoodItemCategory.all.map &:name), params[:category])
+  - if can? :manage, Program
+    = label_tag :program
+    = select_tag :program, options_for_select([["",""]] + (Program.all.collect { |p| [p.name, p.id]}), params[:program])
+  = submit_tag 'Filter'
+
 - if @food_items.total_pages > 1
   .paginator.append-bottom
     %span.wrapper
       = will_paginate @food_items
-
 
 .tablewrapper
   %table

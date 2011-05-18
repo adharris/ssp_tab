@@ -4,6 +4,7 @@ class FoodItemsController < ApplicationController
   has_scope :by_category, :as => :category do |controller, scope, value|
     scope.by_category FoodItemCategory.find_by_name(value)
   end
+  has_scope :by_program, :as => :program
 
   def index
     @title = "Food Items"
