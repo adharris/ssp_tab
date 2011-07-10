@@ -64,7 +64,7 @@ class FoodItem < ActiveRecord::Base
 
   def purchased_for_program(program, start_date, end_date)
     purchases_between(program, start_date, end_date).inject(0) do |total, purchase|
-      total += purchase.size.u * purchase.quantity
+      temp =  purchase.quantity * purchase.size.u 
     end
   end
 
@@ -72,7 +72,7 @@ class FoodItem < ActiveRecord::Base
     p = purchases_between(program, program.start_date, program.end_date)
     num = (p.inject(0) {|t, i| t += i.quantity * i.size.u * i.price }) 
     denom = ( p.inject(0) {|t,i| t += i.quantity * i.size.u}) 
-    denom == 0 ? 0 : num/denom
+    denom == 0 ? 0 : num.to(denom)/denom
   end
 
   def in_inventory_for_program_at(program, date)
