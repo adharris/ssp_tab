@@ -69,7 +69,11 @@ class Week < ActiveRecord::Base
   end
 
   def cost_per_day
-    total_cost / volunteer_days
+    if volunteer_days != 0
+      total_cost / volunteer_days
+    else
+      0
+    end
   end
 
   def total_cost
