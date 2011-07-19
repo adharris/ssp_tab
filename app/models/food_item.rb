@@ -70,9 +70,9 @@ class FoodItem < ActiveRecord::Base
 
   def average_cost(program, date)
     p = purchases_between(program, program.start_date, program.end_date)
-    num = (p.inject(0) {|t, i| t += i.quantity * i.size.u * i.price }) 
-    denom = ( p.inject(0) {|t,i| t += i.quantity * i.size.u}) 
-    denom == 0 ? 0 : num.to(denom)/denom
+    num = (p.inject(0) {|t, i| t += i.quantity * i.price }) 
+    denom = ( p.inject(0) {|t,i| t += i.total_base_units}) 
+    denom == 0 ? 0 : num/denom
   end
 
   def in_inventory_for_program_at(program, date)
